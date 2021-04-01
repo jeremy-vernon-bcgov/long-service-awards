@@ -15,7 +15,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.2"
+        "laravel/ui": "^3.2",
+        "onecentlin/laravel-adminer": "^5.2"
     },
     "require-dev": {
         "backpack/generators": "^3.1",
