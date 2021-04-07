@@ -15,4 +15,4 @@ yarn-error.log
 /database/seeders/AddressSeeder.php
 /database/seeders/AwardSelectionSeeder.php
 /database/seeders/RecipientSeeder.php
-
+/database/seeders/UsersSeeder.php

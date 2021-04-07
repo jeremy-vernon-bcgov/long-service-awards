@@ -12,10 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\CeremonyController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/ceremonies', [CeremonyController::class, 'index']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

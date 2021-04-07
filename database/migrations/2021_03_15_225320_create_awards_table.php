@@ -18,10 +18,10 @@ class CreateAwardsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('short_name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('image_path');
             $table->integer('quantity');
-            $table->integer('sort_order');
+            $table->integer('sort_order')->nullable();
         });
     }
 

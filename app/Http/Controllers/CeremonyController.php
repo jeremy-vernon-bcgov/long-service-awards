@@ -13,7 +13,7 @@ class CeremonyController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin/ceremonies/allocateIndex-mockup');
     }
 
     /**
@@ -80,5 +80,10 @@ class CeremonyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function allocate()
+    {
+
     }
 }

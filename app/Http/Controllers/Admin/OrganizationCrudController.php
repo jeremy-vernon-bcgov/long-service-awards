@@ -64,9 +64,9 @@ class OrganizationCrudController extends CrudController
     {
         CRUD::setValidation(OrganizationRequest::class);
 
-        CRUD::field('id');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
+        //CRUD::field('id');
+        //CRUD::field('created_at');
+        //CRUD::field('updated_at');
         CRUD::field('short_name');
         CRUD::field('name');
         CRUD::field('org_type');
