@@ -20,7 +20,7 @@ class Recipient extends Model
     }
     public function organization()
     {
-        return $this->hasOne(Organization::class);
+        return $this->belongsTo(Organization::class);
     }
     public function guest()
     {
@@ -37,6 +37,19 @@ class Recipient extends Model
     public function supervisorAddress()
     {
         return $this->belongsTo(Address::class, 'supervisor_address_id');
+    }
+    public function flagNames()
+    {
+        //Get all recipients
+        $recipients = DB::table('recipients')->get();
+
+        //Extract all with name strings with multiple capital letters in a row
+        $names
+
+
+        //Extract all with name strings with no capital letters
+
+        //Extract all with name strings with characters are are not letters, hyphens, spaces or apostrophes.
     }
 
 }

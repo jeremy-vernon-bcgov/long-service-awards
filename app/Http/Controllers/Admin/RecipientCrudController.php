@@ -21,7 +21,7 @@ class RecipientCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -33,64 +33,64 @@ class RecipientCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
-        CRUD::column('idir');
-        CRUD::column('guid');
+        //CRUD::column('id');
+        //CRUD::column('created_at');
+        //CRUD::column('updated_at');
+        //CRUD::column('idir');
+        //CRUD::column('guid');
         CRUD::column('employee_number');
         CRUD::column('first_name');
         CRUD::column('last_name');
-        CRUD::column('is_bcgeu_member');
+        //CRUD::column('is_bcgeu_member');
         CRUD::column('milestone');
         CRUD::column('retiring_this_year');
-        CRUD::column('retirement_date');
-        CRUD::column('organizational_branch');
-        CRUD::column('survey_participation');
-        CRUD::column('government_email');
-        CRUD::column('government_phone_number');
-        CRUD::column('government_address_id');
+        //CRUD::column('retirement_date');
+        //CRUD::column('organizational_branch');
+        //CRUD::column('survey_participation');
+        //CRUD::column('government_email');
+        //CRUD::column('government_phone_number');
+        //CRUD::column('government_address_id');
         CRUD::column('organization_id');
         CRUD::column('branch_name');
-        CRUD::column('personal_email');
-        CRUD::column('personal_phone_number');
-        CRUD::column('personal_address_id');
-        CRUD::column('supervisor_first_name');
-        CRUD::column('supervisor_last_name');
-        CRUD::column('supervisor_email');
-        CRUD::column('supervisor_address_id');
+        //CRUD::column('personal_email');
+        //CRUD::column('personal_phone_number');
+        //CRUD::column('personal_address_id');
+        //CRUD::column('supervisor_first_name');
+        //CRUD::column('supervisor_last_name');
+        //CRUD::column('supervisor_email');
+        //CRUD::column('supervisor_address_id');
         CRUD::column('registered_in_2019');
         CRUD::column('award_received');
-        CRUD::column('milestone_20_certificate_name');
-        CRUD::column('milestone_20_certificate_ordered');
-        CRUD::column('is_retroactive');
-        CRUD::column('noshow_at_ceremony');
-        CRUD::column('presentation_number');
-        CRUD::column('executive_recipient');
-        CRUD::column('recipient_speaker');
+        //CRUD::column('milestone_20_certificate_name');
+        //CRUD::column('milestone_20_certificate_ordered');
+        //CRUD::column('is_retroactive');
+        //CRUD::column('noshow_at_ceremony');
+        //CRUD::column('presentation_number');
+        //CRUD::column('executive_recipient');
+        //CRUD::column('recipient_speaker');
         CRUD::column('reserved_seating');
-        CRUD::column('admin_notes');
-        CRUD::column('photo_frame_range');
-        CRUD::column('photo_order');
-        CRUD::column('photo_sent');
-        CRUD::column('deleted_at');
+        //CRUD::column('admin_notes');
+        //CRUD::column('photo_frame_range');
+        //CRUD::column('photo_order');
+        //CRUD::column('photo_sent');
+        //CRUD::column('deleted_at');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -143,13 +143,13 @@ class RecipientCrudController extends CrudController
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */

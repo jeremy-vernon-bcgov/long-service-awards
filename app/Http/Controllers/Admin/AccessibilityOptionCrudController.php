@@ -44,7 +44,7 @@ class AccessibilityOptionCrudController extends CrudController
       //  CRUD::column('updated_at');
         CRUD::column('description');
         CRUD::column('short_name');
-        CRUD::column('sort_order');
+        CRUD::column('sort_order')->type('number');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

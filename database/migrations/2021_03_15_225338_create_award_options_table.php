@@ -19,7 +19,7 @@ class CreateAwardOptionsTable extends Migration
             $table->foreignID('award_id');
             $table->string('name');
             $table->string('short_name');
-            $table->enum('type',['text', 'number', 'select', 'table-reference']);
+            $table->string('type')->nullable();
             $table->text('select_options')->nullable();
             $table->text('table_referenced')->nullable();
             $table->text('column_name')->nullable();

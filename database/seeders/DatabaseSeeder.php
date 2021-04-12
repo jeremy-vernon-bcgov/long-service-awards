@@ -23,7 +23,13 @@ class DatabaseSeeder extends Seeder
             OrganizationSeeder::class,
             PecsfRegionSeeder::class,
             PesfCharitySeeder::class,
-            VipCategorySeeder::class
+            VipCategorySeeder::class,
+
+            AddressSeeder::class,
+            AwardSelectionSeeder::class,
+            RecipientSeeder::class,
+            UsersSeeder::class
+
         ]);
     }
 }

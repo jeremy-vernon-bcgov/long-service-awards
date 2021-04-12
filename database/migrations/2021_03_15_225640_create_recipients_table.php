@@ -27,9 +27,10 @@ class CreateRecipientsTable extends Migration
             $table->foreignId('award_id');
 
             //Milestone Information
-            $table->enum('milestone',[25, 30, 35, 40, 45, 50]);
+            $table->integer('milestone');
+            $table->integer('milestone_year')->nullable();
             $table->boolean('retiring_this_year')->default(false);
-            $table->date('retirement_date');
+            $table->date('retirement_date')->nullable();
             $table->boolean('survey_participation')->default(true);
 
             //Work Contact Information
@@ -40,8 +41,8 @@ class CreateRecipientsTable extends Migration
             $table->string('branch_name');
 
             //Personal Contact Information
-            $table->string('personal_email');
-            $table->string('personal_phone_number');
+            $table->string('personal_email')->nullable();
+            $table->string('personal_phone_number')->nullable();
             $table->foreignId('personal_address_id');
 
             //Supervisor Information
@@ -59,7 +60,7 @@ class CreateRecipientsTable extends Migration
             $table->boolean('milestone_20_certificate_ordered')->nullable();
             $table->boolean('is_retroactive')->default(false);
             $table->boolean('noshow_at_ceremony')->nullable();
-            $table->integer('presentation_number');
+            $table->integer('presentation_number')->nullable();
             $table->boolean('executive_recipient')->default(false);
             $table->boolean('recipient_speaker')->default(false);
             $table->boolean('reserved_seating')->default(false);

@@ -17,6 +17,7 @@ class Organization extends Model
     public function vips () {
         return $this->hasMany(Vip::class);
     }
+
     public function recipients () {
         return $this->hasMany(Recipient::class);
     }
