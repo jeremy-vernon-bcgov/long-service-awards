@@ -55,16 +55,13 @@ class RecipientCrudController extends CrudController
         //CRUD::column('survey_participation');
         //CRUD::column('government_email');
         //CRUD::column('government_phone_number');
-        //CRUD::column('government_address_id');
         CRUD::column('organization_id');
         CRUD::column('branch_name');
         //CRUD::column('personal_email');
         //CRUD::column('personal_phone_number');
-        //CRUD::column('personal_address_id');
         //CRUD::column('supervisor_first_name');
         //CRUD::column('supervisor_last_name');
         //CRUD::column('supervisor_email');
-        //CRUD::column('supervisor_address_id');
         CRUD::column('registered_in_2019');
         CRUD::column('award_received');
         //CRUD::column('milestone_20_certificate_name');
@@ -80,6 +77,64 @@ class RecipientCrudController extends CrudController
         //CRUD::column('photo_order');
         //CRUD::column('photo_sent');
         //CRUD::column('deleted_at');
+
+        if (backpack_user()->hasRole('Organization Contact')) {
+           $this->crud->addClause('where', 'organization_id', backpack_user()->organization );
+        } else {
+            $this->crud->addFilter([
+                'type' => 'select2',
+                'name' => 'organization',
+                'label' => 'Organization'
+            ], function () {
+                return \App\Models\Organization::all()->pluck('name', 'id')->toArray();
+            },
+                function ($value) {
+                    $this->crud->addClause('where', 'organization_id', $value);
+                });
+        }
+
+        $this->crud->addFilter([
+            'type' => 'dropdown',
+            'name' => 'qualifying_year',
+            'label' => 'Qualifying Year'
+        ], [
+            2017 => '2017',
+            2018 => '2018',
+            2019 => '2019',
+            2020 => '2020',
+            2021 => '2021'
+        ], function($value) {
+           $this->crud->addClause('where','milestone_year', $value);
+        });
+
+        $this->crud->addFilter([
+            'type' => 'dropdown',
+            'name' => 'milestone',
+            'label' => 'Milestone',
+        ],
+        [
+            20 => '20',
+            25 => '25',
+            30 => '30',
+            35 => '35',
+            40 => '40',
+            45 => '45',
+            50 => '50'
+        ], function ($value) {
+            $this->crud->addClause('where', 'milestone', $value);
+        });
+
+        $this->crud->addFilter([
+            'type'  => 'simple',
+            'name'  => 'award_received',
+            'label' => 'Award Received'
+        ], false,
+        function ($value) {
+            $this->crud->addClause('where','award_received', 1);
+        });
+
+
+
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -98,47 +153,76 @@ class RecipientCrudController extends CrudController
     {
         CRUD::setValidation(RecipientRequest::class);
 
-        CRUD::field('id');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
-        CRUD::field('idir');
-        CRUD::field('guid');
-        CRUD::field('employee_number');
-        CRUD::field('first_name');
-        CRUD::field('last_name');
-        CRUD::field('is_bcgeu_member');
-        CRUD::field('milestone');
-        CRUD::field('retiring_this_year');
-        CRUD::field('retirement_date');
-        CRUD::field('organizational_branch');
-        CRUD::field('survey_participation');
-        CRUD::field('government_email');
-        CRUD::field('government_phone_number');
-        CRUD::field('government_address_id');
-        CRUD::field('organization_id');
-        CRUD::field('branch_name');
-        CRUD::field('personal_email');
-        CRUD::field('personal_phone_number');
-        CRUD::field('personal_address_id');
-        CRUD::field('supervisor_first_name');
-        CRUD::field('supervisor_last_name');
-        CRUD::field('supervisor_email');
-        CRUD::field('supervisor_address_id');
-        CRUD::field('registered_in_2019');
-        CRUD::field('award_received');
-        CRUD::field('milestone_20_certificate_name');
-        CRUD::field('milestone_20_certificate_ordered');
-        CRUD::field('is_retroactive');
-        CRUD::field('noshow_at_ceremony');
-        CRUD::field('presentation_number');
-        CRUD::field('executive_recipient');
-        CRUD::field('recipient_speaker');
-        CRUD::field('reserved_seating');
-        CRUD::field('admin_notes');
-        CRUD::field('photo_frame_range');
-        CRUD::field('photo_order');
-        CRUD::field('photo_sent');
-        CRUD::field('deleted_at');
+       // CRUD::field('id');
+       // CRUD::field('created_at');
+       // CRUD::field('updated_at');
+
+        CRUD::field('first_name')->type('text')->label('First Name')->tab('Milestone Info');
+        CRUD::field('last_name')->type('text')->label('Last Name')->tab('Milestone Info');
+        CRUD::field('milestone')->type('select2_from_array')->options([25,30,35,40,45,50])->tab('Milestone Info');
+        CRUD::field('retiring_this_year')->tab('Milestone Info');
+        CRUD::field('retirement_date')->type('date')->tab('Milestone Info');
+        CRUD::field('registered_in_2019')->tab('Milestone Info');
+        CRUD::field('award_received')->tab('Milestone Info');
+        CRUD::field('milestone_20_certificate_name')->tab('Milestone Info');
+        CRUD::field('milestone_20_certificate_ordered')->tab('Milestone Info');
+        CRUD::field('is_retroactive')->tab('Milestone Info');
+        CRUD::field('survey_participation')->tab('Milestone Info');
+
+        CRUD::field('idir')->type('text')->label('IDIR')->tab('Employee Info');
+        CRUD::field('guid')->type('text')->label('GUID')->tab('Employee Info');
+        CRUD::field('employee_number')->tab('Employee Info');
+        CRUD::field('is_bcgeu_member')->tab('Employee Info');
+
+
+        CRUD::field('government_email')->type('email')->tab('Employee Info');
+        CRUD::field('government_phone_number')->tab('Employee Info');
+
+
+        //Gov Address
+        CRUD::field('office_address_prefix')->type('text')->tab('Employee Info');
+        CRUD::field('office_address_suite')->type('text')->tab('Employee Info');
+        CRUD::field('office_address_street_address')->type('text')->tab('Employee Info');
+        CRUD::field('office_address_community_id')->type('select')->label('Community')->tab('Employee Info');
+        CRUD::field('office_address_postal_code')->type('text')->tab('Employee Info');
+
+
+        CRUD::field('organization')->type('select')->label('Organization')->tab('Employee Info');
+        CRUD::field('branch_name')->tab('Employee Info');
+
+        CRUD::field('supervisor_first_name')->tab('Supervisor');
+        CRUD::field('supervisor_last_name')->tab('Supervisor');
+        CRUD::field('supervisor_email')->type('email')->tab('Supervisor');
+        //CRUD::field('supervisor_address_id')->tab('Supervisor');
+        //Supervisor Address
+        CRUD::field('supervisor_address_prefix')->entity('supervisorAddress')->attribute('prefix')->tab('Supervisor');
+        CRUD::field('supervisor_address_suite')->entity('supervisorAddress')->attribute('suite')->tab('Supervisor');
+        CRUD::field('supervisor_address_street_address')->entity('supervisorAddress')->attribute('street_address')->tab('Supervisor');
+        CRUD::field('supervisor_address_community_id')->entity('supervisorAddress')->attribute('community')->tab('Supervisor');
+        CRUD::field('supervisor_address_postal_code')->entity('supervisorAddress')->attribute('postal_code')->tab('Supervisor');
+
+        //Personal Info
+        CRUD::field('personal_email')->type('email')->tab('Personal Info');
+        CRUD::field('personal_phone_number')->tab('Personal Info');
+        //CRUD::field('personal_address_id')->tab('Personal Info');
+        //Supervisor Address
+        CRUD::field('personal_address_prefix')->entity('personalAddress')->attribute('prefix')->tab('Personal Info');
+        CRUD::field('personal_address_suite')->entity('personalAddress')->attribute('suite')->tab('Personal Info');
+        CRUD::field('personal_address_street_address')->entity('personalAddress')->attribute('street_address')->tab('Personal Info');
+        CRUD::field('personal_address_community_id')->entity('personalAddress')->attribute('community')->tab('Personal Info');
+        CRUD::field('personal_address_postal_code')->entity('personalAddress')->attribute('postal_code')->tab('Personal Info');
+
+
+      //  CRUD::field('noshow_at_ceremony');
+      //  CRUD::field('presentation_number');
+      //  CRUD::field('executive_recipient');
+      //  CRUD::field('recipient_speaker');
+      //  CRUD::field('reserved_seating');
+      //  CRUD::field('admin_notes');
+      //  CRUD::field('photo_frame_range');
+      //  CRUD::field('photo_order');
+      //  CRUD::field('photo_sent');
+      //  CRUD::field('deleted_at');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -155,6 +239,77 @@ class RecipientCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::field('first_name')->type('text')->label('First Name')->tab('Milestone Info');
+        CRUD::field('last_name')->type('text')->label('Last Name')->tab('Milestone Info');
+        CRUD::field('milestone')->type('select2_from_array')->options([25,30,35,40,45,50])->tab('Milestone Info');
+        CRUD::field('retiring_this_year')->tab('Milestone Info');
+        CRUD::field('retirement_date')->type('date')->tab('Milestone Info');
+        CRUD::field('registered_in_2019')->tab('Milestone Info');
+        CRUD::field('award_received')->tab('Milestone Info');
+        CRUD::field('milestone_20_certificate_name')->tab('Milestone Info');
+        CRUD::field('milestone_20_certificate_ordered')->tab('Milestone Info');
+        CRUD::field('is_retroactive')->tab('Milestone Info');
+        CRUD::field('survey_participation')->tab('Milestone Info');
+
+        CRUD::field('idir')->type('text')->label('IDIR')->tab('Employee Info');
+        CRUD::field('guid')->type('text')->label('GUID')->tab('Employee Info');
+        CRUD::field('employee_number')->tab('Employee Info');
+        CRUD::field('is_bcgeu_member')->tab('Employee Info');
+
+
+        CRUD::field('government_email')->type('email')->tab('Employee Info');
+        CRUD::field('government_phone_number')->tab('Employee Info');
+
+        //Gov Address
+        CRUD::field('office_address_prefix')->type('text')->tab('Employee Info');
+        CRUD::field('office_address_suite')->type('text')->tab('Employee Info');
+        CRUD::field('office_address_street_address')->type('text')->tab('Employee Info');
+        CRUD::field('officeCommunity')->type('select')->entity('Community')->attribute('name')->tab('Employee Info');
+        CRUD::field('office_address_postal_code')->type('text')->tab('Employee Info');
+
+        CRUD::field('organization')->type('select')->label('Organization')->tab('Employee Info');
+        CRUD::field('branch_name')->tab('Employee Info');
+
+        CRUD::field('supervisor_first_name')->tab('Supervisor');
+        CRUD::field('supervisor_last_name')->tab('Supervisor');
+        CRUD::field('supervisor_email')->type('email')->tab('Supervisor');
+
+        //Supervisor Address
+        CRUD::field('supervisor_address_prefix')->type('text')->tab('Supervisor');
+        CRUD::field('supervisor_address_suite')->type('text')->tab('Supervisor');
+        CRUD::field('supervisor_address_street_address')->type('text')->tab('Supervisor');
+        CRUD::field('supervisorCommunity')->type('select')->entity('Community')->attribute('name')->tab('Supervisor');
+        CRUD::field('supervisor_address_postal_code')->type('text')->tab('Supervisor');
+
+        //Personal Info
+        CRUD::field('personal_email')->type('email')->tab('Personal Info');
+        CRUD::field('personal_phone_number')->tab('Personal Info');
+
+        //Personal Address
+        CRUD::field('personal_address_prefix')->type('text')->tab('Personal Info');
+        CRUD::field('personal_address_suite')->type('text')->tab('Personal Info');
+        CRUD::field('personal_address_street_address')->type('text')->tab('Personal Info');
+        CRUD::field('personalCommunity')->type('select')->entity('Community')->attribute('name')->tab('Personal Info');
+        CRUD::field('personal_address_postal_code')->type('text')->tab('Personal Info');
+
+        //Admin Fields
+        CRUD::field('noshow_at_ceremony')->tab('Admin Info');
+        CRUD::field('presentation_number')->tab('Admin Info');
+        CRUD::field('executive_recipient')->tab('Admin Info');
+        CRUD::field('recipient_speaker')->tab('Admin Info');
+        CRUD::field('reserved_seating')->tab('Admin Info');
+        CRUD::field('admin_notes')->tab('Admin Info');
+        CRUD::field('photo_frame_range')->tab('Admin Info');
+        CRUD::field('photo_order')->tab('Admin Info');
+        CRUD::field('photo_sent')->tab('Admin Info');
+        CRUD::field('deleted_at')->tab('Admin Info');
+    }
+
+    /**
+     * Display Recipient Totals by Milestone
+     */
+    public function setByMilestoneOperation()
+    {
+
     }
 }

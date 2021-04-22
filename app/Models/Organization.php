@@ -22,14 +22,5 @@ class Organization extends Model
         return $this->hasMany(Recipient::class);
     }
 
-    public function cohort_count(int $milestone, array $regions) {
 
-    }
-
-    public function getCohorts( ) {
-
-    }
-    public function setCohortToCeremonyNumber(int $milestone, string $region, int $ceremonyNumber) {
-
-    }
 }

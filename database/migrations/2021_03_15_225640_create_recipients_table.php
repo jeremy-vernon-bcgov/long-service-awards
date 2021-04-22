@@ -36,20 +36,40 @@ class CreateRecipientsTable extends Migration
             //Work Contact Information
             $table->string('government_email');
             $table->string('government_phone_number');
-            $table->foreignId('government_address_id');
+
+            //work address
+            $table->string('office_address_prefix')->nullable();
+            $table->string('office_address_suite')->nullable();
+            $table->string('office_address_street_address');
+            $table->string('office_address_postal_code');
+            $table->string('office_address_community_id');
+
             $table->foreignId('organization_id');
             $table->string('branch_name');
 
             //Personal Contact Information
             $table->string('personal_email')->nullable();
             $table->string('personal_phone_number')->nullable();
-            $table->foreignId('personal_address_id');
+
+            //Personal address
+            $table->string('personal_address_prefix')->nullable();
+            $table->string('personal_address_suite')->nullable();
+            $table->string('personal_address_street_address');
+            $table->string('personal_address_postal_code');
+            $table->string('personal_address_community_id');
 
             //Supervisor Information
             $table->string('supervisor_first_name');
             $table->string('supervisor_last_name');
             $table->string('supervisor_email');
-            $table->foreignId('supervisor_address_id');
+
+
+            //Supervisor
+            $table->string('supervisor_address_prefix')->nullable();
+            $table->string('supervisor_address_suite')->nullable();
+            $table->string('supervisor_address_street_address');
+            $table->string('supervisor_address_postal_code');
+            $table->string('supervisor_address_community_id');
 
             //Administrivia
             //None of these should be input directly by the user
@@ -71,11 +91,7 @@ class CreateRecipientsTable extends Migration
 
             $table->softDeletes();
 
-            //Foreign Key Constraints
-            $table->foreign('government_address_id')->references('id')->on('addresses');
-            $table->foreign('organization_id')->references('id')->on('organizations');
-            $table->foreign('personal_address_id')->references('id')->on('addresses');
-            $table->foreign('supervisor_address_id')->references('id')->on('addresses');
+
 
 
         });

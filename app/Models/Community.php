@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Community extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
-    public function addresses ()
-    {
-        return $this->hasMany(Address::class);
+    public function recipients() {
+        return $this->hasMany(Recipient::class, 'office_community_id');
     }
 
 }

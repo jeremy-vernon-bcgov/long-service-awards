@@ -40,9 +40,15 @@ class CreateVipsTable extends Migration
             $table->integer('total_attending')->default('1');
             $table->integer('parking_spots_required')->nullable();
 
+            $table->string('address_prefix')->nullable();
+            $table->string('address_suite')->nullable();
+            $table->string('address_street_address')->nullable();
+            $table->foreignId('address_community_id')->nullable();
+            $table->string('address_postal_code')->nullable();
+
             $table->foreign('organization_id')->references('id')->on('organizations');
             $table->foreign('category_id')->references('id')->on('vip_categories');
-            $table->foreign('address_id')->references('id')->on('addresses');
+            $table->foreign('address_community_id')->references('id')->on('communities');
         });
     }
 

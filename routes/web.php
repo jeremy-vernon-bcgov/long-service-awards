@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\CeremonyController;
+use App\Http\Controllers\RecipientController;
+use App\Http\Controllers\OrganizationController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +23,10 @@ Route::get('/', function () {
 
 
 Route::get('/ceremonies', [CeremonyController::class, 'index']);
+
+Route::get('/recipient/flaggednames', [RecipientController::class, 'showFlaggedNames']);
+Route::get('/organization/recipienttotals', [OrganizationController::class, 'recipientTotals']);
+Route::get('/organization/summary', [OrganizationController::class, 'summary']);
 
 
 Route::get('/dashboard', function () {

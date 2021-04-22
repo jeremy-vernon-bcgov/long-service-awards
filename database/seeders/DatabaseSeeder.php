@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             PesfCharitySeeder::class,
             VipCategorySeeder::class,
 
-            AddressSeeder::class,
             AwardSelectionSeeder::class,
             RecipientSeeder::class,
             UsersSeeder::class
