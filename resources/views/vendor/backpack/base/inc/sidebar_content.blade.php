@@ -5,18 +5,17 @@
 <li class="nav-item">
     <ul class="nav">
         <li class="nav-item"><a class="nav-link" href="{{backpack_url('recipient')}}">List</a></li>
-        <li class="nav-item"><a class="nav-link" href="">Totals By Organization</a></li>
-        <li class="nav-item"><a class="nav-link" href="">Totals By Milestone</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/organization/recipienttotals')}}">Totals By Organization</a></li>
     </ul>
 </li>
 <li class="nav-item">Ceremonies</li>
 <li class="nav-item">
     <ul class="nav">
-        <li class="nav-item"><a class="nav-link" href="">List</a></li>
-        <li class="nav-item"><a class="nav-link" href="">RSVPs</a></li>
-        <li class="nav-item"><a class="nav-link" href="">Wait List</a></li>
-        <li class="nav-item"><a class="nav-link" href="">Accommodations</a></li>
-        <li class="nav-item"><a class="nav-link" href="">Executives</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{backpack_url('ceremony')}}">List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvps')}}">RSVPs</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodationsummary')}}">Accommodations</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
     </ul>
 </li>
 <li><i class='nav-icon la la-question'></i><strong>Awards</strong></li>
@@ -46,10 +45,10 @@
 
 <li class="nav-item">Recipients</li>
 <li class="nav-item">
-    <ul>
-        <li class="nav-item">List</li>
-        <li class="nav-item">By Organization</li>
-        <li class="nav-item">By Milestone</li>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="{{backpack_url('recipient')}}">List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/organization/recipienttotals')}}">Totals By Organization</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/recipient/flaggednames')}}">Flagged Names</a></li>
     </ul>
 </li>
 <li class="nav-item">Ceremonies</li>
@@ -87,3 +86,4 @@
     </ul>
 </li>
 @endif
+

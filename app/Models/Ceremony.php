@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ceremony extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
     public function attendees ()
@@ -26,22 +27,6 @@ class Ceremony extends Model
         return $this->hasManyThrough(Guest::class, Attendee::class);
     }
 
-    public function organizationAttendees(int $organization_id)
-    {
-
-    }
-    public function milestoneRecipients(int $milestone)
-    {
-
-    }
-    //Return total count of attendees per dietary restriction
-    public function dietaryRestrictionCounts() {
-
-    }
-    //Return total count of attendees per accessibility option
-    public function accessibilityOptionCounts() {
-
-    }
 
 
 }

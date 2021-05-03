@@ -160,19 +160,19 @@ class RecipientCrudController extends CrudController
         CRUD::field('first_name')->type('text')->label('First Name')->tab('Milestone Info');
         CRUD::field('last_name')->type('text')->label('Last Name')->tab('Milestone Info');
         CRUD::field('milestone')->type('select2_from_array')->options([25,30,35,40,45,50])->tab('Milestone Info');
-        CRUD::field('retiring_this_year')->tab('Milestone Info');
+        CRUD::field('retiring_this_year')->type('checkbox')->tab('Milestone Info');
         CRUD::field('retirement_date')->type('date')->tab('Milestone Info');
-        CRUD::field('registered_in_2019')->tab('Milestone Info');
-        CRUD::field('award_received')->tab('Milestone Info');
+        CRUD::field('registered_in_2019')->type('checkbox')->tab('Milestone Info');
+        CRUD::field('award_received')->type('checkbox')->tab('Milestone Info');
         CRUD::field('milestone_20_certificate_name')->tab('Milestone Info');
-        CRUD::field('milestone_20_certificate_ordered')->tab('Milestone Info');
-        CRUD::field('is_retroactive')->tab('Milestone Info');
-        CRUD::field('survey_participation')->tab('Milestone Info');
+        CRUD::field('milestone_20_certificate_ordered')->type('checkbox')->tab('Milestone Info');
+        CRUD::field('is_retroactive')->type('checkbox')->tab('Milestone Info');
+        CRUD::field('survey_participation')->type('checkbox')->tab('Milestone Info');
 
         CRUD::field('idir')->type('text')->label('IDIR')->tab('Employee Info');
         CRUD::field('guid')->type('text')->label('GUID')->tab('Employee Info');
         CRUD::field('employee_number')->tab('Employee Info');
-        CRUD::field('is_bcgeu_member')->tab('Employee Info');
+        CRUD::field('is_bcgeu_member')->type('checkbox')->tab('Employee Info');
 
 
         CRUD::field('government_email')->type('email')->tab('Employee Info');

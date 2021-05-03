@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Organization;
+use App\Models\Recipient;
 
 class CeremonyController extends Controller
 {
@@ -82,8 +84,12 @@ class CeremonyController extends Controller
         //
     }
 
-    public function allocate()
+    public function allocationTable()
     {
+        $data['regions'] = ['Victoria', 'Vancouver', 'Other'];
+        $data['milestones'] = [20,25,30,35,40,45,50];
+        $data['organizations'] = Organization::all();
+
 
     }
 }
