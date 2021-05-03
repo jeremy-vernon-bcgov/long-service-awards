@@ -11,8 +11,10 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.DS_Store
 ## Remove Sensitive Data Seeders from Repository
 /database/seeders/AddressSeeder.php
 /database/seeders/AwardSelectionSeeder.php
 /database/seeders/RecipientSeeder.php
 /database/seeders/UsersSeeder.php
+/database/Seeders.zip
