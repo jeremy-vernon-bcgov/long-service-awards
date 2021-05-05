@@ -239,7 +239,7 @@ class RecipientCrudController extends CrudController
     {
         CRUD::field('first_name')->type('text')->label('First Name')->tab('Milestone Info');
         CRUD::field('last_name')->type('text')->label('Last Name')->tab('Milestone Info');
-        CRUD::field('milestone')->type('select2_from_array')->options([25,30,35,40,45,50])->tab('Milestone Info');
+        CRUD::field('milestone')->type('select2_from_array')->options(['25' => 25, '30' => 30, '35' => 35, '40' => 40, '45' => 45,'50' => 50])->tab('Milestone Info');
         CRUD::field('retiring_this_year')->tab('Milestone Info');
         CRUD::field('retirement_date')->type('date')->tab('Milestone Info');
         CRUD::field('registered_in_2019')->tab('Milestone Info');
@@ -265,7 +265,7 @@ class RecipientCrudController extends CrudController
         CRUD::field('office_address_community_id')->type('select')->name('office_address_community_id')->label('Office Community')->entity('officeCommunity')->model('App\Models\Community')->attribute('name')->tab('Employee');
         CRUD::field('office_address_postal_code')->type('text')->tab('Employee');
 
-        CRUD::field('organization')->type('select')->label('Organization')->tab('Employee');
+        CRUD::field('organization_id')->type('select')->label('Organization')->tab('Employee');
         CRUD::field('branch_name')->tab('Employee');
 
         CRUD::field('supervisor_first_name')->tab('Supervisor');

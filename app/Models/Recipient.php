@@ -14,6 +14,35 @@ class Recipient extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
+    protected $guarded = [];
+
+    /* protected $fillable = [
+        'idir',
+        'guid',
+        'employee_number',
+        'first_name',
+        'last_name',
+        'is_bcgeu_member',
+        'award_id',
+        'milestone',
+        'milestone_year',
+        'retiring_this_year',
+        'retirement_date',
+        'survey_participation',
+        'government_email',
+        'government_phone_number',
+        'office_address_prefix',
+        'office_address_suite',
+        'office_address_street_address',
+        'office_address_postal_code',
+        'office_address_community_id',
+        'organization_id',
+        'branch_name',
+        'personal_email',
+        ''
+        //TODO specify all mass-assignable fields.
+        ];
+    */
     public function officeCommunity() {
         return $this->belongsTo(Community::class, 'office_address_community_id');
     }
