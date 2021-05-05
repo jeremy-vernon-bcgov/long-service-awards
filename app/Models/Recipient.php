@@ -15,7 +15,7 @@ class Recipient extends Model
     use HasFactory;
 
     public function officeCommunity() {
-        return $this->belongsTo(Community::class, 'office_address_community_id', 'id');
+        return $this->belongsTo(Community::class, 'office_address_community_id');
     }
     public function personalCommunity() {
         return $this->belongsTo(Community::class, 'personal_address_community_id');
