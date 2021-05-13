@@ -78,8 +78,8 @@ class RecipientCrudController extends CrudController
         //CRUD::column('photo_sent');
         //CRUD::column('deleted_at');
 
-        if (backpack_user()->hasRole('Organization Contact')) {
-           $this->crud->addClause('where', 'organization_id', backpack_user()->organization );
+        if (backpack_user()->hasRole('Contact')) {
+           $this->crud->addClause('where', 'organization_id', backpack_user()->organization_id );
         } else {
             $this->crud->addFilter([
                 'type' => 'select2',
