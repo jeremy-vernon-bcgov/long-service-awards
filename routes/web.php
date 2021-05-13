@@ -27,7 +27,7 @@ Route::get('/ceremonies', [CeremonyController::class, 'index']);
 Route::get('/recipient/flaggednames', [RecipientController::class, 'showFlaggedNames']);
 Route::get('/organization/recipienttotals', [OrganizationController::class, 'recipientTotals']);
 Route::get('/organization/summary', [OrganizationController::class, 'summary']);
-
+Route::get('/recipient/orgcheck', [RecipientController::class, 'orgCheck']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

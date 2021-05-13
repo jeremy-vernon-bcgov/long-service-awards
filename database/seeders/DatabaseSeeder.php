@@ -15,19 +15,21 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
+            OrganizationSeeder::class,
             AccessibilityOptionSeeder::class,
             AwardSeeder::class,
             AwardOptionSeeder::class,
             CommunitySeeder::class,
             DietaryRestrictionSeeder::class,
-            OrganizationSeeder::class,
             PecsfRegionSeeder::class,
-            PesfCharitySeeder::class,
+            PecsfCharitySeeder::class,
             VipCategorySeeder::class,
 
             AwardSelectionSeeder::class,
             RecipientSeeder::class,
-            UsersSeeder::class
+            RoleSeeder::class,
+            UsersSeeder::class,
+            modelHasRolesSeed::class
 
         ]);
     }

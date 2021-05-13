@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 
-class PesfCharitySeeder extends Seeder
+class PecsfCharitySeeder extends Seeder
 {
     /**
      * Run the database seeds.

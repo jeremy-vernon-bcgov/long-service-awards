@@ -86,6 +86,8 @@ class RecipientController extends Controller
 
     public function showFlaggedNames()
     {
+
+
         //Get all recipients
         $recipients = Recipient::all();
 
@@ -124,6 +126,12 @@ class RecipientController extends Controller
 
     }
 
+    public function orgCheck()
+    {
+        $data['recipients'] = Recipient::all();
+
+        return view('admin/recipients/orgCheck', $data);
+    }
 
 
 }

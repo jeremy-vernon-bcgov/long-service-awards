@@ -296,7 +296,7 @@ class RecipientCrudController extends CrudController
         CRUD::field('executive_recipient')->tab('Admin');
         CRUD::field('recipient_speaker')->tab('Admin');
         CRUD::field('reserved_seating')->tab('Admin');
-        CRUD::field('admin_notes')->tab('Admin');
+        CRUD::field('admin_notes')->label('Change Log')->tab('Admin');
         CRUD::field('photo_frame_range')->tab('Admin');
         CRUD::field('photo_order')->tab('Admin');
         CRUD::field('photo_sent')->tab('Admin');
@@ -310,4 +310,6 @@ class RecipientCrudController extends CrudController
     {
 
     }
+
+
 }

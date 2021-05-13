@@ -22,4 +22,5 @@ Route::group([
     Route::crud('accessibilityoption', 'AccessibilityOptionCrudController');
     Route::crud('recipient', 'RecipientCrudController');
     Route::crud('ceremony', 'CeremonyCrudController');
+    Route::crud('user', 'UserCrudController');
 }); // this should be the absolute last line of this file

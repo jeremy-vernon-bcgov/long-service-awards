@@ -324,6 +324,18 @@ class OrganizationSeeder extends Seeder
         ['id'   => 73,
             'name' => 'Children and Family Development (Ministry of)',
             'short_name' => 'MCFD']
+    ]);DB::table('organizations')->insert([
+        ['id' => 74,
+            'name' => 'Workers’ Compensation Appeal Tribunal',
+            'short_name' => 'WCAT']
+    ]);DB::table('organizations')->insert([
+        ['id' => 75,
+            'name' => 'Agritech Land Use Secretariat',
+            'short_name' => 'ALUS']
+    ]);DB::table('organizations')->insert([
+        ['id' => 76,
+            'name' => 'Office of the Human Rights Commissioner for BC',
+            'short_name' => '']
     ]);
     }
 }
