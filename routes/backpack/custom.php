@@ -14,9 +14,9 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+    //Route::crud('awards', 'AwardCrudController');
     Route::crud('organization', 'OrganizationCrudController');
     Route::crud('dietaryrestriction', 'DietaryRestrictionCrudController');
-
     Route::crud('pecsfcharity', 'PecsfCharityCrudController');
     Route::crud('pecsfregion', 'PecsfRegionCrudController');
     Route::crud('accessibilityoption', 'AccessibilityOptionCrudController');

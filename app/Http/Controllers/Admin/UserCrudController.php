@@ -6,7 +6,6 @@ use App\Http\Requests\UserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-
 /**
  * Class UserCrudController
  * @package App\Http\Controllers\Admin
