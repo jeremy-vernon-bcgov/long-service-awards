@@ -29,7 +29,7 @@ Route::get('/recipient/flaggednames', [RecipientController::class, 'showFlaggedN
 Route::get('/organization/recipienttotals', [OrganizationController::class, 'recipientTotals']);
 Route::get('/organization/summary', [OrganizationController::class, 'summary']);
 Route::get('/recipient/orgcheck', [RecipientController::class, 'orgCheck']);
-Route::get('/admin/totals', [AwardSelectionController::class, 'index']);
+Route::get('/award/totals', [AwardSelectionController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

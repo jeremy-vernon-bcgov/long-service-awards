@@ -1,6 +1,6 @@
-@extends('layouts.admin')
+@extends(backpack_view('blank'))
 
-@section('title', 'Awards Selections')
+@section('title', 'Recipient Totals')
 
 
 
