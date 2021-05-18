@@ -121,7 +121,7 @@ class RecipientController extends Controller
         $flagged_recipients = $multicaps->merge($nocaps);
         $data['recipients'] = $flagged_recipients->merge($special_chars);
 
-        return view ('admin/recipients/showFlagged', $data);
+        return view('admin/recipients/showFlagged', $data);
 
 
     }

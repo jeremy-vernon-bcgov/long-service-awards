@@ -23,7 +23,8 @@
     <li><i class='nav-icon la la-question'></i><strong>Awards</strong></li>
     <li class="nav-item">
         <ul class="nav">
-            <li class="nav-item"><a class="nav-link" href="">Totals</a></li>
+            <li class='nav-item'><a class='nav-link' href='{{ backpack_url('award') }}'>List</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ backpack_url('totals') }}">Totals</a></li>
             <li class="nav-item"><a class="nav-link" href="">By Ceremony</a></li>
             <li class="nav-item"><a class="nav-link" href="">By Milestone</a></li>
             <li class="nav-item"><a class="nav-link" href="">25-Year Certificates</a></li>
@@ -70,6 +71,7 @@
 <li><i class='nav-icon la la-question'></i><strong>Awards</strong></li>
 <li class="nav-item">
     <ul class="nav">
+        <li class='nav-item'><a class='nav-link' href='{{backpack_url('award')}}'>list</a></li>
         <li class="nav-item"><a class="nav-link" href="">Totals</a></li>
         <li class="nav-item"><a class="nav-link" href="">By Ceremony</a></li>
         <li class="nav-item"><a class="nav-link" href="">By Milestone</a></li>
@@ -137,5 +139,3 @@
         </ul>
     </li>
 @endif
-
-

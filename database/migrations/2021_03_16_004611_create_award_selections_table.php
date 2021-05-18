@@ -16,14 +16,10 @@ class CreateAwardSelectionsTable extends Migration
         Schema::create('award_option_selections', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('recipient_id');
-            $table->foreignId('award_option_id');
-            $table->string('value');
-
-            $table->foreign('recipient_id')->references('id')->on('recipients');
-            $table->foreign('award_option_id')->references('id')->on('award_options');
-
+            $table->string('award_options');
+            $table->bigInteger('recipient_id')->nullable()->unsigned();
         });
+
     }
 
     /**
@@ -33,6 +29,6 @@ class CreateAwardSelectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('award_selections');
+        Schema::dropIfExists('award_option_selections');
     }
 }
