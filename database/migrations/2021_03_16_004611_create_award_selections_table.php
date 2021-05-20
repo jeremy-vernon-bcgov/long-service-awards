@@ -17,7 +17,11 @@ class CreateAwardSelectionsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('award_options');
-            $table->bigInteger('recipient_id')->nullable()->unsigned();
+            $table->foreignId('recipient_id')->nullable()->constrained();
+            //$table->unsignedBigInteger('recipient_id')->nullable();
+
+            //$table->foreign('recipient_id')->references('id')->on('recipients');
+
         });
 
     }
