@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             modelHasRolesSeed::class,
             AwardOptionSeeder::class,
             AwardSelectionSeeder::class,
+            AttendeesSeeder::class,
 
         ]);
     }
