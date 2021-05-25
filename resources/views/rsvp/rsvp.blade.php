@@ -21,7 +21,7 @@
         </h1>
         <div >
             <div >
-                {{-- <div> <strong> Hello {{$data->first_name . ' ' . $data->last_name }} </strong></div> --}}
+                <div> <strong> Hello {{$data->first_name . ' ' . $data->last_name }} </strong></div>
                 <form action="rsvp" method="POST">
                     <pre>{{ print_r($data) }}</pre>
                     @csrf

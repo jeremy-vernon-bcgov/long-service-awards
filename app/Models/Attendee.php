@@ -43,7 +43,7 @@ class Attendee extends Model
      */
     public function getByRecipientId($id)
     {
-        // TODO: We will need to add in ceremony date here as well once we have that.
+        // TODO: We will need to add in Dietary and Accessibility.
         $result = DB::table('recipients')
             ->leftjoin('attendees', 'recipients.id', '=', 'attendees.recipient_id')
             ->leftjoin('ceremonies', 'recipients.ceremony_id', '=', 'ceremonies.id')
