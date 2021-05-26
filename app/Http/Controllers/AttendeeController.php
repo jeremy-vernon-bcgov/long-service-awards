@@ -2,29 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccessibilityOption;
+use App\Models\AccessibilityOptionAttendee;
+use App\Models\DietaryRestriction;
+use App\Models\DietaryRestrictionAttendee;
 use App\Models\Guest;
+use App\Models\Recipient;
 use Illuminate\Http\Request;
 use App\Models\Attendee;
-use App\Models\Recipient;
+use Illuminate\Support\Facades\Session;
+use phpDocumentor\Reflection\Types\Void_;
 
 class AttendeeController extends Controller
 {
     /**
      * RSVP form builder.
      */
-    public function rsvpBuild(Request $request)
+    public function rsvpBuild(int $id)
     {
-        // Get the query string to id the invite recipient.
-        $id = $request->query('id', 'none');
         // Get the recipient record.
         $attendee = (new Attendee)->getByRecipientId($id);
+        // Check if user should be allowed to RSVP
+        if($attendee->status === 'invited') {
+            // Grab list of dietary options
+            $diet = DietaryRestriction::all('short_name');
+            $attendee->diet = $diet;
+            // Grab list of accessibiltiy options.
+            $access = AccessibilityOption::all('short_name');
+            $attendee->access = $access;
+            // Push our id's to Session so we can use them when saving post data.
+            Session::put('aid', $id);
 
-        // TODO: Check if user has previously RSVP'd
-        if($attendee->status == 'invited') {
             return view('rsvp.rsvp')->with('data', $attendee);
         }
         // TODO: Handle error here
-        return view('rsvp.rsvp')->with('data', $attendee);
+        return null;
     }
 
     /**
@@ -32,27 +44,59 @@ class AttendeeController extends Controller
      * @param Request $request
      */
     protected function collectRsvp(Request $request) {
+        dd($request);
+        // Get Attendee record
+        $attendee = Attendee::find(Session::get('aid'));
+        if($attendee === null){
+            // TODO: handle error
+        }
+        // Update or add $guest record.
+        $guest = Guest::find($attendee->guest_id);
+        if($guest === null) {
+            $guest = new Guest;
+        }
+        $guest->first_name = $request->guest_first_name;
+        $guest->last_name = $request->guest_last_name;
+        $guest->recipient_id = $attendee->recipient_id;
+        $saved = $guest->save();
+        if($saved){
+            // Get id of new guest record.
+            $guest_id = $guest->id;
+        } else {
+            // TODO: Error handling
+        }
 
-        // TODO: $request-> rsvp will change status
-        // TODO: To update Attendee record
-        $attendee = new Attendee();
-        // TODO: add $guest record
-        $guest = new Guest();
-        // TODO: update/add Dietary record.
+        // Update/add Dietary record.
+        $diet = DietaryRestrictionAttendee::where('attendee_id', $attendee->id);
+        if($diet === null){
+            $diet = new DietaryRestrictionAttendee;
+        }
+        // Get and store anything that is not already there.
 
-        // TODO: update/add accessibility record.
 
-        $attendee->rsvp = $request->rsvp;
-        $attendee->guest = $request->guest;
-        // TODO: $request->guest_first_name will change guest->first name
-        $attendee->guest_first_name = $request->guest_first_name;
-        // TODO: $request ->guest_last_name will change guest->last name
-        $attendee->guest_last_name = $request->guest_first_name;
+        // Update/add accessibility record.
+        $access = AccessibilityOptionAttendee::where('attendee_id', $attendee->id);
+        if($access === null){
+            $access = new AccessibilityOptionAttendee;
+        }
 
+        // TODO: Update Attendee record
+        // Update RSVP status
+        $rsvp =  $request->rsvp;
+        if($rsvp) {
+            $attendee->status = 'attending';
+        } else {
+            $attendee->status = 'declined';
+        }
+        // Update guest info
+        $attendee->guest_id = $guest_id;
         // Save the attendee status
-        $attendee->save();
-        return $request->input();
+        //$attendee->save();
         // TODO: Return confirmation and call for close.
+
+        return $request->input();
     }
+
+
 
 }

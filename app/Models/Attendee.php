@@ -37,18 +37,17 @@ class Attendee extends Model
 
     /**
      * Get recipient record with additional fields.
-     *  Get recipient and attendee status based on id from query string.
+     *  Get recipient, ceremony and attendee status based on id from query string.
      * @param int $id: ID from the query string.
      * @return Model|\Illuminate\Database\Query\Builder|object|null
      */
-    public function getByRecipientId($id)
+    public function getByRecipientId(int $id)
     {
-        // TODO: We will need to add in Dietary and Accessibility.
         $result = DB::table('recipients')
             ->leftjoin('attendees', 'recipients.id', '=', 'attendees.recipient_id')
             ->leftjoin('ceremonies', 'recipients.ceremony_id', '=', 'ceremonies.id')
-            ->select('recipients.first_name', 'recipients.last_name', 'attendees.*', 'ceremonies.*')
-            ->where('recipients.id', '=', $id)
+            ->select('recipients.first_name', 'recipients.last_name', 'attendees.*', 'ceremonies.scheduled_datetime')
+            ->where('attendees.id', '=', $id)
             ->first();
         return ($result);
     }

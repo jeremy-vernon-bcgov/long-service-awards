@@ -33,8 +33,7 @@ Route::get('/award/totals', [AwardSelectionController::class, 'index']);
 /**
  * RSVP form routing.
  */
-Route::get('/rsvp', [AttendeeController::class, 'rsvpBuild']);
-//Route::view('/rsvp', 'rsvp/rsvp', [AttendeeController::class, 'rsvpBuild']);
+Route::get('/rsvp/{id}', [AttendeeController::class, 'rsvpBuild'])->where('id', '[0-9]+');
 Route::post('/rsvp', [AttendeeController::class, 'collectRsvp']);
 
 Route::get('/dashboard', function () {
