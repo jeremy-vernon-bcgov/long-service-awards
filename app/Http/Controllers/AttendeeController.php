@@ -44,10 +44,26 @@ class AttendeeController extends Controller
      * @param Request $request
      */
     protected function collectRsvp(Request $request) {
-        dd($request);
+        // Validation first
+        // If they are bringing a guest, we need their guest names.
+        if($request->guest == 'on' ) {
+            $this->validate($request, [
+                'rsvp' => 'required',
+                'guest_first_name'=>'required',
+                'guest_last_name'=>'required',
+            ]);
+        } else {
+            // No guest.
+            $this->validate($request, [
+                'rsvp' => 'required',
+            ]);
+        }
+
         // Get Attendee record
         $attendee = Attendee::find(Session::get('aid'));
         if($attendee === null){
+            // Try to get attendee from recipient_id
+            $attendee = Attendee::where('recipient_id', $request->recipient_id);
             // TODO: handle error
         }
         // Update or add $guest record.
