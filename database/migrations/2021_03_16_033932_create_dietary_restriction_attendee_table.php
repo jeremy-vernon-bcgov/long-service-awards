@@ -18,6 +18,7 @@ class CreateDietaryRestrictionAttendeeTable extends Migration
             $table->timestamps();
             $table->foreignId('dietary_restriction_id');
             $table->foreignId('attendee_id');
+            $table->longText('additional_details')->nullable();
 
             $table->foreign('dietary_restriction_id')->references('id')->on('dietary_restrictions');
             $table->foreign('attendee_id')->references('id')->on('attendees');

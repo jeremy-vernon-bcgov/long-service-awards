@@ -18,7 +18,8 @@ class CreateAccessibilityOptionAttendeeTable extends Migration
             $table->timestamps();
             $table->foreignId('accessibility_option_id');
             $table->foreignId('attendee_id');
-            $table->text('admin_note');
+            $table->longText('additional_details')->nullable();
+            $table->text('admin_note')->nullable();
 
             $table->foreign('accessibility_option_id')->references('id')->on('accessibility_options');
             $table->foreign('attendee_id')->references('id')->on('attendees');

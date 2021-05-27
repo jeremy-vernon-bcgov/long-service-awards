@@ -23,6 +23,6 @@ class DietaryRestrictionSeeder extends Seeder
         DB::table('dietary_restrictions')->insert(['id' => '4','short_name' => 'No Shellfish']);
         DB::table('dietary_restrictions')->insert(['id' => '5','short_name' => 'Vegetarian']);
         DB::table('dietary_restrictions')->insert(['id' => '6','short_name' => 'Vegan']);
-        //DB::table('dietary_restrictions')->insert(['id' => '','short_name' => 'No Pork']);
+        DB::table('dietary_restrictions')->insert(['id' => '7','short_name' => 'Other']);
     }
 }
