@@ -93,16 +93,18 @@
                         <label>Accessibility Considerations for Recipient</label><br /><br />
                         {{-- Add in all accessibility restrictions in foreach --}}
                         @foreach($data->access as $access )
-                            <input type="checkbox" name="recip_access_checkbox[]" value="{{$access->short_name}}_recipient"
-                                @if( is_array(old('recip_access_checkbox')) && in_array($access->short_name . '_recipient', old('recip_access_checkbox')))
+                            <input type="checkbox" name="recip_access_checkbox[]" value="{{$access->short_name}}"
+                                @if( is_array(old('recip_access_checkbox')) && in_array($access->short_name, old('recip_access_checkbox')))
                                     checked
                                 @endif
                             />
                             <label class="block font-medium text-sm text-gray-700"> {{$access->short_name}}</label><br />
                         @endforeach
+                        <textarea cols="100" rows="6" name="recip_access_other" id="recip_access_other" >{{ old('recip_access_other')}}</textarea><br />
+                        <label class="block font-medium text-sm text-gray-700">Please enter additional requirements (255 characters max)</label>
                     </fieldset><br /><br />
                     <input type="checkbox" name="guest_access" id="guest_access"
-                           @if( old('guest_access') === 'on')
+                        @if( old('guest_access') === 'on')
                            checked
                         @endif
                     />
@@ -111,13 +113,15 @@
                         <label>Accessibility Considerations for Guests</label><br /><br />
                         {{-- Add in all accessibility restrictions in foreach --}}
                         @foreach($data->access as $access )
-                            <input type="checkbox" name="guest_access_checkbox[]" value="{{$access->short_name}}_guest"
-                                @if( is_array(old('guest_access_checkbox')) && in_array($access->short_name . '_guest', old('guest_access_checkbox')))
+                            <input type="checkbox" name="guest_access_checkbox[]" value="{{$access->short_name}}"
+                                @if( is_array(old('guest_access_checkbox')) && in_array($access->short_name, old('guest_access_checkbox')))
                                    checked
                                 @endif
                             />
                             <label class="block font-medium text-sm text-gray-700"> {{$access->short_name}}</label><br />
                         @endforeach
+                        <textarea cols="100" rows="6" name="guest_access_other" id="guest_access_other" >{{ old('guest_access_other')}}</textarea><br />
+                        <label class="block font-medium text-sm text-gray-700">Please enter additional requirements (255 characters max)</label>
                     </fieldset>
                 </fieldset>
             </div><br /><br />
@@ -136,13 +140,15 @@
                         <label>Dietary Considerations for Recipient</label><br /><br />
                         {{-- Add in all dietary restrictions in foreach --}}
                         @foreach($data->diet as $diet )
-                            <input type="checkbox" name="recip_diet_checkbox[{{ $diet->id }}]" value="{{$diet->short_name}}_recipient"
-                                   @if (is_array(old('recip_diet_checkbox')) && in_array($diet->short_name . '_recipient', old('recip_diet_checkbox')))
+                            <input type="checkbox" name="recip_diet_checkbox[{{ $diet->id }}]" value="{{$diet->short_name}}"
+                                   @if (is_array(old('recip_diet_checkbox')) && in_array($diet->short_name, old('recip_diet_checkbox')))
                                    checked
                                 @endif
                             />
                             <label class="block font-medium text-sm text-gray-700"> {{$diet->short_name}}</label><br />
                         @endforeach
+                        <textarea cols="100" rows="6" name="recip_diet_other" id="recip_diet_other" >{{ old('recip_diet_other')}}</textarea><br />
+                        <label class="block font-medium text-sm text-gray-700">Please enter additional requirements (255 characters max)</label>
 
                     </fieldset><br /><br />
 
@@ -157,13 +163,15 @@
                         <label>Dietary Restrictions for Guests</label><br /><br />
                         {{-- Add in all dietary restrictions in foreach --}}
                         @foreach($data->diet as $diet )
-                            <input type="checkbox" name="guest_diet_checkbox[]" value="{{$diet->short_name}}_guest"
-                                @if ( is_array(old('guest_diet_checkbox')) && in_array($diet->short_name . '_guest', old('guest_diet_checkbox')))
+                            <input type="checkbox" name="guest_diet_checkbox[]" value="{{$diet->short_name}}"
+                                @if ( is_array(old('guest_diet_checkbox')) && in_array($diet->short_name, old('guest_diet_checkbox')))
                                    checked
                                 @endif
                             />
                             <label class="block font-medium text-sm text-gray-700"> {{$diet->short_name}}</label><br />
                         @endforeach
+                        <textarea name="guest_diet_other" id="guest_diet_other" cols="100" rows="6"  >{{ old('guest_diet_other')}} </textarea><br />
+                        <label class="block font-medium text-sm text-gray-700">Please enter additional requirements (255 characters max)</label>
                     </fieldset>
                 </fieldset>
             </div>
