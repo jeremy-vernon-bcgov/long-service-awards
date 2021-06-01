@@ -7,14 +7,10 @@ use App\Models\AccessibilityOptionAttendee;
 use App\Models\DietaryRestriction;
 use App\Models\DietaryRestrictionAttendee;
 use App\Models\Guest;
-use App\Models\Recipient;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Attendee;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use phpDocumentor\Reflection\Types\Void_;
 
 class AttendeeController extends Controller
 {
@@ -54,12 +50,28 @@ class AttendeeController extends Controller
             // If they are bringing a guest, we need their guest names.
             'guest_first_name'=>'required_if:guest,on',
             'guest_last_name'=>'required_if:guest,on',
-            'recip_access_other' =>'required_with:recip_access_checkbox,other|max:255',
-            'guest_access_other' => '',
-            'recip_diet_other' => '',
-            'guest_diet_other' => '',
+            // If they note "other" they must give specifics.
+            'recip_access_other' =>'required_with:recip_access_checkbox,Other|max:255',
+            'guest_access_other' => 'required_with:guest_access_checkbox,Other|max:255',
+            'recip_diet_other' => 'required_with:recip_diet_checkbox,Other|max:255',
+            'guest_diet_other' => 'required_with:guest_diet_checkbox,Other|max:255',
+            // If they note they have accessibility/diet requirements, they must choose at least one.
+            'recip_access_checkbox' => 'required_if:recipient_access,on',
+            'guest_access_checkbox' => 'required_if:guest_access,on',
+            'recip_diet_checkbox' => 'required_if:recipient_diet,on',
+            'guest_diet_checkbox' => 'required_if:guest_diet,on',
         ], $messages = [
-            'required_if' => 'The :attribute field is required if have indicate you will have a guest.',
+            // Custom messages so that the user has a better indication of what is wrong.
+            'guest_first_name.required' => 'The :attribute field is required if have indicate you will have a guest.',
+            'guest_last_name.required' => 'The :attribute field is required if have indicate you will have a guest.',
+            'recip_access_other.required' => 'Please give fill out the :attribute field to let us know what accessibility considerations you have.',
+            'guest_access_other.required' => 'Please give fill out the :attribute field to let us know what accessibility considerations you have.',
+            'recip_diet_other.required' => 'Please give fill out the :attribute field to let us know what diet considerations you have.',
+            'guest_diet_other.required' => 'Please give fill out the :attribute field to let us know what diet considerations you have.',
+            'recip_access_checkbox.required' => 'You must choose at least one accessibility consideration.',
+            'guest_access_checkbox.required' => 'You must choose at least one accessibility consideration.',
+            'recip_diet_checkbox.required' => 'You must choose at least one dietary consideration.',
+            'guest_diet_checkbox.required' => 'You must choose at least one dietary consideration.',
         ]);
         if($validator->fails()) {
             return redirect()
