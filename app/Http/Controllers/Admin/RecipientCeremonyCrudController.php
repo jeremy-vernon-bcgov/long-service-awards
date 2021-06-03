@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Operations\CeremonyInviteOperation;
 use App\Http\Requests\RecipientCeremonyRequest;
-use App\Models\Recipient;
-use App\Models\RecipientCeremony;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use App\Models\Ceremony;
 
 /**
  * Class RecipientCeremonyCrudController
@@ -21,6 +19,7 @@ class RecipientCeremonyCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use CeremonyInviteOperation; //app/Http/Controllers/Admin/Operations/CeremonyInviteOperation.php
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -35,6 +34,9 @@ class RecipientCeremonyCrudController extends CrudController
         // Join in Ceremonies info, make sure to specifically selelct recipients.id or it will get overwritten.
         $this->crud->addClause('join','ceremonies', 'ceremonies.id', '=' , 'ceremony_id');
         $this->crud->addClause('select', 'recipients.id', 'recipients.ceremony_id', 'recipients.first_name', 'recipients.last_name', 'recipients.government_email', 'ceremonies.scheduled_datetime', 'ceremonies.night_number');
+        $this->crud->allowAccess('ceremonyInvite');
+        //$this->crud->setOperation('ceremonyInvite');
+        $this->crud->allowAccess(['list', 'update']);
 
         CRUD::column('night_number');
         CRUD::column('ceremony_id');
@@ -51,11 +53,18 @@ class RecipientCeremonyCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->enableBulkActions();
+
+        //$this->crud->enableBulkActions();
+        // Add in email funcitonality and a few restrictions on setup.
+        $this->crud->allowAccess('ceremonyInvite');
+
         // Only show users who have a ceremony_id
         // TODO: add this as a default filter.
         $this->crud->addClause('where', 'ceremony_id', '<>', 'null');
         $this->crud->removeButton('create');
+        $this->crud->removeButtons(['delete', 'show']);
+        //$this->crud->addButtonFromView('top', 'email', 'ceremonyinvite', 'beginning');
+
 
         $this->crud->enableExportButtons();
     }
@@ -97,9 +106,6 @@ class RecipientCeremonyCrudController extends CrudController
         $this->crud->addField('ceremony_id');
     }
 
-    public function sendEmail()
-    {
 
-    }
 
 }
