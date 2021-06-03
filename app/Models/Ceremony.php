@@ -16,7 +16,11 @@ class Ceremony extends Model
     }
     public function recipients()
     {
-        return $this->hasManyThrough(Recipient::class, Attendee::class);
+        return $this->hasMany(Recipient::class, 'ceremony_id', 'id');
+    }
+
+    public function recipient_ceremonies() {
+        return $this->hasMany(RecipientCeremony::class, 'ceremony_id', 'id');
     }
     public function vips()
     {
@@ -27,6 +31,7 @@ class Ceremony extends Model
         return $this->hasManyThrough(Guest::class, Attendee::class);
     }
 
+    public $identifiableAttribute = 'scheduled_datetime';
 
 
 }

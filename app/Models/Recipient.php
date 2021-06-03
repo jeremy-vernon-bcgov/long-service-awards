@@ -69,10 +69,12 @@ class Recipient extends Model
     {
         return $this->hasOne(Guest::class);
     }
-
     public function award()
     {
         return $this->belongsTo(Award::class, 'award_id');
+    }
+    public function ceremony() {
+        return $this->belongsTo(Ceremony::class, 'ceremony_id');
     }
 
 }

@@ -6,6 +6,7 @@
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="{{backpack_url('recipient')}}">List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/organization/recipienttotals')}}">Totals By Organization</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{backpack_url('recipientceremony')}}">Totals By Ceremony</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/recipient/flaggednames')}}">Flagged Names</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/recipient/orgcheck')}}">Org/Branch Check</a></li>
         </ul>
@@ -53,7 +54,7 @@
 <li class="nav-item">
     <ul class="nav">
         <li class="nav-item"><a class="nav-link" href="{{backpack_url('recipient')}}">List</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{url('/organization/recipienttotals')}}">Totals By Organization</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{backpack_url('recipient-ceremony')}}">Totals by Ceremony</a> </li>
         <li class="nav-item"><a class="nav-link" href="{{url('/recipient/flaggednames')}}">Flagged Names</a></li>
         <li class="nav-item"><a class="nav-link" href="{{url('/recipient/orgcheck')}}">Org/Branch Check</a></li>
     </ul>
@@ -139,3 +140,5 @@
         </ul>
     </li>
 @endif
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('recipientceremony') }}'><i class='nav-icon la la-question'></i> RecipientCeremonies</a></li>

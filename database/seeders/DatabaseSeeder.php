@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             PecsfRegionSeeder::class,
             PecsfCharitySeeder::class,
             VipCategorySeeder::class,
+            CeremonySeeder::class,
+
 
             RecipientSeeder::class,
             RoleSeeder::class,
