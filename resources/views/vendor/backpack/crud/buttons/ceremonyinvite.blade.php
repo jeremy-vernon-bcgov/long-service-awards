@@ -42,7 +42,7 @@
                     if (value) {
                         var ajax_calls = [];
                         var ceremonyinvite_route = "{{ url($crud->route) }}/ceremonyinvite";
-
+                        console.log(crud.checkedItems);
                         // submit an AJAX delete call
                         $.ajax({
                             url: ceremonyinvite_route,

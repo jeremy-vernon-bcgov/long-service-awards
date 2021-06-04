@@ -35,6 +35,12 @@ services:
             - sail
         healthcheck:
           test: ["CMD", "mysqladmin", "ping"]
+    mailhog:
+      image: mailhog/mailhog:latest
+      container_name: myapp-mailhog
+      ports:
+        - "8003:1025"
+        - "8100:8025"
 networks:
     sail:
         driver: bridge
