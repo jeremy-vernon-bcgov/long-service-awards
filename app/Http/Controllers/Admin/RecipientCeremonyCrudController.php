@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Operations\CeremonyInviteOperation;
 use App\Http\Requests\RecipientCeremonyRequest;
+use App\Models\Ceremony;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -53,20 +54,41 @@ class RecipientCeremonyCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-
-        //$this->crud->enableBulkActions();
-        // Add in email funcitonality and a few restrictions on setup.
+        // Add in email functionality and a few restrictions on setup.
         $this->crud->allowAccess('ceremonyInvite');
 
-        // Only show users who have a ceremony_id
+        // Only show users who have a ceremony_id.
         // TODO: add this as a default filter.
         $this->crud->addClause('where', 'ceremony_id', '<>', 'null');
+        $this->crud->addClause('where', 'ceremony_id', '<>', 'attending');
+        $this->crud->addClause('where', 'ceremony_id', '<>', 'declined');
+        $this->crud->addClause('where', 'ceremony_id', '<>', 'waitlisted');
+
+        // Don't want to create records here.
         $this->crud->removeButton('create');
+        // Don't need these buttons.
         $this->crud->removeButtons(['delete', 'show']);
-        //$this->crud->addButtonFromView('top', 'email', 'ceremonyinvite', 'beginning');
-
-
+        // Allow export.
         $this->crud->enableExportButtons();
+        // Collect all ceremony ids
+        $ceremonies = Ceremony::all();
+        // Build array for search
+        $ceremony_array = [];
+        foreach($ceremonies as $ceremony){
+            $ceremony_array[$ceremony->id] = "night " . $ceremony->night_number . ": " . $ceremony->scheduled_datetime;
+        }
+
+        // We need to add some filters for the user
+        $this->crud->addFilter([
+            'name' => 'ceremony_id',
+            'type' => 'dropdown',
+            'label' => 'Ceremony'
+        ],
+        $ceremony_array
+        , function($value){
+                $this->crud->addClause(
+                    'where', 'ceremony_id', $value);
+        });
     }
 
     /**
