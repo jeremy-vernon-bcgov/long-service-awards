@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\Operations\CeremonyInviteOperation;
 use App\Http\Requests\RecipientCeremonyRequest;
 use App\Models\Ceremony;
+use App\Models\Organization;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -58,11 +59,7 @@ class RecipientCeremonyCrudController extends CrudController
         $this->crud->allowAccess('ceremonyInvite');
 
         // Only show users who have a ceremony_id.
-        // TODO: add this as a default filter.
         $this->crud->addClause('where', 'ceremony_id', '<>', 'null');
-        $this->crud->addClause('where', 'ceremony_id', '<>', 'attending');
-        $this->crud->addClause('where', 'ceremony_id', '<>', 'declined');
-        $this->crud->addClause('where', 'ceremony_id', '<>', 'waitlisted');
 
         // Don't want to create records here.
         $this->crud->removeButton('create');
@@ -70,15 +67,12 @@ class RecipientCeremonyCrudController extends CrudController
         $this->crud->removeButtons(['delete', 'show']);
         // Allow export.
         $this->crud->enableExportButtons();
-        // Collect all ceremony ids
-        $ceremonies = Ceremony::all();
-        // Build array for search
-        $ceremony_array = [];
-        foreach($ceremonies as $ceremony){
-            $ceremony_array[$ceremony->id] = "night " . $ceremony->night_number . ": " . $ceremony->scheduled_datetime;
-        }
 
-        // We need to add some filters for the user
+        // Build array for search
+        $ceremony_array = $this->getCeremoniesFilterData();
+
+        //******** Filters **********************************************************//
+        // Ceremony filter//
         $this->crud->addFilter([
             'name' => 'ceremony_id',
             'type' => 'dropdown',
@@ -87,8 +81,24 @@ class RecipientCeremonyCrudController extends CrudController
         $ceremony_array
         , function($value){
                 $this->crud->addClause(
-                    'where', 'ceremony_id', $value);
+                    'where', 'ceremony_id', $value
+                );
         });
+
+        // Ministry filter //
+        $this->crud->addFilter([
+            'name' => 'organization_id',
+            'type' => 'select2_multiple',
+            'label' => 'Ministries'
+        ], function() {
+            return  $this->getMinistryFilterData(); // Get all ministries by id/name.
+        }, function($values) {
+           $this->crud->addClause(
+               'whereIn', 'organization_id', json_decode($values)
+           );
+        });
+        // TODO: Add in filter for status - but only for two choices.
+
     }
 
     /**
@@ -128,6 +138,24 @@ class RecipientCeremonyCrudController extends CrudController
         $this->crud->addField('ceremony_id');
     }
 
+    private function getCeremoniesFilterData() {
+        $ceremony_array = [];
+        $ceremonies = Ceremony::all();
+        // Could use the toArray method above, but throws out a format we want.
+        foreach($ceremonies as $ceremony){
+            $ceremony_array[$ceremony->id] = "night " . $ceremony->night_number . ": " . $ceremony->scheduled_datetime;
+        }
+        return $ceremony_array;
+    }
 
+    private function getMinistryFilterData() {
+        $ministry_array = [];
+        $ministries = Organization::all();
+        // Could use toArray method above, but this sets things up ready for the filter.
+        foreach($ministries as $ministry) {
+            $ministry_array[$ministry->id] = $ministry->name;
+        }
+        return $ministry_array;
+    }
 
 }
