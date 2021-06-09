@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin\Operations;
 
 use App\Jobs\RsvpInvite;
+use App\Models\Attendee;
 use App\Models\Ceremony;
 use App\Models\Recipient;
+use DateTime;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 trait CeremonyInviteOperation
 {
@@ -67,13 +70,15 @@ trait CeremonyInviteOperation
             } else {
                 $email = $recipient->government_email;
             }
-
-
+            // Need the attendee id.
+            $attendee = Attendee::where('recipient_id', '=', $value)->firstOrFail();
+            // Build array to create email.
             $rsvp_recipient = [
                 "name" => $recipient->first_name . ' ' . $recipient->last_name,
                 "email" => $email,
-                "ceremony" => $ceremony->scheduled_datetime,
+                "ceremony" => new DateTime($ceremony->scheduled_datetime),
                 "subject" => $custom_subject,
+                "attendee_id" => URL::to('/') . "/rsvp/" . $attendee->id,
             ];
             RsvpInvite::dispatch($rsvp_recipient);
         }

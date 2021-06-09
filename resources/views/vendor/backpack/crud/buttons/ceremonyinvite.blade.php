@@ -57,6 +57,7 @@
                 }).then((value) => {
                     if (value) {
                         var ajax_calls = [];
+                        var invites = crud.checkedItems.length;
                         var ceremonyinvite_route = "{{ url($crud->route) }}/ceremonyinvite";
                         // Put our text for subject here:
                         if($('#111').val() != '') {
@@ -79,7 +80,7 @@
                                 // Show an alert with the result
                                 new Noty({
                                     type: "success",
-                                    text: "<strong>Note</strong><br>" + crud.checkedItems.length + " new emails added to the queue."
+                                    text: "<strong>Note</strong><br>" + invites + " new emails added to the queue."
                                 }).show();
 
                                 crud.checkedItems = [];

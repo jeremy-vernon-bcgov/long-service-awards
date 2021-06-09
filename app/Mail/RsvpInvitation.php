@@ -35,6 +35,7 @@ class RsvpInvitation extends Mailable
     public function build()
     {
 
-        return $this->view('emails.rsvp-invitation',["data"=>$this->rsvp_recipient]);
+        return $this->subject($this->rsvp_recipient['subject'])
+                    ->view('emails.rsvp-invitation',["data"=>$this->rsvp_recipient]);
     }
 }

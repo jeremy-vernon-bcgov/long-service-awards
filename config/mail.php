@@ -62,8 +62,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'longserviceawards@myapp.com'),
-        'name' => env('MAIL_FROM_NAME', 'Admin'),
+        'address' => env('MAIL_FROM_ADDRESS', 'longserviceawards@gov.bc.ca'),
+        'name' => env('MAIL_FROM_NAME', 'Long Service Awards'),
     ],
 
     /*
