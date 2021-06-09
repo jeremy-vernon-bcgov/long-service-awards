@@ -40,6 +40,6 @@ class RsvpInvite implements ShouldQueue
     public function handle()
     {
         $email = new RsvpInvitation($this->rsvp_recipient);
-        Mail::to('thayne.werdal@gov.bc.ca')->send($email);
+        Mail::to($this->rsvp_recipient['email'])->send($email);
     }
 }

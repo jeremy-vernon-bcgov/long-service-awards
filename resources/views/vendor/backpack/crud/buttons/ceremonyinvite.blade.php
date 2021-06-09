@@ -10,19 +10,28 @@
                 if (typeof crud.checkedItems === 'undefined' || crud.checkedItems.length == 0) {
                     new Noty({
                         text: "<strong>{{ trans('backpack::crud.bulk_no_entries_selected_title') }}</strong><br>{{ trans('backpack::crud.bulk_no_entries_selected_message') }}",
-                        type: "warning"
+                        type: "notice"
                     }).show();
 
                     return;
                 }
-                var message = "Are you sure you want to email these :number entries?";
-                message = message.replace(":number", crud.checkedItems.length);
 
+                var message = "Are you sure you want to send these emails? :number total email recipients selected.";
+                message = message.replace(":number", crud.checkedItems.length);
+                const div = document.createElement("div");
                 // Show confirm message
                 swal({
-                    title: "{{ trans('backpack::base.warning') }}",
+                    title: "{{ trans('backpack::base.notice') }}",
                     text: message,
-                    icon: "warning",
+                    icon: "info",
+                    content: {
+                        element: "input",
+                        attributes: {
+                            placeholder: "Custom subject line",
+                            type: "text",
+                            id: "111", // We can only pass one value through swal, so we need to pull this data from the id.
+                        }
+                    },
                     buttons: {
                         cancel: {
                             text: "{{ trans('backpack::crud.cancel') }}",
@@ -31,18 +40,36 @@
                             className: "bg-secondary",
                             closeModal: true,
                         },
-                        delete: {
+                        email: {
                             text: "Email",
-                            value: true,
+                            value: 'email',
                             visible: true,
+                            className: "bg-danger",
+                        },
+                        test: {
+                            text: "Test",
+                            value: 'test',
+                            visible:true,
                             className: "bg-primary",
-                        }
+                        },
                     },
+
                 }).then((value) => {
                     if (value) {
                         var ajax_calls = [];
                         var ceremonyinvite_route = "{{ url($crud->route) }}/ceremonyinvite";
-                        console.log(crud.checkedItems);
+                        // Put our text for subject here:
+                        if($('#111').val() != '') {
+                            crud.checkedItems.push($('#111').val());
+                        } else {
+                            crud.checkedItems.push(null);
+                        }
+
+                        if(value == 'test') {
+                            crud.checkedItems.push(true);
+                        } else {
+                            crud.checkedItems.push(false);
+                        }
                         // submit an AJAX delete call
                         $.ajax({
                             url: ceremonyinvite_route,

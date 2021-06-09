@@ -37,6 +37,10 @@ class RecipientCeremony extends Model
     {
         return $this->belongsTo(Ceremony::class, 'ceremony_id', 'id');
     }
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

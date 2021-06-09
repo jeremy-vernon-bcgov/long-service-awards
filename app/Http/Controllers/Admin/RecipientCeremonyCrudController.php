@@ -34,10 +34,10 @@ class RecipientCeremonyCrudController extends CrudController
         CRUD::setRoute(config('backpack.base.route_prefix') . '/recipientceremony');
         CRUD::setEntityNameStrings('recipientceremony', 'recipient_ceremonies');
         // Join in Ceremonies info, make sure to specifically selelct recipients.id or it will get overwritten.
-        $this->crud->addClause('join','ceremonies', 'ceremonies.id', '=' , 'ceremony_id');
-        $this->crud->addClause('select', 'recipients.id', 'recipients.ceremony_id', 'recipients.first_name', 'recipients.last_name', 'recipients.government_email', 'ceremonies.scheduled_datetime', 'ceremonies.night_number');
+        $this->crud->addClause('join','ceremonies', 'ceremonies.id', '=' , 'recipients.ceremony_id');
+        $this->crud->addClause('join', 'attendees', 'recipients.id', '=', 'attendees.recipient_id' );
+        $this->crud->addClause('select', 'recipients.id', 'recipients.ceremony_id', 'recipients.organization_id','recipients.first_name', 'recipients.last_name', 'recipients.government_email', 'ceremonies.scheduled_datetime', 'ceremonies.night_number', 'attendees.status');
         $this->crud->allowAccess('ceremonyInvite');
-        //$this->crud->setOperation('ceremonyInvite');
         $this->crud->allowAccess(['list', 'update']);
 
         CRUD::column('night_number');
@@ -45,6 +45,8 @@ class RecipientCeremonyCrudController extends CrudController
         CRUD::column('first_name');
         CRUD::column('last_name');
         CRUD::column('government_email');
+        CRUD::column('organization_id');
+        CRUD::column('status');
     }
 
     /**
@@ -59,7 +61,7 @@ class RecipientCeremonyCrudController extends CrudController
         $this->crud->allowAccess('ceremonyInvite');
 
         // Only show users who have a ceremony_id.
-        $this->crud->addClause('where', 'ceremony_id', '<>', 'null');
+        $this->crud->addClause('where', 'recipients.ceremony_id', '<>', 'null');
 
         // Don't want to create records here.
         $this->crud->removeButton('create');
@@ -81,7 +83,7 @@ class RecipientCeremonyCrudController extends CrudController
         $ceremony_array
         , function($value){
                 $this->crud->addClause(
-                    'where', 'ceremony_id', $value
+                    'where', 'recipients.ceremony_id', $value
                 );
         });
 
@@ -97,7 +99,21 @@ class RecipientCeremonyCrudController extends CrudController
                'whereIn', 'organization_id', json_decode($values)
            );
         });
-        // TODO: Add in filter for status - but only for two choices.
+
+        // User status filter //
+        $this->crud->addFilter([
+            'name' => 'status',
+            'type' => 'dropdown',
+            'label'=> 'Attendee status',
+        ],
+        [
+            'assigned' => 'Not yet invited',
+            'invited' => 'Has been invited, no reponse',
+        ], function($value) {
+            $this->crud->addClause(
+                'where', 'status', $value
+            );
+        });
 
     }
 

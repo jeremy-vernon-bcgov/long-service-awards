@@ -39,33 +39,44 @@ trait CeremonyInviteOperation
         });
     }
 
-    /**
-     * Show the view for performing the operation.
-     *
-     * @return Response
-     */
 
+    /**
+     *
+     */
     public function ceremonyInvite()
     {
 
         $this->crud->hasAccessOrFail('ceremonyInvite');
         $entries = $this->crud->getRequest()->input('entries');
-        // setup and mai users
+        // Last item on array lets us know if this is a test or not.
+        $is_test = array_pop($entries);
+        // Second last item on array is a custom subject if one was entered.
+        $custom_subject = array_pop($entries);
+        if($custom_subject === null){
+            // This is the standard default subject if a new one was not added.
+            $custom_subject = "Response Required: Your Long Service Award Invitation";
+        }
+        // setup and mail users.
         foreach($entries as $entry=>$value) {
-            // get the recipient record
+            // get the recipient record.
             $recipient = Recipient::find($value);
             $ceremony = Ceremony::find($recipient->ceremony_id);
+            // Allow for testing to lsa email address.
+            if($is_test == 'true') {
+                $email = 'longserviceawards@gov.bc.ca';
+            } else {
+                $email = $recipient->government_email;
+            }
+
+
             $rsvp_recipient = [
                 "name" => $recipient->first_name . ' ' . $recipient->last_name,
-                "email" => $recipient->government_email,
+                "email" => $email,
                 "ceremony" => $ceremony->scheduled_datetime,
+                "subject" => $custom_subject,
             ];
-            // Mail::to($rsvp_recipient['email'])->queue(new RsvpInvite($rsvp_recipient));
-            // Mail::to('thayne.werdal@gov.bc.ca')->queue(new RsvpInvite($rsvp_recipient));
             RsvpInvite::dispatch($rsvp_recipient);
         }
-        // return something
-
     }
 }
 
