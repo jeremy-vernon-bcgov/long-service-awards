@@ -32,7 +32,6 @@ class LogSentMessage
         $recipients = '';
         foreach($recipient as $r => $v) {
             $recipients .= $r;
-            echo($r);
         }
         $message = "Email sent for: "  . $recipients;
         // Send to email logs
@@ -48,7 +47,6 @@ class LogSentMessage
         $recipients = '';
         foreach($recipient as $r => $v) {
             $recipients .= $r;
-            echo($r);
         }
         $message = "Email failed to send: " . $recipients . " with exception: " . $exception->getMessage();
         // Swift Message

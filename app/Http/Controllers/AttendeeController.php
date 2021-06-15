@@ -7,6 +7,7 @@ use App\Models\AccessibilityOptionAttendee;
 use App\Models\DietaryRestriction;
 use App\Models\DietaryRestrictionAttendee;
 use App\Models\Guest;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Models\Attendee;
 use Illuminate\Support\Facades\Session;
@@ -30,9 +31,11 @@ class AttendeeController extends Controller
             // Grab list of accessibiltiy options.
             $access = AccessibilityOption::all('short_name');
             $data->access = $access;
+
             // Push our id's to Session so we can use them when saving post data.
             Session::put('aid', $aid);
 
+            $data->scheduled_datetime = new DateTime($data->scheduled_datetime);
             return view('rsvp.rsvp')->with('data', $data);
         }
         // TODO: Handle error here
@@ -44,43 +47,76 @@ class AttendeeController extends Controller
      * @param Request $request
      */
     protected function collectRsvp(Request $request) {
-        // Validation first
-        $validator = Validator::make($request->all(), [
+        /**
+         * Validation.
+         */
+        // Set up rules.
+        $rules = [
+            // Required fields
             'rsvp' => 'required',
-            // If they are bringing a guest, we need their guest names.
-            'guest_first_name'=>'required_if:guest,on',
-            'guest_last_name'=>'required_if:guest,on',
+            'guest' => 'required',
+
+            // If they are attending, we need to know if they have disability or accessibility needs.
+            'access_group_recip' => 'required_if:rsvp,true',
+            'recipient_diet' => 'required_if:rsvp,true',
+
+            // If they have a guest, we need to know if their guest has disability or accessibility needs.
+            'guest_access' => 'required_if:guest,true',
+            'guest_diet' => 'required_if:guest,true',
+
             // If they note "other" they must give specifics.
             'recip_access_other' =>'required_with:recip_access_checkbox,Other|max:255',
             'guest_access_other' => 'required_with:guest_access_checkbox,Other|max:255',
             'recip_diet_other' => 'required_with:recip_diet_checkbox,Other|max:255',
             'guest_diet_other' => 'required_with:guest_diet_checkbox,Other|max:255',
             // If they note they have accessibility/diet requirements, they must choose at least one.
-            'recip_access_checkbox' => 'required_if:recipient_access,on',
-            'guest_access_checkbox' => 'required_if:guest_access,on',
-            'recip_diet_checkbox' => 'required_if:recipient_diet,on',
-            'guest_diet_checkbox' => 'required_if:guest_diet,on',
-        ], $messages = [
-            // Custom messages so that the user has a better indication of what is wrong.
-            'guest_first_name.required' => 'The :attribute field is required if have indicate you will have a guest.',
-            'guest_last_name.required' => 'The :attribute field is required if have indicate you will have a guest.',
-            'recip_access_other.required' => 'Please give fill out the :attribute field to let us know what accessibility considerations you have.',
-            'guest_access_other.required' => 'Please give fill out the :attribute field to let us know what accessibility considerations you have.',
-            'recip_diet_other.required' => 'Please give fill out the :attribute field to let us know what diet considerations you have.',
-            'guest_diet_other.required' => 'Please give fill out the :attribute field to let us know what diet considerations you have.',
-            'recip_access_checkbox.required' => 'You must choose at least one accessibility consideration.',
-            'guest_access_checkbox.required' => 'You must choose at least one accessibility consideration.',
-            'recip_diet_checkbox.required' => 'You must choose at least one dietary consideration.',
-            'guest_diet_checkbox.required' => 'You must choose at least one dietary consideration.',
-        ]);
-        if($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                // Don't lose prior input.
-                ->withInput();
-        }
-        //Original attendee record from path.
+            'recip_access_checkbox' => 'required_if:access_group_recip,true',
+            'guest_access_checkbox' => 'required_if:guest_access,true',
+            'recip_diet_checkbox' => 'required_if:recipient_diet,true',
+            'guest_diet_checkbox' => 'required_if:guest_diet,true',
+            // Contact Info
+            'gift_location' => 'required_if:rsvp,false',
+            'gift_location_addr' => 'required_if:rsvp,false',
+            'gift_location_postal' => 'required_if:rsvp,false|postal_code:CA',
+        ];
+
+        // Custom error messages.
+        $messages = [
+            // Clearer messages so that the user has a better indication of what is wrong.
+            //** RECIPIENT **/
+            // Recip access considerations.
+            'access_group_recip.required_if' => 'Please indicate if you require accessibility considerations',
+
+            // Recipient choices.
+            'recip_access_other.required_with' => 'Please fill out the :attribute field to let us know what accessibility considerations you have.',
+            'recip_access_checkbox.required_if' => 'Please choose at least one accessibility consideration.',
+            // Recip diet considerations.
+            'recip_diet.required_if' => 'Please indicate if you require dietary considerations',
+            'recip_diet_other.required_with' => 'Please fill out the :attribute field to let us know what diet considerations you have.',
+
+            //** GUEST **/
+            // Guest considerations.
+            // Guest access.
+            'guest_access.required_if' => 'Please indicate if your guest requires accessibility considerations',
+            'guest_access_other.required_if' => 'Please fill out the :attribute field to let us know what accessibility considerations you have.',
+            // Guest diet
+            'guest_diet.required_if' => 'Please indicate if your guest requires dietary considerations',
+            'guest_diet_other.required_with' => 'Please fill out the :attribute field to let us know what diet considerations you have.',
+
+            //** CONTACT RULES  **/
+            // Gift location - RSVP must be false (radio)
+            'gift_location.required_if' => 'Please indicate where you would like your gift sent.',
+            'gift_location_addr.required_if' => 'Please enter an address',
+            'gift_location_postal.required_if' => 'Please enter a valid postal code',
+            'gift_location_postal.postal_code' => 'Please enter a valid postal code',
+        ];
+        // Send to validator.
+        $this->validate($request, $rules, $messages);
+
+        /**
+         * Parse Post data if it passes validation.
+         */
+        //Original attendee record from session.
         $id = Session::get('aid');
         // Get Attendee record
         $attendee = Attendee::find($id);
@@ -91,8 +127,7 @@ class AttendeeController extends Controller
         }
 
         // Update or add $guest record.
-        if(isset($request->guest) && $request->guest == 'on') {
-            // Put all guest logic in a function here.
+        if($request->guest) {
             // Return guest_id after
             $guest_id = $this->guestManagement($attendee, $request);
         } else {
@@ -100,36 +135,24 @@ class AttendeeController extends Controller
         }
 
         // Could be any number of diet requests - so we need to check them one by one to see if they should be updated or inserted.
-        if(isset($request->recip_diet_checkbox)) {
-            $rd_other = null;
-            if(isset($request->recip_diet_other)) {
-                $rd_other = $request->recip_diet_other;
-            }
+        if($request->recip_diet_checkbox) {
+            $rd_other = $request->recip_diet_other ?? null;
             $this->updateDietaryRecords($id, $request->recip_diet_checkbox, $rd_other);
         }
         // Guest dietary request
         if($guest_id !== null && isset($request->guest_diet_checkbox)) {
-            $gd_other = null;
-            if(isset($request->guest_diet_other)) {
-                $gd_other = $request->guest_diet_other;
-            }
+            $gd_other = $request->guest_diet_other ?? null;
             $this->updateDietaryRecords($guest_id, $request->guest_diet_checkbox, $gd_other);
         }
 
         // Update/add accessibility records.
-        if(isset($request->recip_access_checkbox)) {
-            $ra_other = null;
-            if(isset($request->recip_access_other)) {
-                $ra_other = $request->recip_access_other;
-            }
+        if($request->recip_access_checkbox) {
+            $ra_other = $request->recip_access_other ?? null;
             $this->updateAccessibilityRecords($id, $request->recip_access_checkbox, $ra_other);
         }
         // Guest accessibility record.
         if($guest_id !== null && isset($request->guest_access_checkbox)){
-            $ga_other = null;
-            if(isset($request->guest_access_other)) {
-                $ga_other = $request->guest_access_other;
-            }
+            $ga_other = $request->guest_access_other ?? null;
             $this->updateAccessibilityRecords($guest_id, $request->guest_access_checkbox, $ga_other);
         }
 
@@ -147,6 +170,7 @@ class AttendeeController extends Controller
         // Save the attendee status
         $attendee->save();
         // TODO: Return confirmation and call for close.
+        // TODO: redirect to confirmation page.
 
         return $request->input();
     }
@@ -225,8 +249,6 @@ class AttendeeController extends Controller
             $guest = new Guest;
         }
 
-        $guest->first_name = $request->guest_first_name;
-        $guest->last_name = $request->guest_last_name;
         $guest->recipient_id = $attendee->recipient_id;
         $saved = $guest->save();
 
