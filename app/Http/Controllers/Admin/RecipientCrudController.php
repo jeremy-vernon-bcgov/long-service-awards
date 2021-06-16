@@ -49,6 +49,7 @@ class RecipientCrudController extends CrudController
         CRUD::column('last_name');
         //CRUD::column('is_bcgeu_member');
         CRUD::column('milestone');
+        CRUD::column('award_id');
         CRUD::column('retiring_this_year');
         //CRUD::column('retirement_date');
         //CRUD::column('organizational_branch');

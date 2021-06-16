@@ -14,13 +14,15 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+    Route::crud('recipient', 'RecipientCrudController');
     Route::crud('organization', 'OrganizationCrudController');
     Route::crud('dietaryrestriction', 'DietaryRestrictionCrudController');
-
     Route::crud('pecsfcharity', 'PecsfCharityCrudController');
     Route::crud('pecsfregion', 'PecsfRegionCrudController');
     Route::crud('accessibilityoption', 'AccessibilityOptionCrudController');
-    Route::crud('recipient', 'RecipientCrudController');
     Route::crud('ceremony', 'CeremonyCrudController');
     Route::crud('user', 'UserCrudController');
+    Route::crud('award', 'AwardCrudController');
+
+    Route::crud('recipientceremony', 'RecipientCeremonyCrudController');
 }); // this should be the absolute last line of this file

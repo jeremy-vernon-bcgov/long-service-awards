@@ -18,18 +18,21 @@ class DatabaseSeeder extends Seeder
             OrganizationSeeder::class,
             AccessibilityOptionSeeder::class,
             AwardSeeder::class,
-            AwardOptionSeeder::class,
             CommunitySeeder::class,
             DietaryRestrictionSeeder::class,
             PecsfRegionSeeder::class,
             PecsfCharitySeeder::class,
             VipCategorySeeder::class,
+            CeremonySeeder::class,
 
-            AwardSelectionSeeder::class,
+
             RecipientSeeder::class,
             RoleSeeder::class,
             UsersSeeder::class,
-            modelHasRolesSeed::class
+            modelHasRolesSeed::class,
+            AwardOptionSeeder::class,
+            AwardSelectionSeeder::class,
+            AttendeesSeeder::class,
 
         ]);
     }

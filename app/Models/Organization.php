@@ -21,6 +21,10 @@ class Organization extends Model
     public function recipients () {
         return $this->hasMany(Recipient::class);
     }
+    public function recipientCeremonies ()
+    {
+        return $this->hasMany(RecipientCeremony::class);
+    }
 
 
 }

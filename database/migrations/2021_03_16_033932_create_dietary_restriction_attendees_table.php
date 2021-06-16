@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDietaryRestrictionAttendeeTable extends Migration
+class CreateDietaryRestrictionAttendeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateDietaryRestrictionAttendeeTable extends Migration
      */
     public function up()
     {
-        Schema::create('dietary_restriction_attendee', function (Blueprint $table) {
+        Schema::create('dietary_restriction_attendees', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('dietary_restriction_id');
             $table->foreignId('attendee_id');
+            $table->longText('additional_details')->nullable();
 
             $table->foreign('dietary_restriction_id')->references('id')->on('dietary_restrictions');
             $table->foreign('attendee_id')->references('id')->on('attendees');

@@ -26,5 +26,6 @@ class AccessibilityOptionSeeder extends Seeder
         DB::table('accessibility_options')->insert(['id' => '7','description' => 'Large-print Commemorative Program' , 'short_name' => 'Large-Print', 'sort_order' => 4]);
         DB::table('accessibility_options')->insert(['id' => '8','description' => 'My guide/service dog to attend with me' , 'short_name' => 'Dog', 'sort_order' => 7]);
         DB::table('accessibility_options')->insert(['id' => '9','description' => 'My personal assistant to attend with me' , 'short_name' => 'Assistant', 'sort_order' => 8]);
+        DB::table('accessibility_options')->insert(['id' =>'10', 'description' => 'Other', 'short_name' => 'Other', 'sort_order'=> 10]);
     }
 }

@@ -79,6 +79,8 @@ class CreateRecipientsTable extends Migration
             $table->string('milestone_20_certificate_name')->nullable();
             $table->boolean('milestone_20_certificate_ordered')->nullable();
             $table->boolean('is_retroactive')->default(false);
+
+            $table->foreignId('ceremony_id')->nullable()->references('id')->on('ceremonies');
             $table->boolean('noshow_at_ceremony')->nullable();
             $table->integer('presentation_number')->nullable();
             $table->boolean('executive_recipient')->default(false);
