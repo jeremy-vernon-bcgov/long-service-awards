@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('4'); // TODO: work around to role issue on user create. Remove.
+            $table->string('role');
             $table->foreignId('organization_id')->nullable()->constrained();
             $table->rememberToken();
             $table->timestamps();
