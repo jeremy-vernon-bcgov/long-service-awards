@@ -19,7 +19,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "laravelcollective/html": "^6.2",
-        "onecentlin/laravel-adminer": "^5.2"
+        "onecentlin/laravel-adminer": "^5.2",
+        "propaganistas/laravel-phone": "^4.3"
     },
     "require-dev": {
         "backpack/generators": "^3.1",

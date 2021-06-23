@@ -21,11 +21,10 @@ class AccessibilityOptionSeeder extends Seeder
         DB::table('accessibility_options')->insert(['id' => '2','description' => 'Accessible Parking' , 'short_name' => 'Parking', 'sort_order' => 2]);
         DB::table('accessibility_options')->insert(['id' => '3','description' => 'Reserved Seating' , 'short_name' => 'Seating', 'sort_order' => 1]);
         DB::table('accessibility_options')->insert(['id' => '4','description' => 'Assistance at the Buffet' , 'short_name' => 'Buffet', 'sort_order' => 5]);
-        DB::table('accessibility_options')->insert(['id' => '5','description' => 'Communication Access Realtime Translation (CART) services' , 'short_name' => 'CART', 'sort_order' => 9]);
+        DB::table('accessibility_options')->insert(['id' => '5','description' => 'CART (Communication Access Realtime Translation) services' , 'short_name' => 'CART', 'sort_order' => 9]);
         DB::table('accessibility_options')->insert(['id' => '6','description' => 'American Sign Language interpreter services' , 'short_name' => 'ASL', 'sort_order' => 3]);
-        DB::table('accessibility_options')->insert(['id' => '7','description' => 'Large-print Commemorative Program' , 'short_name' => 'Large-Print', 'sort_order' => 4]);
-        DB::table('accessibility_options')->insert(['id' => '8','description' => 'My guide/service dog to attend with me' , 'short_name' => 'Dog', 'sort_order' => 7]);
-        DB::table('accessibility_options')->insert(['id' => '9','description' => 'My personal assistant to attend with me' , 'short_name' => 'Assistant', 'sort_order' => 8]);
-        DB::table('accessibility_options')->insert(['id' =>'10', 'description' => 'Other', 'short_name' => 'Other', 'sort_order'=> 10]);
+        DB::table('accessibility_options')->insert(['id' => '7','description' => 'Large print Commemorative Program' , 'short_name' => 'Large-Print', 'sort_order' => 4]);
+        DB::table('accessibility_options')->insert(['id' => '8','description' => 'A guide/service dog' , 'short_name' => 'Dog', 'sort_order' => 7]);
+        DB::table('accessibility_options')->insert(['id' =>'9', 'description' => 'Other, please specify', 'short_name' => 'Other', 'sort_order'=> 10]);
     }
 }

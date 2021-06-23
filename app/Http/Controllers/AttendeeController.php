@@ -29,7 +29,7 @@ class AttendeeController extends Controller
             $diet = DietaryRestriction::all('short_name');
             $data->diet = $diet;
             // Grab list of accessibiltiy options.
-            $access = AccessibilityOption::all('short_name');
+            $access = AccessibilityOption::all('short_name', 'description');
             $data->access = $access;
 
             // Push our id's to Session so we can use them when saving post data.
@@ -54,7 +54,7 @@ class AttendeeController extends Controller
         $rules = [
             // Required fields
             'rsvp' => 'required',
-            'guest' => 'required',
+            'guest' => 'required_if:rsvp,true',
 
             // If they are attending, we need to know if they have disability or accessibility needs.
             'access_group_recip' => 'required_if:rsvp,true',
@@ -78,6 +78,12 @@ class AttendeeController extends Controller
             'gift_location' => 'required_if:rsvp,false',
             'gift_location_addr' => 'required_if:rsvp,false',
             'gift_location_postal' => 'required_if:rsvp,false|postal_code:CA',
+            // Retirement
+            'retirement_status' => 'required',
+            // Preferred contact
+            // Multiple ways to require this - but also check validity of format.
+            'preferred_email' => 'required_if:rsvp,false|required_if:retirement_status,true|required_if:contact_update,true|email',
+            'preferred_phone' => 'required_if:rsvp,false|required_if:retirement_status,true|required_if:contact_update,true|phone:CA',
         ];
 
         // Custom error messages.
@@ -85,34 +91,46 @@ class AttendeeController extends Controller
             // Clearer messages so that the user has a better indication of what is wrong.
             //** RECIPIENT **/
             // Recip access considerations.
-            'access_group_recip.required_if' => 'Please indicate if you require accessibility considerations',
-
+            'access_group_recip.required_if' => 'Please indicate if you require accessibility considerations.',
             // Recipient choices.
-            'recip_access_other.required_with' => 'Please fill out the :attribute field to let us know what accessibility considerations you have.',
+            'recip_access_other.required_with' => 'Please fill out the box above to let us know what accessibility considerations you have.',
             'recip_access_checkbox.required_if' => 'Please choose at least one accessibility consideration.',
             // Recip diet considerations.
-            'recip_diet.required_if' => 'Please indicate if you require dietary considerations',
-            'recip_diet_other.required_with' => 'Please fill out the :attribute field to let us know what diet considerations you have.',
+            'recipient_diet.required_if' => 'Please indicate if you require dietary considerations.',
+            // Recip diet choices.
+            'recip_diet_checkbox.required_if' => 'Please choose at least one on dietary requirement.',
+            'recip_diet_other.required_with' => 'Please fill out the box above to let us know what diet considerations you have.',
 
             //** GUEST **/
             // Guest considerations.
+            'guest.required_if' => 'Please indicate if you will bring a guest.',
             // Guest access.
-            'guest_access.required_if' => 'Please indicate if your guest requires accessibility considerations',
-            'guest_access_other.required_if' => 'Please fill out the :attribute field to let us know what accessibility considerations you have.',
-            // Guest diet
-            'guest_diet.required_if' => 'Please indicate if your guest requires dietary considerations',
-            'guest_diet_other.required_with' => 'Please fill out the :attribute field to let us know what diet considerations you have.',
+            'guest_access.required_if' => 'Please indicate if your guest requires accessibility considerations.',
+            // Guest access choices.
+            'guest_access_checkbox.required_if' => 'Please choose at least one accessibility consideration.',
+            'guest_access_other.required_with' => 'Please fill out the box above to let us know what accessibility considerations you have.',
+            // Guest diet.
+            'guest_diet.required_if' => 'Please indicate if your guest requires dietary considerations.',
+            // Guest diet choices.
+            'guest_diet_checkbox.required_if' => 'Please choose at least one dietary consideration.',
+            'guest_diet_other.required_with' => 'Please fill out the box above to let us know what diet considerations you have.',
 
             //** CONTACT RULES  **/
             // Gift location - RSVP must be false (radio)
             'gift_location.required_if' => 'Please indicate where you would like your gift sent.',
-            'gift_location_addr.required_if' => 'Please enter an address',
-            'gift_location_postal.required_if' => 'Please enter a valid postal code',
-            'gift_location_postal.postal_code' => 'Please enter a valid postal code',
+            'gift_location_addr.required_if' => 'Please enter an address.',
+            'gift_location_postal.required_if' => 'Please enter a valid postal code.',
+            'gift_location_postal.postal_code' => 'Please enter a valid postal code.',
+
+            // Preferred contact
+            'preferred_email.required_if' => 'Please input your preferred email address.',
+            'preferred_email.email' => 'Please enter a valid email address.',
+            'preferred_phone.required_if' => 'Please input your preferred phone address.',
+            'preferred_phone.phone' => 'Please enter a valid Canadian phone number.',
         ];
         // Send to validator.
         $this->validate($request, $rules, $messages);
-
+        debug("validated");
         /**
          * Parse Post data if it passes validation.
          */

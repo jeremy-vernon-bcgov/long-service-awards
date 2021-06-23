@@ -48,7 +48,6 @@ trait CeremonyInviteOperation
      */
     public function ceremonyInvite()
     {
-
         $this->crud->hasAccessOrFail('ceremonyInvite');
         $entries = $this->crud->getRequest()->input('entries');
         // Last item on array lets us know if this is a test or not.

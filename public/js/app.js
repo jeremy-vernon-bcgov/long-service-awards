@@ -2166,6 +2166,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 // Form related JS for Vue.
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2202,6 +2208,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     inArray: function inArray(needle, haystack) {
+      console.log(needle);
+      console.log(haystack);
       var length = haystack.length;
 
       for (var i = 0; i < length; i++) {
@@ -37978,12 +37986,9 @@ var render = function() {
         _vm._v(" "),
         _vm.errors && _vm.errors.rsvp
           ? _c("div", { staticClass: "text-danger" }, [
-              _vm._v(_vm._s(_vm.errors.rsvp[0] === undefined))
+              _vm._v(_vm._s(_vm.errors.rsvp[0]))
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("br"),
-        _c("br")
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -38001,8 +38006,6 @@ var render = function() {
         },
         [
           _c("p", [_vm._v(" Will you bring a guest? ")]),
-          _vm._v(" "),
-          _c("br"),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -38060,12 +38063,9 @@ var render = function() {
           _vm._v(" "),
           _vm.errors && _vm.errors.guest
             ? _c("div", { staticClass: "text-danger" }, [
-                _vm._v(_vm._s(_vm.errors.guest[0] === undefined))
+                _vm._v(_vm._s(_vm.errors.guest[0]))
               ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("br"),
-          _c("br")
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
@@ -38217,16 +38217,11 @@ var render = function() {
                   [_vm._v("no")]
                 ),
                 _vm._v(" "),
-                _vm.errors && _vm.errors.guest
+                _vm.errors && _vm.errors.access_group_recip
                   ? _c("div", { staticClass: "text-danger" }, [
-                      _vm._v(
-                        _vm._s(_vm.errors.access_group_recip[0] === undefined)
-                      )
+                      _vm._v(_vm._s(_vm.errors.access_group_recip[0]))
                     ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("br"),
-                _c("br")
+                  : _vm._e()
               ]
             ),
             _vm._v(" "),
@@ -38248,13 +38243,13 @@ var render = function() {
                 }
               },
               [
+                _c("p", [_vm._v("I require:")]),
+                _vm._v(" "),
                 _vm.errors && _vm.errors.recip_access_checkbox
                   ? _c("div", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.recip_access_checkbox))
+                      _vm._v(_vm._s(_vm.errors.recip_access_checkbox[0]))
                     ])
                   : _vm._e(),
-                _vm._v(" "),
-                _c("p", [_vm._v("I require:")]),
                 _vm._v(" "),
                 _vm._l(_vm.$attrs.userdata.access, function(access) {
                   return _c("div", { key: access.short_name }, [
@@ -38305,11 +38300,10 @@ var render = function() {
                       "label",
                       {
                         staticClass: "block font-medium text-sm text-gray-700",
-                        attrs: { for: "access.short_name" }
+                        attrs: { for: access.short_name }
                       },
-                      [_vm._v(" " + _vm._s(access.short_name))]
-                    ),
-                    _c("br")
+                      [_vm._v(" " + _vm._s(access.description))]
+                    )
                   ])
                 }),
                 _vm._v(" "),
@@ -38357,7 +38351,6 @@ var render = function() {
                         }
                       }
                     }),
-                    _c("br"),
                     _vm._v(" "),
                     _c("label", { attrs: { for: "recip_access_other" } }, [
                       _vm._v("Please specify (255 characters max)")
@@ -38365,11 +38358,7 @@ var render = function() {
                     _vm._v(" "),
                     _vm.errors && _vm.errors.recip_access_other
                       ? _c("div", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm.errors.recip_access_other[0] === undefined
-                            )
-                          )
+                          _vm._v(_vm._s(_vm.errors.recip_access_other[0]))
                         ])
                       : _vm._e()
                   ]
@@ -38377,8 +38366,6 @@ var render = function() {
               ],
               2
             ),
-            _c("br"),
-            _c("br"),
             _vm._v(" "),
             _c(
               "div",
@@ -38395,7 +38382,6 @@ var render = function() {
               },
               [
                 _vm._m(3),
-                _c("br"),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -38457,11 +38443,15 @@ var render = function() {
                   "label",
                   { attrs: { type: "radio", for: "guest_access_false" } },
                   [_vm._v("no")]
-                )
+                ),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.guest_access
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.guest_access[0]))
+                    ])
+                  : _vm._e()
               ]
             ),
-            _vm._v(" "),
-            _c("br"),
             _vm._v(" "),
             _c(
               "fieldset",
@@ -38481,9 +38471,13 @@ var render = function() {
                 }
               },
               [
-                _c("p", [_vm._v("Accessibility Considerations for Guests")]),
-                _c("br"),
-                _c("br"),
+                _c("p", [_vm._v("My guest requires:")]),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.guest_access_checkbox
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.guest_access_checkbox[0]))
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _vm._l(_vm.$attrs.userdata.access, function(access) {
                   return _c("div", { key: access.short_name }, [
@@ -38534,11 +38528,10 @@ var render = function() {
                       "label",
                       {
                         staticClass: "block font-medium text-sm text-gray-700",
-                        attrs: { for: "access.short_name" }
+                        attrs: { for: access.short_name }
                       },
-                      [_vm._v(" " + _vm._s(access.short_name))]
-                    ),
-                    _c("br")
+                      [_vm._v(" " + _vm._s(access.description))]
+                    )
                   ])
                 }),
                 _vm._v(" "),
@@ -38585,7 +38578,6 @@ var render = function() {
                         }
                       }
                     }),
-                    _c("br"),
                     _vm._v(" "),
                     _c("label", { attrs: { for: "guest_access_other" } }, [
                       _vm._v("Please specify (255 characters max)")
@@ -38593,11 +38585,7 @@ var render = function() {
                     _vm._v(" "),
                     _vm.errors && _vm.errors.guest_access_other
                       ? _c("div", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm.errors.guest_access_other[0] === undefined
-                            )
-                          )
+                          _vm._v(_vm._s(_vm.errors.guest_access_other[0]))
                         ])
                       : _vm._e()
                   ]
@@ -38608,8 +38596,6 @@ var render = function() {
           ]
         )
       ]),
-      _c("br"),
-      _c("br"),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c(
@@ -38641,7 +38627,6 @@ var render = function() {
                   },
                   [
                     _vm._m(4),
-                    _c("br"),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -38707,16 +38692,11 @@ var render = function() {
                     _vm._v(" "),
                     _vm.errors && _vm.errors.recipient_diet
                       ? _c("div", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(_vm.errors.recipient_diet[0] === undefined)
-                          )
+                          _vm._v(_vm._s(_vm.errors.recipient_diet[0]))
                         ])
                       : _vm._e()
                   ]
                 ),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -38733,8 +38713,12 @@ var render = function() {
                   },
                   [
                     _c("p", [_vm._v("I require food options that are:")]),
-                    _c("br"),
-                    _c("br"),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.recip_diet_checkbox
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.recip_diet_checkbox[0]))
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _vm._l(_vm.$attrs.userdata.diet, function(diet) {
                       return _c("div", { key: diet.short_name }, [
@@ -38788,11 +38772,10 @@ var render = function() {
                           {
                             staticClass:
                               "block font-medium text-sm text-gray-700",
-                            attrs: { for: "diet.short_name" }
+                            attrs: { for: diet.short_name }
                           },
                           [_vm._v(" " + _vm._s(diet.short_name))]
-                        ),
-                        _c("br")
+                        )
                       ])
                     })
                   ],
@@ -38843,7 +38826,6 @@ var render = function() {
                         }
                       }
                     }),
-                    _c("br"),
                     _vm._v(" "),
                     _c(
                       "label",
@@ -38852,13 +38834,17 @@ var render = function() {
                         attrs: { for: "recip_diet_other" }
                       },
                       [_vm._v("Please specify (255 characters max)")]
-                    )
+                    ),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.recip_diet_other
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.recip_diet_other[0]))
+                        ])
+                      : _vm._e()
                   ]
                 )
               ]
             ),
-            _c("br"),
-            _c("br"),
             _vm._v(" "),
             _c(
               "fieldset",
@@ -38877,7 +38863,6 @@ var render = function() {
               [
                 _c("div", { staticClass: "diet-reqs" }, [
                   _vm._m(5),
-                  _c("br"),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -38943,17 +38928,10 @@ var render = function() {
                   _vm._v(" "),
                   _vm.errors && _vm.errors.guest_diet
                     ? _c("div", { staticClass: "text-danger" }, [
-                        _vm._v(
-                          " " +
-                            _vm._s(_vm.errors.guest_diet[0] === undefined) +
-                            " "
-                        )
+                        _vm._v(" " + _vm._s(_vm.errors.guest_diet[0]) + " ")
                       ])
                     : _vm._e()
                 ]),
-                _vm._v(" "),
-                _c("br"),
-                _c("br"),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -38972,8 +38950,12 @@ var render = function() {
                     _c("p", [
                       _vm._v("My guest requires food options that are:")
                     ]),
-                    _c("br"),
-                    _c("br"),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.guest_diet_checkbox
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.guest_diet_checkbox[0]))
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _vm._l(_vm.$attrs.userdata.diet, function(diet) {
                       return _c(
@@ -39033,24 +39015,13 @@ var render = function() {
                             {
                               staticClass:
                                 "block font-medium text-sm text-grey-700",
-                              attrs: { for: "diet.short_name" }
+                              attrs: { for: diet.short_name }
                             },
                             [_vm._v(" " + _vm._s(diet.short_name))]
-                          ),
-                          _c("br")
+                          )
                         ]
                       )
-                    }),
-                    _vm._v(" "),
-                    _vm.errors && _vm.errors.guest_diet_checkbox
-                      ? _c("div", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm.errors.guest_diet_checkbox[0] === undefined
-                            )
-                          )
-                        ])
-                      : _vm._e()
+                    })
                   ],
                   2
                 ),
@@ -39099,7 +39070,6 @@ var render = function() {
                         }
                       }
                     }),
-                    _c("br"),
                     _vm._v(" "),
                     _c(
                       "label",
@@ -39112,9 +39082,7 @@ var render = function() {
                     _vm._v(" "),
                     _vm.errors && _vm.errors.guest_diet_other
                       ? _c("div", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            _vm._s(_vm.errors.guest_diet_other[0] === undefined)
-                          )
+                          _vm._v(_vm._s(_vm.errors.guest_diet_other[0]))
                         ])
                       : _vm._e()
                   ]
@@ -39147,7 +39115,6 @@ var render = function() {
                   "Please confirm your contact details so we can ensure you receive your Long Service Awards gift."
                 )
               ]),
-              _c("br"),
               _vm._v(" "),
               _c("div", [
                 _vm._m(6),
@@ -39216,11 +39183,7 @@ var render = function() {
                 _vm._v(" "),
                 _vm.errors && _vm.errors.gift_location
                   ? _c("div", { staticClass: "text-danger" }, [
-                      _vm._v(
-                        " " +
-                          _vm._s(_vm.errors.gift_location[0] === undefined) +
-                          " "
-                      )
+                      _vm._v(" " + _vm._s(_vm.errors.gift_location[0]) + " ")
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -39228,235 +39191,158 @@ var render = function() {
                   _vm._v(
                     "If you have your gift sent to your office, your ministry may arrange for your supervisor or a member of executive to present it to you."
                   )
-                ]),
-                _c("br")
+                ])
               ])
             ]),
-            _c("br"),
             _vm._v(" "),
             _c("div", { attrs: { id: "gift-location-address" } }, [
-              _c(
-                "label",
-                {
-                  staticClass: "block font-medium text-sm text-gray-700",
-                  attrs: { for: "gift_location_floor" }
-                },
-                [_vm._v(" Floor/room/care of: ")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
+              _c("div", [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.gift_location_floor,
-                    expression: "fields.gift_location_floor"
-                  }
-                ],
-                attrs: {
-                  type: "text",
-                  name: "gift_location_floor",
-                  id: "gift_location_floor"
-                },
-                domProps: { value: _vm.fields.gift_location_floor },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "block font-medium text-sm text-gray-700",
+                    attrs: { for: "gift_location_floor" }
+                  },
+                  [_vm._v(" Floor/room/care of: ")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.gift_location_floor,
+                      expression: "fields.gift_location_floor"
                     }
-                    _vm.$set(
-                      _vm.fields,
-                      "gift_location_floor",
-                      $event.target.value
-                    )
+                  ],
+                  attrs: {
+                    type: "text",
+                    name: "gift_location_floor",
+                    id: "gift_location_floor"
+                  },
+                  domProps: { value: _vm.fields.gift_location_floor },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.fields,
+                        "gift_location_floor",
+                        $event.target.value
+                      )
+                    }
                   }
-                }
-              }),
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.gift_location_floor
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(
+                        " " + _vm._s(_vm.errors.gift_location_floor[0]) + " "
+                      )
+                    ])
+                  : _vm._e()
+              ]),
               _vm._v(" "),
-              _vm.errors && _vm.errors.gift_location_floor
-                ? _c("div", { staticClass: "text-danger" }, [
-                    _vm._v(
-                      " " +
-                        _vm._s(
-                          _vm.errors.gift_location_floor[0] === undefined
-                        ) +
-                        " "
-                    )
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "block font-medium text-sm text-gray-700",
-                  attrs: { for: "gift_location_addr" }
-                },
-                [_vm._v(" suit | address: ")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
+              _c("div", [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.gift_location_addr,
-                    expression: "fields.gift_location_addr"
-                  }
-                ],
-                attrs: {
-                  type: "text",
-                  name: "gift_location_addr",
-                  id: "gift_location_addr"
-                },
-                domProps: { value: _vm.fields.gift_location_addr },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "block font-medium text-sm text-gray-700",
+                    attrs: { for: "gift_location_addr" }
+                  },
+                  [_vm._v(" suit | address: ")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.gift_location_addr,
+                      expression: "fields.gift_location_addr"
                     }
-                    _vm.$set(
-                      _vm.fields,
-                      "gift_location_addr",
-                      $event.target.value
-                    )
+                  ],
+                  attrs: {
+                    type: "text",
+                    name: "gift_location_addr",
+                    id: "gift_location_addr"
+                  },
+                  domProps: { value: _vm.fields.gift_location_addr },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.fields,
+                        "gift_location_addr",
+                        $event.target.value
+                      )
+                    }
                   }
-                }
-              }),
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.gift_location_addr
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(
+                        " " + _vm._s(_vm.errors.gift_location_addr[0]) + " "
+                      )
+                    ])
+                  : _vm._e()
+              ]),
               _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "block font-medium text-sm text-gray-700",
-                  attrs: { for: "gift_location_postal" }
-                },
-                [_vm._v(" postal code: ")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
+              _c("div", [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.gift_location_postal,
-                    expression: "fields.gift_location_postal"
-                  }
-                ],
-                attrs: {
-                  type: "text",
-                  name: "gift_location_postal",
-                  id: "gift_location_postal"
-                },
-                domProps: { value: _vm.fields.gift_location_postal },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "block font-medium text-sm text-gray-700",
+                    attrs: { for: "gift_location_postal" }
+                  },
+                  [_vm._v(" postal code: ")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.gift_location_postal,
+                      expression: "fields.gift_location_postal"
                     }
-                    _vm.$set(
-                      _vm.fields,
-                      "gift_location_postal",
-                      $event.target.value
-                    )
+                  ],
+                  attrs: {
+                    type: "text",
+                    name: "gift_location_postal",
+                    id: "gift_location_postal"
+                  },
+                  domProps: { value: _vm.fields.gift_location_postal },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.fields,
+                        "gift_location_postal",
+                        $event.target.value
+                      )
+                    }
                   }
-                }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _c("br")
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.gift_location_postal
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(
+                        " " + _vm._s(_vm.errors.gift_location_postal[0]) + " "
+                      )
+                    ])
+                  : _vm._e()
+              ])
             ])
           ]
         )
       ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.fields.rsvp === "true",
-              expression: "fields.rsvp === 'true'"
-            }
-          ],
-          attrs: { id: "contact-update" }
-        },
-        [
-          _c("p", [_vm._v("Do you need to update your contact information?")]),
-          _c("br"),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.fields.contact_update,
-                expression: "fields.contact_update"
-              }
-            ],
-            attrs: {
-              type: "radio",
-              name: "contact_update",
-              id: "contact_update_true",
-              value: "true"
-            },
-            domProps: { checked: _vm._q(_vm.fields.contact_update, "true") },
-            on: {
-              change: function($event) {
-                return _vm.$set(_vm.fields, "contact_update", "true")
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { attrs: { type: "radio", for: "contact_update_true" } },
-            [_vm._v("yes")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.fields.contact_update,
-                expression: "fields.contact_update"
-              }
-            ],
-            attrs: {
-              type: "radio",
-              name: "contact_update",
-              id: "contact_update_false",
-              value: "false"
-            },
-            domProps: { checked: _vm._q(_vm.fields.contact_update, "false") },
-            on: {
-              change: function($event) {
-                return _vm.$set(_vm.fields, "contact_update", "false")
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { attrs: { type: "radio", for: "gift_location_false" } },
-            [_vm._v("no")]
-          ),
-          _vm._v(" "),
-          _vm.errors && _vm.errors.gift_location
-            ? _c("div", { staticClass: "text-danger" }, [
-                _vm._v(
-                  " " + _vm._s(_vm.errors.contact_update[0] === undefined) + " "
-                )
-              ])
-            : _vm._e()
-        ]
-      ),
-      _c("br"),
       _vm._v(" "),
       _c("div", { staticClass: "retirement-section" }, [
         _c(
@@ -39537,16 +39423,9 @@ var render = function() {
               _vm._v(" "),
               _vm.errors && _vm.errors.retirement_status
                 ? _c("div", { staticClass: "text-danger" }, [
-                    _vm._v(
-                      " " +
-                        _vm._s(_vm.errors.retirement_status[0] === undefined) +
-                        " "
-                    )
+                    _vm._v(" " + _vm._s(_vm.errors.retirement_status[0]) + " ")
                   ])
                 : _vm._e(),
-              _vm._v(" "),
-              _c("br"),
-              _c("br"),
               _vm._v(" "),
               _c(
                 "div",
@@ -39570,7 +39449,6 @@ var render = function() {
                     },
                     [_vm._v("  When are you retiring? ")]
                   ),
-                  _c("br"),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -39604,21 +39482,101 @@ var render = function() {
                   _vm.errors && _vm.errors.retirement_status
                     ? _c("div", { staticClass: "text-danger" }, [
                         _vm._v(
-                          " " +
-                            _vm._s(
-                              _vm.errors.retirement_status[0] === undefined
-                            ) +
-                            " "
+                          " " + _vm._s(_vm.errors.retirement_status[0]) + " "
                         )
                       ])
                     : _vm._e()
                 ]
               )
-            ]),
-            _c("br")
+            ])
           ]
         )
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                _vm.fields.rsvp === "true" &&
+                _vm.fields.retirement_status === "false",
+              expression:
+                "fields.rsvp === 'true' && fields.retirement_status === 'false'"
+            }
+          ],
+          attrs: { id: "contact-update" }
+        },
+        [
+          _c("p", [_vm._v("Do you need to update your contact information?")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.contact_update,
+                expression: "fields.contact_update"
+              }
+            ],
+            attrs: {
+              type: "radio",
+              name: "contact_update",
+              id: "contact_update_true",
+              value: "true"
+            },
+            domProps: { checked: _vm._q(_vm.fields.contact_update, "true") },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.fields, "contact_update", "true")
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { attrs: { type: "radio", for: "contact_update_true" } },
+            [_vm._v("yes")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.contact_update,
+                expression: "fields.contact_update"
+              }
+            ],
+            attrs: {
+              type: "radio",
+              name: "contact_update",
+              id: "contact_update_false",
+              value: "false"
+            },
+            domProps: { checked: _vm._q(_vm.fields.contact_update, "false") },
+            on: {
+              change: function($event) {
+                return _vm.$set(_vm.fields, "contact_update", "false")
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { attrs: { type: "radio", for: "gift_location_false" } },
+            [_vm._v("no")]
+          ),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.gift_location
+            ? _c("div", { staticClass: "text-danger" }, [
+                _vm._v(" " + _vm._s(_vm.errors.contact_update[0]) + " ")
+              ])
+            : _vm._e()
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -39670,84 +39628,97 @@ var render = function() {
               },
               [
                 _c("div", { attrs: { id: "prefered-contact-fields" } }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "block font-medium text-sm text-gray-700",
-                      attrs: { for: "preferred_email" }
-                    },
-                    [_vm._v(" Preferred email: ")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
+                  _c("div", [
+                    _c(
+                      "label",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.fields.preferred_email,
-                        expression: "fields.preferred_email"
-                      }
-                    ],
-                    attrs: {
-                      type: "text",
-                      name: "preferred_email",
-                      id: "preferred_email"
-                    },
-                    domProps: { value: _vm.fields.preferred_email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                        staticClass: "block font-medium text-sm text-gray-700",
+                        attrs: { for: "preferred_email" }
+                      },
+                      [_vm._v(" Preferred email: ")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fields.preferred_email,
+                          expression: "fields.preferred_email"
                         }
-                        _vm.$set(
-                          _vm.fields,
-                          "preferred_email",
-                          $event.target.value
-                        )
+                      ],
+                      attrs: {
+                        type: "text",
+                        name: "preferred_email",
+                        id: "preferred_email"
+                      },
+                      domProps: { value: _vm.fields.preferred_email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.fields,
+                            "preferred_email",
+                            $event.target.value
+                          )
+                        }
                       }
-                    }
-                  }),
+                    }),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.preferred_email
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _vm._v(" " + _vm._s(_vm.errors.preferred_email[0]))
+                        ])
+                      : _vm._e()
+                  ]),
                   _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    { staticClass: "block font-medium text-sm text-gray-700" },
-                    [_vm._v(" Preferred phone: ")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
+                  _c("div", [
+                    _c(
+                      "label",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.fields.preferred_phone,
-                        expression: "fields.preferred_phone"
-                      }
-                    ],
-                    attrs: {
-                      type: "text",
-                      name: "preferred_phone",
-                      id: "preferred_phone"
-                    },
-                    domProps: { value: _vm.fields.preferred_phone },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                        staticClass: "block font-medium text-sm text-gray-700"
+                      },
+                      [_vm._v(" Preferred phone: ")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fields.preferred_phone,
+                          expression: "fields.preferred_phone"
                         }
-                        _vm.$set(
-                          _vm.fields,
-                          "preferred_phone",
-                          $event.target.value
-                        )
+                      ],
+                      attrs: {
+                        type: "text",
+                        name: "preferred_phone",
+                        id: "preferred_phone"
+                      },
+                      domProps: { value: _vm.fields.preferred_phone },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.fields,
+                            "preferred_phone",
+                            $event.target.value
+                          )
+                        }
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("br")
-                ]),
-                _c("br")
+                    }),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.preferred_phone
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _vm._v(" " + _vm._s(_vm.errors.preferred_phone[0]))
+                        ])
+                      : _vm._e()
+                  ])
+                ])
               ]
             )
           ])

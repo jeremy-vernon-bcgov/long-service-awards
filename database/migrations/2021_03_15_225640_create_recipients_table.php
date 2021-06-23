@@ -91,6 +91,10 @@ class CreateRecipientsTable extends Migration
             $table->integer('photo_order')->nullable();
             $table->datetime('photo_sent')->nullable();
 
+            // Preferred Email/phone
+            $table->string('preferred_email')->nullable();
+            $table->string('preferred_phone_number')->nullable();
+
             $table->softDeletes();
 
 
