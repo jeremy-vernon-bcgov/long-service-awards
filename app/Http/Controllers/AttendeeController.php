@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\AccessibilityOption;
 use App\Models\AccessibilityOptionAttendee;
+use App\Models\Community;
 use App\Models\DietaryRestriction;
 use App\Models\DietaryRestrictionAttendee;
 use App\Models\Guest;
+use App\Models\Recipient;
 use DateTime;
 use Illuminate\Http\Request;
 use App\Models\Attendee;
@@ -18,6 +20,7 @@ class AttendeeController extends Controller
     /**
      * @param int $aid The attendee id as passed through the URL.
      * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|null
+     * @throws \Exception
      */
     public function rsvpBuild(int $aid)
     {
@@ -32,9 +35,14 @@ class AttendeeController extends Controller
             $access = AccessibilityOption::all('short_name', 'description');
             $data->access = $access;
 
+            // Grab all communities.
+            $communities = Community::all('id', 'name');
+            $data->communities = $communities;
+
             // Push our id's to Session so we can use them when saving post data.
             Session::put('aid', $aid);
 
+            // Need a specific datetime format here.
             $data->scheduled_datetime = new DateTime($data->scheduled_datetime);
             return view('rsvp.rsvp')->with('data', $data);
         }
@@ -45,6 +53,8 @@ class AttendeeController extends Controller
     /**
      * RSVP reply.
      * @param Request $request
+     * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
      */
     protected function collectRsvp(Request $request) {
         /**
@@ -75,15 +85,18 @@ class AttendeeController extends Controller
             'recip_diet_checkbox' => 'required_if:recipient_diet,true',
             'guest_diet_checkbox' => 'required_if:guest_diet,true',
             // Contact Info
-            'gift_location' => 'required_if:rsvp,false',
             'gift_location_addr' => 'required_if:rsvp,false',
             'gift_location_postal' => 'required_if:rsvp,false|postal_code:CA',
+            'gift_location_community' => 'required_if:rsvp,false',
             // Retirement
             'retirement_status' => 'required',
+            'retirement_date' => 'required_if:retirement_status,true',
             // Preferred contact
             // Multiple ways to require this - but also check validity of format.
-            'preferred_email' => 'required_if:rsvp,false|required_if:retirement_status,true|required_if:contact_update,true|email',
+            'home_email' => 'required_if:rsvp,false|required_if:retirement_status,true|required_if:contact_update,true|email',
+            'office_email' => 'required_if:rsvp,false|required_if:contact_update,true|email',
             'preferred_phone' => 'required_if:rsvp,false|required_if:retirement_status,true|required_if:contact_update,true|phone:CA',
+            'prefer_contact' => 'required_if:rsvp,false|required_if:contact_update,true'
         ];
 
         // Custom error messages.
@@ -117,20 +130,24 @@ class AttendeeController extends Controller
 
             //** CONTACT RULES  **/
             // Gift location - RSVP must be false (radio)
-            'gift_location.required_if' => 'Please indicate where you would like your gift sent.',
             'gift_location_addr.required_if' => 'Please enter an address.',
             'gift_location_postal.required_if' => 'Please enter a valid postal code.',
             'gift_location_postal.postal_code' => 'Please enter a valid postal code.',
+            'gift_location_community.required_if' => 'Please select a community.',
 
             // Preferred contact
-            'preferred_email.required_if' => 'Please input your preferred email address.',
-            'preferred_email.email' => 'Please enter a valid email address.',
+            'home_email.required_if' => 'Please input your preferred email address.',
+            'home_email.email' => 'Please enter a valid email address.',
+            'office_email.required_if' => 'Please input your preferred email address.',
+            'office_email.email' => 'Please enter a valid email address.',
             'preferred_phone.required_if' => 'Please input your preferred phone address.',
             'preferred_phone.phone' => 'Please enter a valid Canadian phone number.',
+            'prefer_contact.required_if' => 'Please indicate which email you would prefer us to contact.',
+            // Retirement date
+            'retirement_date.required_if' => 'Please indicate when you will be retiring.'
         ];
         // Send to validator.
         $this->validate($request, $rules, $messages);
-        debug("validated");
         /**
          * Parse Post data if it passes validation.
          */
@@ -185,15 +202,28 @@ class AttendeeController extends Controller
         if($guest_id !== null) {
             $attendee->guest_id = $guest_id;
         }
+        // Updates to Recipient record.
+        $update_status = $this->recipientUpdate($request, $attendee);
+        // Recipient has been successfully saved.
+        if($update_status){
+            // Todo: Log
+        } else {
+            // Todo: throw error.
+        }
         // Save the attendee status
-        $attendee->save();
-        // TODO: Return confirmation and call for close.
-        // TODO: redirect to confirmation page.
+        $attendee_status = $attendee->save();
+        if($attendee_status){
+            // Todo: Log and call for close.
+            // TODO: Set return message.
+        }
 
+        // TODO: redirect to confirmation page.
         return $request->input();
     }
 
     /**
+     * Helper function to update dietary requirements for an attendee or guest.
+     *
      * @param int $id - either the recip or guest id
      * @param array $choices - The users accessibility choice(s).
      */
@@ -228,6 +258,8 @@ class AttendeeController extends Controller
     }
 
     /**
+     * Helper function to update accessibility requirements for an attendee or guest.
+     *
      * @param int $id - either the recipient or guest id
      * @param array $choices - The users accessibility choice(s).
      */
@@ -261,6 +293,13 @@ class AttendeeController extends Controller
         }
     }
 
+    /**
+     * Helper function to update or create a new guest record.
+     *
+     * @param $attendee
+     * @param $request
+     * @return mixed|null
+     */
     private function guestManagement($attendee, $request) {
         $guest = Guest::find($attendee->guest_id);
         if($guest === null) {
@@ -283,6 +322,12 @@ class AttendeeController extends Controller
         return $guest_id;
     }
 
+    /**
+     * Helper function to add or update an existing guest attendee record.
+     *
+     * @param $attendee
+     * @param $guest_id
+     */
     private function guestAttendee($attendee, $guest_id)
     {
         // This is a guest record - we need to see if they exist yet.
@@ -303,4 +348,44 @@ class AttendeeController extends Controller
         $guest_attendee->save();
     }
 
+    /**
+     * Helper function to update recipient contact info if required.
+     *
+     * @param $request
+     * @param $attendee
+     * @return mixed
+     */
+    private function recipientUpdate($request, $attendee) {
+        $recipient = Recipient::find($attendee->recipient_id);
+        // Update retirement status
+        $request->retirement_status === 'true' ? $recipient->retiring_this_year = 1 : $recipient->retiring_this_year = 0;
+        // Update address if user is not attending, and are not retiring.
+        if(isset($request->rsvp, $request->retirement_status) && $request->rsvp === 'false' && $request->retirement_status === 'false') {
+            isset($request->gift_location_floor) ? $recipient->office_address_prefix = $request->gift_location_floor : $recipient->office_address_prefix = ''; // We need to blank this out if it has changed. Not required in form.
+            // sic - this is misspelled in the db (suit instead of suite). If this is updated in db, we will need to update it here as well.
+            isset($request->gift_location_suit) ? $recipient->office_address_suite = $request->gift_location_suit : $recipient->office_address_suite = ''; // We need to blank this out if it has changed. Not required in form.
+            $recipient->office_address_street_address = $request->gift_location_addr; // Required in form.
+            $recipient->office_address_postal_code = $request->gift_location_postal; // Required in form.
+            $recipient->office_address_community_id = $request->gift_location_community; // Required in form.
+        }
+        // Handle emails and phone.
+        if(isset($request->office_email)) {
+            $recipient->government_email = $request->office_email;
+            // Users can set one email to their preferred contact method.
+            if (isset($request->prefer_contact) && $request->prefer_contact === "office") {
+                $recipient->preferred_email = $request->office_email;
+            }
+        }
+        // Users can set one email to their preferred contact method.
+        if(isset($request->home_email)) {
+            $recipient->personal_email = $request->home_email;
+            if (isset($request->prefer_contact) && $request->prefer_contact === "home") {
+                $recipient->preferred_email = $request->home_email;
+            }
+        }
+        if(isset($request->preferred_phone)) {
+            $recipient->government_phone_number = $request->preferred_phone;
+        }
+        return $recipient->save();
+    }
 }

@@ -21,11 +21,12 @@
         -------------------}}
         <div id="preamble">
             {{-- Customized opening --}}
-            <div id="rsvp-custome">
-                <p> The government of British Columbia is pleased to invite {{$data->first_name . ' ' . $data->last_name }} to the Long Service Awards Ceremony on {{ date_format($data->scheduled_datetime, 'l, F j') }} at {{ date_format($data->scheduled_datetime, 'g:i a') }} at: </p>
-            </div>
-            <div id="rsvp-address">
-                <p>Government House</p>
+            <div id="rsvp-custom">
+                <p> The Province of British Columbia is pleased to invite</p>
+                <p>{{$data->first_name . ' ' . $data->last_name }} </p>
+                <p>to the Long Service Awards Ceremony on </p>
+                <p>{{ date_format($data->scheduled_datetime, 'l, F j') }} at {{ date_format($data->scheduled_datetime, 'g:i a') }} </p>
+                <p>at Government House</p>
                 <p>1401 Rockland Ave,</p>
                 <p>Victoria, British Columbia</p>
             </div>

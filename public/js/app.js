@@ -2172,6 +2172,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // Form related JS for Vue.
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2180,36 +2203,14 @@ __webpack_require__.r(__webpack_exports__);
         recip_access_checkbox: [],
         guest_access_checkbox: [],
         recip_diet_checkbox: [],
-        guest_diet_checkbox: []
+        guest_diet_checkbox: [],
+        prefer_contact: 'office'
       },
-      errors: {},
-      recip_access_checkbox: [],
-      guest_access_checkbox: [],
-      recip_diet_checkbox: [],
-      guest_diet_checkbox: []
+      errors: {}
     };
   },
   methods: {
-    addArrays: function addArrays() {
-      if (this.recip_access_checkbox.length > 0) {
-        this.fields.recip_access_checkbox = this.recip_access_checkbox;
-      }
-
-      if (this.guest_access_checkbox.length > 0) {
-        this.fields.guest_access_checkbox = this.guest_access_checkbox;
-      }
-
-      if (this.recip_diet_checkbox.length > 0) {
-        this.fields.recip_diet_checkbox = this.recip_diet_checkbox;
-      }
-
-      if (this.guest_diet_checkbox.length > 0) {
-        this.fields.guest_diet_checkbox = this.guest_diet_checkbox;
-      }
-    },
     inArray: function inArray(needle, haystack) {
-      console.log(needle);
-      console.log(haystack);
       var length = haystack.length;
 
       for (var i = 0; i < length; i++) {
@@ -2219,6 +2220,13 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return false;
+    },
+    preferChange: function preferChange() {
+      if (this.fields.retirement_status === 'true') {
+        // Defaults to home contact for retired users.
+        this.fields.prefer_contact = 'home';
+      } // No else statement because current employees choose either.
+
     },
     submit: function submit() {
       var _this = this;
@@ -38090,6 +38098,10 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
+          _c("p", [
+            _vm._v("Government House has gender-neutral washroom facilities. ")
+          ]),
+          _vm._v(" "),
           _vm._m(0)
         ]
       ),
@@ -38115,7 +38127,9 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2)
         ]
       ),
       _vm._v(" "),
@@ -38149,7 +38163,7 @@ var render = function() {
                 staticClass: "access-reqs"
               },
               [
-                _vm._m(2),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -38258,23 +38272,23 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.recip_access_checkbox,
-                          expression: "recip_access_checkbox"
+                          value: _vm.fields.recip_access_checkbox,
+                          expression: "fields.recip_access_checkbox"
                         }
                       ],
                       attrs: { type: "checkbox", id: access.short_name },
                       domProps: {
                         value: access.short_name,
-                        checked: Array.isArray(_vm.recip_access_checkbox)
+                        checked: Array.isArray(_vm.fields.recip_access_checkbox)
                           ? _vm._i(
-                              _vm.recip_access_checkbox,
+                              _vm.fields.recip_access_checkbox,
                               access.short_name
                             ) > -1
-                          : _vm.recip_access_checkbox
+                          : _vm.fields.recip_access_checkbox
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.recip_access_checkbox,
+                          var $$a = _vm.fields.recip_access_checkbox,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
@@ -38282,15 +38296,21 @@ var render = function() {
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 &&
-                                (_vm.recip_access_checkbox = $$a.concat([$$v]))
+                                _vm.$set(
+                                  _vm.fields,
+                                  "recip_access_checkbox",
+                                  $$a.concat([$$v])
+                                )
                             } else {
                               $$i > -1 &&
-                                (_vm.recip_access_checkbox = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.fields,
+                                  "recip_access_checkbox",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.recip_access_checkbox = $$c
+                            _vm.$set(_vm.fields, "recip_access_checkbox", $$c)
                           }
                         }
                       }
@@ -38314,8 +38334,12 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.inArray("Other", _vm.recip_access_checkbox),
-                        expression: "inArray('Other', recip_access_checkbox)"
+                        value: _vm.inArray(
+                          "Other",
+                          _vm.fields.recip_access_checkbox
+                        ),
+                        expression:
+                          "inArray('Other', fields.recip_access_checkbox)"
                       }
                     ],
                     staticClass: "other"
@@ -38381,7 +38405,7 @@ var render = function() {
                 staticClass: "access-reqs"
               },
               [
-                _vm._m(3),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -38486,23 +38510,23 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.guest_access_checkbox,
-                          expression: "guest_access_checkbox"
+                          value: _vm.fields.guest_access_checkbox,
+                          expression: "fields.guest_access_checkbox"
                         }
                       ],
                       attrs: { type: "checkbox", id: access.short_name },
                       domProps: {
                         value: access.short_name,
-                        checked: Array.isArray(_vm.guest_access_checkbox)
+                        checked: Array.isArray(_vm.fields.guest_access_checkbox)
                           ? _vm._i(
-                              _vm.guest_access_checkbox,
+                              _vm.fields.guest_access_checkbox,
                               access.short_name
                             ) > -1
-                          : _vm.guest_access_checkbox
+                          : _vm.fields.guest_access_checkbox
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.guest_access_checkbox,
+                          var $$a = _vm.fields.guest_access_checkbox,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
@@ -38510,15 +38534,21 @@ var render = function() {
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 &&
-                                (_vm.guest_access_checkbox = $$a.concat([$$v]))
+                                _vm.$set(
+                                  _vm.fields,
+                                  "guest_access_checkbox",
+                                  $$a.concat([$$v])
+                                )
                             } else {
                               $$i > -1 &&
-                                (_vm.guest_access_checkbox = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                                _vm.$set(
+                                  _vm.fields,
+                                  "guest_access_checkbox",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
                             }
                           } else {
-                            _vm.guest_access_checkbox = $$c
+                            _vm.$set(_vm.fields, "guest_access_checkbox", $$c)
                           }
                         }
                       }
@@ -38542,8 +38572,12 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.inArray("Other", _vm.guest_access_checkbox),
-                        expression: "inArray('Other', guest_access_checkbox)"
+                        value: _vm.inArray(
+                          "Other",
+                          _vm.fields.guest_access_checkbox
+                        ),
+                        expression:
+                          "inArray('Other', fields.guest_access_checkbox)"
                       }
                     ],
                     staticClass: "other"
@@ -38597,10 +38631,41 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.fields.rsvp === true,
+              expression: "fields.rsvp === true"
+            }
+          ]
+        },
+        [
+          _c("h3", [_vm._v("Dietary Requirements")]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "To ensure we have menu options that will accomodate your dietary restrictions and allergies, please indicate your requirements."
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c(
           "fieldset",
           {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.fields.rsvp === "true",
+                expression: "fields.rsvp === 'true'"
+              }
+            ],
             staticClass: "form-group",
             attrs: { name: "dietary", id: "dietary_group" }
           },
@@ -38626,7 +38691,7 @@ var render = function() {
                     staticClass: "diet-reqs"
                   },
                   [
-                    _vm._m(4),
+                    _vm._m(5),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -38712,7 +38777,7 @@ var render = function() {
                     staticClass: "diet-check"
                   },
                   [
-                    _c("p", [_vm._v("I require food options that are:")]),
+                    _c("p", [_vm._v("My dietary requirements are:")]),
                     _vm._v(" "),
                     _vm.errors && _vm.errors.recip_diet_checkbox
                       ? _c("div", { staticClass: "text-danger" }, [
@@ -38727,23 +38792,25 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.recip_diet_checkbox,
-                              expression: "recip_diet_checkbox"
+                              value: _vm.fields.recip_diet_checkbox,
+                              expression: "fields.recip_diet_checkbox"
                             }
                           ],
                           attrs: { type: "checkbox", id: diet.short_name },
                           domProps: {
                             value: diet.short_name,
-                            checked: Array.isArray(_vm.recip_diet_checkbox)
+                            checked: Array.isArray(
+                              _vm.fields.recip_diet_checkbox
+                            )
                               ? _vm._i(
-                                  _vm.recip_diet_checkbox,
+                                  _vm.fields.recip_diet_checkbox,
                                   diet.short_name
                                 ) > -1
-                              : _vm.recip_diet_checkbox
+                              : _vm.fields.recip_diet_checkbox
                           },
                           on: {
                             change: function($event) {
-                              var $$a = _vm.recip_diet_checkbox,
+                              var $$a = _vm.fields.recip_diet_checkbox,
                                 $$el = $event.target,
                                 $$c = $$el.checked ? true : false
                               if (Array.isArray($$a)) {
@@ -38751,17 +38818,23 @@ var render = function() {
                                   $$i = _vm._i($$a, $$v)
                                 if ($$el.checked) {
                                   $$i < 0 &&
-                                    (_vm.recip_diet_checkbox = $$a.concat([
-                                      $$v
-                                    ]))
+                                    _vm.$set(
+                                      _vm.fields,
+                                      "recip_diet_checkbox",
+                                      $$a.concat([$$v])
+                                    )
                                 } else {
                                   $$i > -1 &&
-                                    (_vm.recip_diet_checkbox = $$a
-                                      .slice(0, $$i)
-                                      .concat($$a.slice($$i + 1)))
+                                    _vm.$set(
+                                      _vm.fields,
+                                      "recip_diet_checkbox",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
                                 }
                               } else {
-                                _vm.recip_diet_checkbox = $$c
+                                _vm.$set(_vm.fields, "recip_diet_checkbox", $$c)
                               }
                             }
                           }
@@ -38789,8 +38862,12 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.inArray("Other", _vm.recip_diet_checkbox),
-                        expression: "inArray('Other', recip_diet_checkbox)"
+                        value: _vm.inArray(
+                          "Other",
+                          _vm.fields.recip_diet_checkbox
+                        ),
+                        expression:
+                          "inArray('Other', fields.recip_diet_checkbox)"
                       }
                     ],
                     staticClass: "other"
@@ -38862,7 +38939,7 @@ var render = function() {
               },
               [
                 _c("div", { staticClass: "diet-reqs" }, [
-                  _vm._m(5),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -38947,9 +39024,7 @@ var render = function() {
                     staticClass: "diet_check"
                   },
                   [
-                    _c("p", [
-                      _vm._v("My guest requires food options that are:")
-                    ]),
+                    _c("p", [_vm._v("My guest's dietary requirements are:")]),
                     _vm._v(" "),
                     _vm.errors && _vm.errors.guest_diet_checkbox
                       ? _c("div", { staticClass: "text-danger" }, [
@@ -38958,69 +39033,70 @@ var render = function() {
                       : _vm._e(),
                     _vm._v(" "),
                     _vm._l(_vm.$attrs.userdata.diet, function(diet) {
-                      return _c(
-                        "div",
-                        {
-                          key: diet.short_name,
-                          attrs: { name: "recip_diet_checkbox" }
-                        },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.guest_diet_checkbox,
-                                expression: "guest_diet_checkbox"
-                              }
-                            ],
-                            attrs: { type: "checkbox", id: diet.short_name },
-                            domProps: {
-                              value: diet.short_name,
-                              checked: Array.isArray(_vm.guest_diet_checkbox)
-                                ? _vm._i(
-                                    _vm.guest_diet_checkbox,
-                                    diet.short_name
-                                  ) > -1
-                                : _vm.guest_diet_checkbox
-                            },
-                            on: {
-                              change: function($event) {
-                                var $$a = _vm.guest_diet_checkbox,
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = diet.short_name,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 &&
-                                      (_vm.guest_diet_checkbox = $$a.concat([
-                                        $$v
-                                      ]))
-                                  } else {
-                                    $$i > -1 &&
-                                      (_vm.guest_diet_checkbox = $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1)))
-                                  }
+                      return _c("div", { key: diet.short_name }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fields.guest_diet_checkbox,
+                              expression: "fields.guest_diet_checkbox"
+                            }
+                          ],
+                          attrs: { type: "checkbox", id: diet.short_name },
+                          domProps: {
+                            value: diet.short_name,
+                            checked: Array.isArray(
+                              _vm.fields.guest_diet_checkbox
+                            )
+                              ? _vm._i(
+                                  _vm.fields.guest_diet_checkbox,
+                                  diet.short_name
+                                ) > -1
+                              : _vm.fields.guest_diet_checkbox
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.fields.guest_diet_checkbox,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = diet.short_name,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      _vm.fields,
+                                      "guest_diet_checkbox",
+                                      $$a.concat([$$v])
+                                    )
                                 } else {
-                                  _vm.guest_diet_checkbox = $$c
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      _vm.fields,
+                                      "guest_diet_checkbox",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
                                 }
+                              } else {
+                                _vm.$set(_vm.fields, "guest_diet_checkbox", $$c)
                               }
                             }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "label",
-                            {
-                              staticClass:
-                                "block font-medium text-sm text-grey-700",
-                              attrs: { for: diet.short_name }
-                            },
-                            [_vm._v(" " + _vm._s(diet.short_name))]
-                          )
-                        ]
-                      )
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "label",
+                          {
+                            staticClass:
+                              "block font-medium text-sm text-grey-700",
+                            attrs: { for: diet.short_name }
+                          },
+                          [_vm._v(" " + _vm._s(diet.short_name))]
+                        )
+                      ])
                     })
                   ],
                   2
@@ -39033,8 +39109,12 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.inArray("Other", _vm.guest_diet_checkbox),
-                        expression: "inArray('Other', guest_diet_checkbox)"
+                        value: _vm.inArray(
+                          "Other",
+                          _vm.fields.guest_diet_checkbox
+                        ),
+                        expression:
+                          "inArray('Other', fields.guest_diet_checkbox)"
                       }
                     ],
                     staticClass: "other"
@@ -39093,6 +39173,174 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.fields.rsvp === "true" || _vm.fields.rsvp === "false",
+              expression: "fields.rsvp === 'true' || fields.rsvp === 'false'"
+            }
+          ],
+          staticClass: "retirement-section"
+        },
+        [
+          _c(
+            "fieldset",
+            {
+              staticClass: "form-group",
+              attrs: { name: "retirement", id: "retirement-fieldset" }
+            },
+            [
+              _c("div", { attrs: { id: "retirement-fields" } }, [
+                _c("p", [
+                  _vm._v(
+                    "Are you retiring before your Long Service Awards ceremony?"
+                  )
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.retirement_status,
+                      expression: "fields.retirement_status"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "retirement_status",
+                    id: "retirement_status_true",
+                    value: "true"
+                  },
+                  domProps: {
+                    checked: _vm._q(_vm.fields.retirement_status, "true")
+                  },
+                  on: {
+                    change: [
+                      function($event) {
+                        return _vm.$set(_vm.fields, "retirement_status", "true")
+                      },
+                      _vm.preferChange
+                    ]
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { attrs: { type: "radio", for: "retirement_status_true" } },
+                  [_vm._v("yes")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.retirement_status,
+                      expression: "fields.retirement_status"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    name: "retirement_status",
+                    id: "retirement_status_false",
+                    value: "false"
+                  },
+                  domProps: {
+                    checked: _vm._q(_vm.fields.retirement_status, "false")
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.$set(_vm.fields, "retirement_status", "false")
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { attrs: { type: "radio", for: "retirement_status_false" } },
+                  [_vm._v("no")]
+                ),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.retirement_status
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(
+                        " " + _vm._s(_vm.errors.retirement_status[0]) + " "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.fields.retirement_status === "true",
+                        expression: "fields.retirement_status === 'true'"
+                      }
+                    ],
+                    staticClass: "date"
+                  },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "block font-medium text-sm text-gray-700",
+                        attrs: { for: "retirement_date" }
+                      },
+                      [_vm._v("  When are you retiring? ")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fields.retirement_date,
+                          expression: "fields.retirement_date"
+                        }
+                      ],
+                      attrs: {
+                        type: "date",
+                        id: "retirement_date",
+                        name: "retirement_date"
+                      },
+                      domProps: { value: _vm.fields.retirement_date },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.fields,
+                            "retirement_date",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.retirement_date
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            " " + _vm._s(_vm.errors.retirement_date[0]) + " "
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c(
           "fieldset",
@@ -39101,99 +39349,18 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.fields.rsvp === "false",
-                expression: "fields.rsvp === 'false'"
+                value:
+                  _vm.fields.rsvp === "false" &&
+                  _vm.fields.retirement_status === "false",
+                expression:
+                  "fields.rsvp === 'false' && fields.retirement_status === 'false'"
               }
             ],
             staticClass: "form-group",
             attrs: { name: "contact-info", id: "contact-info-fieldset" }
           },
           [
-            _c("div", { attrs: { id: "contact-details-preamble" } }, [
-              _c("p", [
-                _vm._v(
-                  "Please confirm your contact details so we can ensure you receive your Long Service Awards gift."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _vm._m(6),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.fields.gift_location,
-                      expression: "fields.gift_location"
-                    }
-                  ],
-                  attrs: {
-                    type: "radio",
-                    name: "gift_location",
-                    id: "gift_location_true",
-                    value: "home"
-                  },
-                  domProps: {
-                    checked: _vm._q(_vm.fields.gift_location, "home")
-                  },
-                  on: {
-                    change: function($event) {
-                      return _vm.$set(_vm.fields, "gift_location", "home")
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { attrs: { type: "radio", for: "gift_location_true" } },
-                  [_vm._v("Home")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.fields.gift_location,
-                      expression: "fields.gift_location"
-                    }
-                  ],
-                  attrs: {
-                    type: "radio",
-                    name: "gift_location",
-                    id: "gift_location_false",
-                    value: "office"
-                  },
-                  domProps: {
-                    checked: _vm._q(_vm.fields.gift_location, "office")
-                  },
-                  on: {
-                    change: function($event) {
-                      return _vm.$set(_vm.fields, "gift_location", "office")
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { attrs: { type: "radio", for: "gift_location_false" } },
-                  [_vm._v("Office")]
-                ),
-                _vm._v(" "),
-                _vm.errors && _vm.errors.gift_location
-                  ? _c("div", { staticClass: "text-danger" }, [
-                      _vm._v(" " + _vm._s(_vm.errors.gift_location[0]) + " ")
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    "If you have your gift sent to your office, your ministry may arrange for your supervisor or a member of executive to present it to you."
-                  )
-                ])
-              ])
-            ]),
+            _vm._m(7),
             _vm._v(" "),
             _c("div", { attrs: { id: "gift-location-address" } }, [
               _c("div", [
@@ -39233,12 +39400,52 @@ var render = function() {
                       )
                     }
                   }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block font-medium text-sm text-gray-700",
+                    attrs: { for: "gift_location_suit" }
+                  },
+                  [_vm._v(" suite  ")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.gift_location_suit,
+                      expression: "fields.gift_location_suit"
+                    }
+                  ],
+                  attrs: {
+                    type: "text",
+                    name: "gift_location_suit",
+                    id: "gift_location_suit"
+                  },
+                  domProps: { value: _vm.fields.gift_location_suit },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.fields,
+                        "gift_location_suit",
+                        $event.target.value
+                      )
+                    }
+                  }
                 }),
                 _vm._v(" "),
-                _vm.errors && _vm.errors.gift_location_floor
+                _vm.errors && _vm.errors.gift_location_suit
                   ? _c("div", { staticClass: "text-danger" }, [
                       _vm._v(
-                        " " + _vm._s(_vm.errors.gift_location_floor[0]) + " "
+                        " " + _vm._s(_vm.errors.gift_location_suit[0]) + " "
                       )
                     ])
                   : _vm._e()
@@ -39251,7 +39458,7 @@ var render = function() {
                     staticClass: "block font-medium text-sm text-gray-700",
                     attrs: { for: "gift_location_addr" }
                   },
-                  [_vm._v(" suit | address: ")]
+                  [_vm._v(" address: ")]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -39290,6 +39497,61 @@ var render = function() {
                       )
                     ])
                   : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block font-medium text-sm text-grey-700",
+                    attrs: { for: "community" }
+                  },
+                  [_vm._v(" office community ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.gift_location_community,
+                        expression: "fields.gift_location_community"
+                      }
+                    ],
+                    attrs: { name: "gift_location_community", id: "community" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.fields,
+                          "gift_location_community",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.$attrs.userdata.communities, function(
+                    communities
+                  ) {
+                    return _c(
+                      "option",
+                      { domProps: { value: communities.id } },
+                      [_vm._v(_vm._s(communities.name))]
+                    )
+                  }),
+                  0
+                )
               ]),
               _vm._v(" "),
               _c("div", [
@@ -39344,155 +39606,6 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "retirement-section" }, [
-        _c(
-          "fieldset",
-          {
-            staticClass: "form-group",
-            attrs: { name: "retirement", id: "retirement-fieldset" }
-          },
-          [
-            _c("div", { attrs: { id: "retirement-fields" } }, [
-              _c("p", [
-                _vm._v(
-                  "Are you retiring before your Long Service Awards ceremony?"
-                )
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.retirement_status,
-                    expression: "fields.retirement_status"
-                  }
-                ],
-                attrs: {
-                  type: "radio",
-                  name: "retirement_status",
-                  id: "retirement_status_true",
-                  value: "true"
-                },
-                domProps: {
-                  checked: _vm._q(_vm.fields.retirement_status, "true")
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.fields, "retirement_status", "true")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                { attrs: { type: "radio", for: "retirement_status_true" } },
-                [_vm._v("yes")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.retirement_status,
-                    expression: "fields.retirement_status"
-                  }
-                ],
-                attrs: {
-                  type: "radio",
-                  name: "retirement_status",
-                  id: "retirement_status_false",
-                  value: "false"
-                },
-                domProps: {
-                  checked: _vm._q(_vm.fields.retirement_status, "false")
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.fields, "retirement_status", "false")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                { attrs: { type: "radio", for: "retirement_status_false" } },
-                [_vm._v("no")]
-              ),
-              _vm._v(" "),
-              _vm.errors && _vm.errors.retirement_status
-                ? _c("div", { staticClass: "text-danger" }, [
-                    _vm._v(" " + _vm._s(_vm.errors.retirement_status[0]) + " ")
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.fields.retirement_status === "true",
-                      expression: "fields.retirement_status === 'true'"
-                    }
-                  ],
-                  staticClass: "date"
-                },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "block font-medium text-sm text-gray-700",
-                      attrs: { for: "retirement_date" }
-                    },
-                    [_vm._v("  When are you retiring? ")]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.fields.retirement_date,
-                        expression: "fields.retirement_date"
-                      }
-                    ],
-                    attrs: {
-                      type: "date",
-                      id: "retirement_date",
-                      name: "retirement_date"
-                    },
-                    domProps: { value: _vm.fields.retirement_date },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.fields,
-                          "retirement_date",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors && _vm.errors.retirement_status
-                    ? _c("div", { staticClass: "text-danger" }, [
-                        _vm._v(
-                          " " + _vm._s(_vm.errors.retirement_status[0]) + " "
-                        )
-                      ])
-                    : _vm._e()
-                ]
-              )
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
       _c(
         "div",
         {
@@ -39510,7 +39623,9 @@ var render = function() {
           attrs: { id: "contact-update" }
         },
         [
-          _c("p", [_vm._v("Do you need to update your contact information?")]),
+          _c("p", [
+            _vm._v("Has your contact information changed since you registered?")
+          ]),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -39566,11 +39681,11 @@ var render = function() {
           _vm._v(" "),
           _c(
             "label",
-            { attrs: { type: "radio", for: "gift_location_false" } },
+            { attrs: { type: "radio", for: "contact_update_false" } },
             [_vm._v("no")]
           ),
           _vm._v(" "),
-          _vm.errors && _vm.errors.gift_location
+          _vm.errors && _vm.errors.contact_update
             ? _c("div", { staticClass: "text-danger" }, [
                 _vm._v(" " + _vm._s(_vm.errors.contact_update[0]) + " ")
               ])
@@ -39593,7 +39708,9 @@ var render = function() {
         },
         [
           _c("div", { attrs: { id: "retirement-note" } }, [
-            _vm._v("\n        How can we contact you after that date?\n    ")
+            _vm._v(
+              "\n            How can we contact you after that date?\n        "
+            )
           ])
         ]
       ),
@@ -39606,11 +39723,13 @@ var render = function() {
               name: "show",
               rawName: "v-show",
               value:
-                _vm.fields.retirement_status === "true" ||
-                _vm.fields.contact_update === "true" ||
-                _vm.fields.rsvp === "false",
+                (_vm.fields.retirement_status === "true" ||
+                  _vm.fields.contact_update === "true" ||
+                  _vm.fields.rsvp === "false") &&
+                (_vm.fields.retirement_status === "true" ||
+                  _vm.fields.retirement_status === "false"),
               expression:
-                "fields.retirement_status === 'true' || fields.contact_update === 'true' || fields.rsvp === 'false'"
+                "(fields.retirement_status === 'true' || fields.contact_update === 'true' || fields.rsvp === 'false') && (fields.retirement_status === 'true' || fields.retirement_status === 'false')"
             }
           ],
           staticClass: "preferred-contact"
@@ -39627,15 +39746,15 @@ var render = function() {
                 }
               },
               [
-                _c("div", { attrs: { id: "prefered-contact-fields" } }, [
+                _c("div", { attrs: { id: "preferred-contact-fields" } }, [
                   _c("div", [
                     _c(
                       "label",
                       {
                         staticClass: "block font-medium text-sm text-gray-700",
-                        attrs: { for: "preferred_email" }
+                        attrs: { for: "home_email" }
                       },
-                      [_vm._v(" Preferred email: ")]
+                      [_vm._v(" Home email: ")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -39643,16 +39762,16 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.fields.preferred_email,
-                          expression: "fields.preferred_email"
+                          value: _vm.fields.home_email,
+                          expression: "fields.home_email"
                         }
                       ],
                       attrs: {
                         type: "text",
-                        name: "preferred_email",
-                        id: "preferred_email"
+                        name: "home_email",
+                        id: "home_email"
                       },
-                      domProps: { value: _vm.fields.preferred_email },
+                      domProps: { value: _vm.fields.home_email },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
@@ -39660,27 +39779,113 @@ var render = function() {
                           }
                           _vm.$set(
                             _vm.fields,
-                            "preferred_email",
+                            "home_email",
                             $event.target.value
                           )
                         }
                       }
                     }),
                     _vm._v(" "),
-                    _vm.errors && _vm.errors.preferred_email
+                    _vm.errors && _vm.errors.home_email
                       ? _c("div", { staticClass: "text-danger" }, [
-                          _vm._v(" " + _vm._s(_vm.errors.preferred_email[0]))
+                          _vm._v(" " + _vm._s(_vm.errors.home_email[0]))
                         ])
                       : _vm._e()
                   ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.fields.retirement_status === "false",
+                          expression: "fields.retirement_status === 'false'"
+                        }
+                      ]
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "block font-medium text-sm text-gray-700",
+                          attrs: { for: "office_email" }
+                        },
+                        [_vm._v(" Office email: ")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fields.office_email,
+                            expression: "fields.office_email"
+                          }
+                        ],
+                        attrs: {
+                          type: "text",
+                          name: "office_email",
+                          id: "office_email"
+                        },
+                        domProps: { value: _vm.fields.office_email },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.fields,
+                              "office_email",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.office_email
+                        ? _c("div", { staticClass: "text-danger" }, [
+                            _vm._v(" " + _vm._s(_vm.errors.office_email[0]))
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("div", [
                     _c(
                       "label",
                       {
-                        staticClass: "block font-medium text-sm text-gray-700"
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.fields.retirement_status === "true",
+                            expression: "fields.retirement_status === 'true'"
+                          }
+                        ],
+                        staticClass: "block font-medium text-sm text-gray-700",
+                        attrs: { for: "preferred_phone" }
                       },
-                      [_vm._v(" Preferred phone: ")]
+                      [_vm._v(" Home phone: ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.fields.retirement_status !== "true",
+                            expression: "fields.retirement_status !== 'true'"
+                          }
+                        ],
+                        staticClass: "block font-medium text-sm text-gray-700",
+                        attrs: { for: "preferred_phone" }
+                      },
+                      [_vm._v(" Office Phone: ")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -39718,24 +39923,112 @@ var render = function() {
                         ])
                       : _vm._e()
                   ])
-                ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value:
+                          _vm.fields.retirement_status === "false" &&
+                          (_vm.fields.contact_update === "true" ||
+                            _vm.fields.rsvp === "false"),
+                        expression:
+                          "fields.retirement_status === 'false' && (fields.contact_update === 'true'|| fields.rsvp === 'false')"
+                      }
+                    ],
+                    attrs: { id: "preferred-select" }
+                  },
+                  [
+                    _c("p", [_vm._v("Which email would you prefer we use?")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fields.prefer_contact,
+                          expression: "fields.prefer_contact"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "prefer_contact",
+                        id: "prefer_contact_home",
+                        value: "home"
+                      },
+                      domProps: {
+                        checked: _vm._q(_vm.fields.prefer_contact, "home")
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.fields, "prefer_contact", "home")
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      { attrs: { type: "radio", for: "prefer_contact_home" } },
+                      [_vm._v("Home")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fields.prefer_contact,
+                          expression: "fields.prefer_contact"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        name: "prefer_contact",
+                        id: "prefer_contact_office",
+                        value: "office"
+                      },
+                      domProps: {
+                        checked: _vm._q(_vm.fields.prefer_contact, "office")
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(
+                            _vm.fields,
+                            "prefer_contact",
+                            "office"
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        attrs: { type: "radio", for: "prefer_contact_office" }
+                      },
+                      [_vm._v("Office")]
+                    ),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.prefer_contact
+                      ? _c("div", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            " " + _vm._s(_vm.errors.prefer_contact[0]) + " "
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                )
               ]
             )
           ])
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { type: "submit" },
-            on: { click: _vm.addArrays }
-          },
-          [_vm._v("\n        Submit\n    ")]
-        )
-      ])
+      _vm._m(8)
     ]
   )
 }
@@ -39745,9 +40038,18 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _vm._v(
-        "Government House has gender-neutral washroom facilities. Check the Venue Accessibility page for specific locations or contact "
+      _vm._v("Check the "),
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "https://longserviceawards.gww.gov.bc.ca/ceremony/%5d",
+            target: "_blank"
+          }
+        },
+        [_vm._v("Ceremony page")]
       ),
+      _vm._v(" for specific locations or contact "),
       _c("a", { attrs: { href: "mailto:LongServiceAwards@gov.bc.ca" } }, [
         _vm._v("LongServiceAwards@gov.bc.ca")
       ]),
@@ -39760,7 +40062,28 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", [
       _vm._v(
-        "If you'd like a preview of accessible facilities at Government House including ramps, elevators and washroom facilities, visit the Venue Accessibility page. If you have questions or wish to connect with a member of the Long Service Awards team directly, contact "
+        "If you'd like a preview of accessible facilities at Government House including ramps, elevators and washroom facilities, visit the "
+      ),
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "https://longserviceawards.gww.gov.bc.ca/ceremony/%5d",
+            target: "_blank"
+          }
+        },
+        [_vm._v("Ceremony page")]
+      ),
+      _vm._v(".")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v(
+        "If you have questions or wish to connect with a member of the Long Service Awards team directly, contact "
       ),
       _c("a", { attrs: { href: "mailto:LongServiceAwards@gov.bc.ca" } }, [
         _vm._v("LongServiceAwards@gov.bc.ca")
@@ -39790,7 +40113,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _c("strong", [_vm._v("Do you have dietary requirements? ")])
+      _c("strong", [
+        _vm._v(
+          "Do you have dietary requirements or allergies we should be made aware of? "
+        )
+      ])
     ])
   },
   function() {
@@ -39798,15 +40125,41 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", [
-      _c("strong", [_vm._v("Does your guest have dietary requirements?")])
+      _c("strong", [
+        _vm._v(
+          "Does your guest have dietary requirements or allergies we should be made aware of?"
+        )
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("strong", [_vm._v(" Where would you like your gift sent?")])
+    return _c("div", { attrs: { id: "contact-details-preamble" } }, [
+      _c("p", [
+        _vm._v(
+          "Please confirm your office address so we can ensure you receive your Long Service Award."
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Employees in Victoria should provide their office's physical address."
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("\n            Submit\n        ")]
+      )
     ])
   }
 ]
