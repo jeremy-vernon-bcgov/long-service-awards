@@ -108,7 +108,7 @@
             ------------------------------------------>
         <div v-show="fields.rsvp === true">
             <h3>Dietary Requirements</h3>
-            <p>To ensure we have menu options that will accomodate your dietary restrictions and allergies, please indicate your requirements.</p>
+            <p>To ensure we have menu options that will accommodate your dietary restrictions and allergies, please indicate your requirements.</p>
         </div>
         <div class="form-group">
             <!--

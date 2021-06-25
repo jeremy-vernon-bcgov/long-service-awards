@@ -111,7 +111,7 @@ class AttendeeController extends Controller
             // Recip diet considerations.
             'recipient_diet.required_if' => 'Please indicate if you require dietary considerations.',
             // Recip diet choices.
-            'recip_diet_checkbox.required_if' => 'Please choose at least one on dietary requirement.',
+            'recip_diet_checkbox.required_if' => 'Please choose at least one dietary requirement.',
             'recip_diet_other.required_with' => 'Please fill out the box above to let us know what diet considerations you have.',
 
             //** GUEST **/
