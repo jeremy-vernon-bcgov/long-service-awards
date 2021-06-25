@@ -37,6 +37,8 @@
 <p>Doors open at 5:45pm.</p>
 <p>Dress: Business casual</p>
 <br />
+<h3>Printable invitation:</h3>
+<p>Print a <a href=" {{ route('generate-pdf', '30')  }} ">keepsake invitation</a></p>
 <br />
 <strong><a href="{{ $data['attendee_id'] }}">RSVP Here</a></strong>
 </body>
