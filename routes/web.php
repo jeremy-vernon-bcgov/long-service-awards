@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CeremonyController;
 use App\Http\Controllers\RecipientController;
@@ -36,6 +37,15 @@ Route::get('/award/totals', [AwardSelectionController::class, 'index']);
 Route::get('/rsvp/{rid}', [AttendeeController::class, 'rsvpBuild'])->where('id', '[0-9]+');
 Route::post('/rsvp', [AttendeeController::class, 'collectRsvp']);
 
+/**
+ * PDF routing
+ */
+Route::get('/generate-pdf/{rid}', [PDFController::class, 'generatePDF'])->name('generate-pdf');
+
+
+/**
+ * Dashboard
+ */
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

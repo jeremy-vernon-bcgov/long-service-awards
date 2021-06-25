@@ -35,6 +35,8 @@
                 <p>Doors open at 5:45pm.</p>
                 <p>Dress: Business casual</p>
             </div>
+            <a href=" {{ route('generate-pdf', '30')  }} ">Generate PDF invite</a>
+
         </div>
         {{-----------------------
           Form start - RSVP component

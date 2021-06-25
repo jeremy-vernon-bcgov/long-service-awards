@@ -178,10 +178,14 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         /*
-         * Form Provicers
+         * Form Providers
          */
         Collective\Html\HtmlServiceProvider::class,
 
+        /*
+         * PDF provider
+         */
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -235,6 +239,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacde::class,
         'Html' => Collective\Html\HtmlFacde::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 
