@@ -38,9 +38,10 @@
 <p>Dress: Business casual</p>
 <br />
 <h3>Printable invitation:</h3>
-<p>Print a <a href=" {{ route('generate-pdf', '30')  }} ">keepsake invitation</a></p>
+<p>Print a <a href=" {{ route('generate-pdf', $data['id'] )  }} ">keepsake invitation</a></p>
 <br />
-<strong><a href="{{ $data['attendee_id'] }}">RSVP Here</a></strong>
+<br />
+<h3><a href="{{ $data['attendee_id'] }}"><button>RSVP Here</button></a></h3>
 </body>
 
 </html>

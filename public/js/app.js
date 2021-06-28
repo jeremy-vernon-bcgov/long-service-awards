@@ -2211,6 +2211,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     inArray: function inArray(needle, haystack) {
+      console.log(haystack);
       var length = haystack.length;
 
       for (var i = 0; i < length; i++) {
@@ -38648,7 +38649,7 @@ var render = function() {
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "To ensure we have menu options that will accomodate your dietary restrictions and allergies, please indicate your requirements."
+              "To ensure we have menu options that will accommodate your dietary restrictions and allergies, please indicate your requirements."
             )
           ])
         ]
@@ -38863,11 +38864,11 @@ var render = function() {
                         name: "show",
                         rawName: "v-show",
                         value: _vm.inArray(
-                          "Other",
+                          "Other, please specify",
                           _vm.fields.recip_diet_checkbox
                         ),
                         expression:
-                          "inArray('Other', fields.recip_diet_checkbox)"
+                          "inArray('Other, please specify', fields.recip_diet_checkbox)"
                       }
                     ],
                     staticClass: "other"
@@ -39110,11 +39111,11 @@ var render = function() {
                         name: "show",
                         rawName: "v-show",
                         value: _vm.inArray(
-                          "Other",
+                          "Other, please specify",
                           _vm.fields.guest_diet_checkbox
                         ),
                         expression:
-                          "inArray('Other', fields.guest_diet_checkbox)"
+                          "inArray('Other, please specify', fields.guest_diet_checkbox)"
                       }
                     ],
                     staticClass: "other"

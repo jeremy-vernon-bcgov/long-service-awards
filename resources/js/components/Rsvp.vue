@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     <!-- recipient dietary restrictions other textblock -->
-                    <div class="other" v-show="inArray('Other', fields.recip_diet_checkbox)">
+                    <div class="other" v-show="inArray('Other, please specify', fields.recip_diet_checkbox)">
                         <textarea class="form-control" cols="100" rows="6" name="recip_diet_other" id="recip_diet_other" v-model="fields.recip_diet_other"></textarea>
                         <label class="block font-medium text-sm text-gray-700" for="recip_diet_other">Please specify (255 characters max)</label>
                         <div v-if="errors && errors.recip_diet_other" class="text-danger">{{ errors.recip_diet_other[0] }}</div>
@@ -172,7 +172,7 @@
                     </div>
 
                     <!-- Guest dietary other textbox -->
-                    <div class="other" v-show="inArray('Other', fields.guest_diet_checkbox)" >
+                    <div class="other" v-show="inArray('Other, please specify', fields.guest_diet_checkbox)" >
                         <textarea class="form-control" name="guest_diet_other" id="guest_diet_other" cols="100" rows="6" v-model="fields.guest_diet_other" > </textarea>
                         <label class="block font-medium text-sm text-gray-700" for="recip_diet_other">Please specify (255 characters max)</label>
                         <div v-if="errors && errors.guest_diet_other" class="text-danger">{{ errors.guest_diet_other[0] }}</div>
@@ -330,6 +330,7 @@
         },
         methods: {
             inArray: function (needle, haystack) {
+                console.log(haystack);
                 let length = haystack.length;
                 for(let i=0; i < length; i++) {
                     if(haystack[i] === needle) {

@@ -75,6 +75,7 @@ trait CeremonyInviteOperation
             $rsvp_recipient = [
                 "name" => $recipient->first_name . ' ' . $recipient->last_name,
                 "email" => $email,
+                "id" => $attendee->id,
                 "ceremony" => new DateTime($ceremony->scheduled_datetime),
                 "subject" => $custom_subject,
                 "attendee_id" => URL::to('/') . "/rsvp/" . $attendee->id,

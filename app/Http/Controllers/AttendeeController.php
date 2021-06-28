@@ -8,6 +8,7 @@ use App\Models\Community;
 use App\Models\DietaryRestriction;
 use App\Models\DietaryRestrictionAttendee;
 use App\Models\Guest;
+use App\Models\Organization;
 use App\Models\Recipient;
 use DateTime;
 use Illuminate\Http\Request;
@@ -61,6 +62,7 @@ class AttendeeController extends Controller
          * Validation.
          */
         // Set up rules.
+        debug($request);
         $rules = [
             // Required fields
             'rsvp' => 'required',
@@ -75,10 +77,10 @@ class AttendeeController extends Controller
             'guest_diet' => 'required_if:guest,true',
 
             // If they note "other" they must give specifics.
-            'recip_access_other' =>'required_with:recip_access_checkbox,Other|max:255',
-            'guest_access_other' => 'required_with:guest_access_checkbox,Other|max:255',
-            'recip_diet_other' => 'required_with:recip_diet_checkbox,Other|max:255',
-            'guest_diet_other' => 'required_with:guest_diet_checkbox,Other|max:255',
+            'recip_access_other' =>'required_in:recip_access_checkbox,Other|max:255',
+            'guest_access_other' => 'required_in:guest_access_checkbox,Other|max:255',
+            'recip_diet_other' => 'required_in:recip_diet_checkbox,Other|max:255',
+            'guest_diet_other' => 'required_in:guest_diet_checkbox,Other|max:255',
             // If they note they have accessibility/diet requirements, they must choose at least one.
             'recip_access_checkbox' => 'required_if:access_group_recip,true',
             'guest_access_checkbox' => 'required_if:guest_access,true',
@@ -106,13 +108,13 @@ class AttendeeController extends Controller
             // Recip access considerations.
             'access_group_recip.required_if' => 'Please indicate if you require accessibility considerations.',
             // Recipient choices.
-            'recip_access_other.required_with' => 'Please fill out the box above to let us know what accessibility considerations you have.',
+            'recip_access_other.required_in' => 'Please fill out the box above to let us know what accessibility considerations you have.',
             'recip_access_checkbox.required_if' => 'Please choose at least one accessibility consideration.',
             // Recip diet considerations.
             'recipient_diet.required_if' => 'Please indicate if you require dietary considerations.',
             // Recip diet choices.
             'recip_diet_checkbox.required_if' => 'Please choose at least one dietary requirement.',
-            'recip_diet_other.required_with' => 'Please fill out the box above to let us know what diet considerations you have.',
+            'recip_diet_other.required_in' => 'Please fill out the box above to let us know what diet considerations you have.',
 
             //** GUEST **/
             // Guest considerations.
@@ -121,12 +123,12 @@ class AttendeeController extends Controller
             'guest_access.required_if' => 'Please indicate if your guest requires accessibility considerations.',
             // Guest access choices.
             'guest_access_checkbox.required_if' => 'Please choose at least one accessibility consideration.',
-            'guest_access_other.required_with' => 'Please fill out the box above to let us know what accessibility considerations you have.',
+            'guest_access_other.required_in' => 'Please fill out the box above to let us know what accessibility considerations you have.',
             // Guest diet.
             'guest_diet.required_if' => 'Please indicate if your guest requires dietary considerations.',
             // Guest diet choices.
             'guest_diet_checkbox.required_if' => 'Please choose at least one dietary consideration.',
-            'guest_diet_other.required_with' => 'Please fill out the box above to let us know what diet considerations you have.',
+            'guest_diet_other.required_in' => 'Please fill out the box above to let us know what diet considerations you have.',
 
             //** CONTACT RULES  **/
             // Gift location - RSVP must be false (radio)
@@ -193,7 +195,7 @@ class AttendeeController extends Controller
 
         // Update RSVP status
         $rsvp =  $request->rsvp;
-        if($rsvp) {
+        if( $rsvp === 'true') {
             $attendee->status = 'attending';
         } else {
             $attendee->status = 'declined';
@@ -219,6 +221,45 @@ class AttendeeController extends Controller
 
         // TODO: redirect to confirmation page.
         return $request->input();
+    }
+
+    /**
+     * Build a confirmation view blade after RSVP takes place.
+     *
+     * @param $id
+     */
+    public function confirmationRsvp($id) {
+        // Data array to pass to blade.
+        $data = [];
+        // Get attendee from URL
+        $attendee = Attendee::find($id);
+        $data = [
+            'status' => $attendee->status,
+        ];
+        // Get recipient record.
+        $recipient = Recipient::find($attendee->recipient_id);
+        debug($recipient);
+        // Gather other required fields
+        $community = Community::find($recipient->personal_address_community_id);
+        $ministry = Organization::find($recipient->organization_id);
+        $award = Award::find($recipient->award_id);
+
+
+        $data += [
+            'name' => $recipient->first_name . ' ' . $recipient->last_name,
+            'ministry' => $ministry->name,
+            'award' => $award->name,
+            'office_prefix' => $recipient->office_address_prefix,
+            'office_suite' => $recipient->office_suite,
+            'office_address' => $recipient->office_address_street_address,
+            'office_postal_code' => $recipient->office_address_postal_code,
+            'office_community' => $community->name,
+        ];
+
+        debug($data);
+        // Send data to confirmation page.
+        return view('rsvp.confirmation')->with('data', $data);
+
     }
 
     /**
