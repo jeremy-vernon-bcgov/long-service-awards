@@ -71,7 +71,7 @@ class Recipient extends Model
     }
     public function award()
     {
-        return $this->belongsTo(Award::class, 'award_id');
+        return $this->belongsTo(Award::class, 'award_id', 'id');
     }
     public function ceremony() {
         return $this->belongsTo(Ceremony::class, 'ceremony_id');

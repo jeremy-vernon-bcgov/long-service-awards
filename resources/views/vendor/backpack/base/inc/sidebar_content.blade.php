@@ -24,12 +24,11 @@
     <li><i class='nav-icon la la-question'></i><strong>Awards</strong></li>
     <li class="nav-item">
         <ul class="nav">
-            <li class='nav-item'><a class='nav-link' href='{{ backpack_url('award') }}'>List</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('recipient/award')}}">Selections</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url('/award/totals') }}">Totals</a></li>
-            <li class="nav-item"><a class="nav-link" href="">By Ceremony</a></li>
-            <li class="nav-item"><a class="nav-link" href="">By Milestone</a></li>
-            <li class="nav-item"><a class="nav-link" href="">25-Year Certificates</a></li>
-            <li class="nav-item"><a class="nav-link" href="">Watch Engraving</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/award/watches')}}">Watches</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/award/25certs')}}">25 Year Certs</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/award/pecsf-certs')}}">PECSF Certs</a></li>
         </ul>
     </li>
     <li><i class='nav-icon la la-question'></i><strong>Manage</strong></li>

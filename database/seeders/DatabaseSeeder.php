@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             VipCategorySeeder::class,
             CeremonySeeder::class,
 
-
             RecipientSeeder::class,
             RoleSeeder::class,
             UsersSeeder::class,

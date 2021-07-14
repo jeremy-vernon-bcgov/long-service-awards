@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Recipient;
+use App\Models\Award;
+use App\Models\Organization;
 
 class RecipientController extends Controller
 {
@@ -83,6 +85,29 @@ class RecipientController extends Controller
     {
         //
     }
+    public function awardList()
+    {
+        $data['recipients'] = Recipient::with('award', 'organization')->get();
+        $data['columns'][] = ['label' => 'First', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Org' ,  'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Award', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Edit', 'orderable' => 'false'];
+
+        return view('admin.recipients.recipientAwards', $data);
+    }
+
+    public function editAward($id)
+    {
+        return view('admin.recipients.editAward');
+    }
+
+
+    /**
+     * Display a list of names that do not conform to usual naming standards
+     *
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
 
     public function showFlaggedNames()
     {
@@ -125,6 +150,12 @@ class RecipientController extends Controller
 
 
     }
+
+    /**
+     * Displays a view of recipients sorted by organization.
+     *
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
 
     public function orgCheck()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Award;
 
 class AwardController extends Controller
 {
@@ -80,5 +81,11 @@ class AwardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function totals()
+    {
+        return view('admin.awards.totals');
     }
 }

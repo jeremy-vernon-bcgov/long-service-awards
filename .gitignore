@@ -18,3 +18,4 @@ yarn-error.log
 /database/seeders/RecipientSeeder.php
 /database/seeders/UsersSeeder.php
 /database/Seeders.zip
+/storage/debugbar

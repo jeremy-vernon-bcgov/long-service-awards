@@ -15,9 +15,7 @@ class Award extends Model
         return $this->hasMany(AwardOption::class);
     }
 
-    public function recipients()
-    {
-        return $this->hasManyThrough(Recipient::class, AwardSelection::class);
+    public function recipients () {
+        return $this->hasMany(Recipient::class);
     }
-
 }

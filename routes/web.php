@@ -43,6 +43,12 @@ Route::get('rsvp/confirmation/{rid}', [AttendeeController::class, 'confirmationR
  */
 Route::get('/generate-pdf/{rid}', [PDFController::class, 'generatePDF'])->name('generate-pdf');
 
+/**
+ * Award routing
+ */
+Route::get('/recipient/award', [RecipientController::class, 'awardList']);
+Route::get('/recipient/{rid}/award', [RecipientConttroller::class, 'editAward'])->where('rid', '[0-9]+');
+Route::get('/award/totals', [AwardController::class, 'totals']);
 
 /**
  * Dashboard
