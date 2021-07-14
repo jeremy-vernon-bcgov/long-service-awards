@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CeremonyController;
 use App\Http\Controllers\RecipientController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\AwardController;
 use App\Http\Controllers\AwardSelectionController;
 use App\Http\Controllers\AttendeeController;
 /*
@@ -47,8 +48,9 @@ Route::get('/generate-pdf/{rid}', [PDFController::class, 'generatePDF'])->name('
  * Award routing
  */
 Route::get('/recipient/award', [RecipientController::class, 'awardList']);
-Route::get('/recipient/{rid}/award', [RecipientConttroller::class, 'editAward'])->where('rid', '[0-9]+');
+Route::get('/recipient/{rid}/award', [RecipientController::class, 'editAward'])->where('rid', '[0-9]+');
 Route::get('/award/totals', [AwardController::class, 'totals']);
+Route::get('/award/25certs', [AwardController::class, 'twentyFiveCerts']);
 
 /**
  * Dashboard

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Award;
+use App\Models\Recipient;
 
 class AwardController extends Controller
 {
@@ -86,6 +87,22 @@ class AwardController extends Controller
 
     public function totals()
     {
-        return view('admin.awards.totals');
+        $data['columns'][] = ['label' => 'Award Type', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Total Recipients', 'orderable' => 'true'];
+        $data['awards'] = Award::withCount('recipients')->get();
+        return view('admin.awards.totals', $data);
+    }
+
+    public function twentyFiveCerts()
+    {
+        $data['columns'][] = ['label' => 'First', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Name on Cert.' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Org' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Ceremony' , 'orderable' => 'true'];
+
+        $data['recipients'] = Recipient::where('milestone', 25)->with('organization')->get();
+
+        return view('admin.awards.25-certs', $data);
     }
 }
