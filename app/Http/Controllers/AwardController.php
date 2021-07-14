@@ -105,4 +105,21 @@ class AwardController extends Controller
 
         return view('admin.awards.25-certs', $data);
     }
+
+    public function pecsfCerts()
+    {
+        $data['columns'][] = ['label' => 'First', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Name on Cert.' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Milestone', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Org' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Ceremony' , 'orderable' => 'true'];
+
+        $pecsf_award_IDs = [49, 50, 51,52, 53, 54];
+
+
+        $data['recipients'] = Recipient::where('award_id', $pecsf_award_IDs)->get();
+
+        return view('admin.awards.pecsf-certs', $data);
+    }
 }

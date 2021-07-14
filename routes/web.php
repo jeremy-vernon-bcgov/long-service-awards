@@ -51,6 +51,7 @@ Route::get('/recipient/award', [RecipientController::class, 'awardList']);
 Route::get('/recipient/{rid}/award', [RecipientController::class, 'editAward'])->where('rid', '[0-9]+');
 Route::get('/award/totals', [AwardController::class, 'totals']);
 Route::get('/award/25certs', [AwardController::class, 'twentyFiveCerts']);
+Route::get('/award/pecsf-certs', [AwardController::class, 'pecsfCerts']);
 
 /**
  * Dashboard
