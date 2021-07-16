@@ -9,13 +9,13 @@ class AwardSelection extends Model
 {
     use HasFactory;
 
-    public function award_option ()
+    public function awardOption ()
     {
         return $this->belongsTo(AwardOption::class);
     }
-    public function award ()
+    public function award()
     {
-        return $this->hasOneThrough(Award::class, AwardOption::class);
+        return $this->belongsTo(Award::class);
     }
     public function recipient()
     {

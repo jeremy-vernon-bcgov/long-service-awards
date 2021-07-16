@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Recipient;
 use App\Models\Award;
+use App\Models\AwardSelection;
 use App\Models\Organization;
 
 class RecipientController extends Controller
@@ -85,6 +86,12 @@ class RecipientController extends Controller
     {
         //
     }
+
+    private $pecsf_award_ids = ['49','50','51','52','53', '54'];
+    private $watch_award_ids = ['9'];
+    private $bracelet_award_ids = ['12','29', '48'];
+
+
     public function awardList()
     {
         $data['recipients'] = Recipient::with('award', 'organization')->get();
@@ -99,8 +106,157 @@ class RecipientController extends Controller
 
     public function editAward($id)
     {
-        return view('admin.recipients.editAward');
+
+        $data['awards'] = Award::all();
+        $data['recipient'] = Recipient::with('awardSelections')->find($id);
+
+        //Option values
+        if (in_array($data['recipient']->award_id, $this->pecsf_award_ids)) {
+            $data['certificate_name'] = AwardSelection::where('recipient_id', $data['recipient']->id)->first()->value;
+        }
+        if (in_array($data['recipient']->award_id, $this->watch_award_ids)) {
+            $data['watch_size']      = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 1)->first()->value;
+            $data['watch_colour']    = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 2)->first()->value;
+            $data['watch_strap']     = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 3)->first()->value;
+            $data['watch_engraving'] = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 4)->first()->value;
+        }
+        if (in_array($data['recipient']->award_id, $this->bracelet_award_ids)) {
+
+            $data['bracelet_size'] = AwardSelection::where('recipient_id', $id)->get()->first()->value;
+
+        }
+
+        return view('admin.recipients.editAward', $data);
     }
+
+    public function updateAward(Request $request, $id)
+    {
+        //remove old award selections
+        AwardSelection::where('recipient_id', $id)->delete();
+
+        if (in_array($request->award_id, $this->pecsf_award_ids)) {
+            $this->updatePecsfCertOptions($request, $id);
+        }
+        if (in_array($request->award_id, $this->watch_award_ids)) {
+            $this->updateWatchOptions($request, $id);
+        }
+        if (in_array($request->award_id, $this->bracelet_award_ids)) {
+            $this->updateBraceletOptions($request, $id);
+        }
+
+        $recipient = Recipient::find($id);
+        $recipient->award_id = $request->award_id;
+        $recipient->save();
+
+
+
+        return redirect()->action([RecipientController::class, 'awardList']);
+    }
+
+    private function updatePecsfCertOptions(Request $request, $recipient_id)
+    {
+
+
+        $certificateName = new AwardSelection;
+        $certificateName->recipient_id = $recipient_id;
+        $certificateName->award_id = $request->award_id;
+
+        switch ($request->award_id) {
+            case 49:
+                $certificateName->award_option_id = 5;
+                break;
+            case 50:
+                $certificateName->award_option_id = 6;
+                break;
+            case 51:
+                $certificateName->award_option_id = 7;
+                break;
+            case 52:
+                $certificateName->award_option_id = 8;
+                break;
+            case 53:
+                $certificateName->award_option_id = 9;
+                break;
+            case 54:
+                $certificateName->award_option_id = 10;
+                break;
+        }
+
+        $certificateName->value = $request->certificate_name;
+        $certificateName->save();
+
+
+    }
+    private function updateWatchOptions(Request $request, $recipient_id)
+    {
+
+
+        //Size
+        $watchSize = new AwardSelection;
+        $watchSize->recipient_id = $recipient_id;
+        $watchSize->award_id = $request->award_id;
+        $watchSize->award_option_id = 1;
+        $watchSize->value = $request->watch_size;
+
+        //watch colour
+        $watchColour = new AwardSelection;
+        $watchColour->recipient_id = $recipient_id;
+        $watchColour->award_id = $request->award_id;
+        $watchColour->award_option_id = 2;
+        $watchColour->value = $request->watch_colour;
+
+        //Strap
+        $watchStrap = new AwardSelection;
+        $watchStrap->recipient_id = $recipient_id;
+        $watchStrap->award_id = $request->award_id;
+        $watchStrap->award_option_id = 3;
+        $watchStrap->value = $request->watch_strap;
+
+        //engraving
+        $watchEngraving = new AwardSelection;
+        $watchEngraving->recipient_id = $recipient_id;
+        $watchEngraving->award_id = $request->award_id;
+        $watchEngraving->award_option_id = 4;
+        $watchEngraving->value = $request->watch_engraving;
+
+        $watchSize->save();
+        $watchColour->save();
+        $watchStrap->save();
+        $watchEngraving->save();
+
+
+    }
+    private function updateBraceletOptions(Request $request, $recipient_id)
+    {
+
+
+        $braceletSize = new AwardSelection;
+        $braceletSize->recipient_id = $recipient_id;
+        $braceletSize->award_id = $request->award_id;
+
+        $braceletSize->value = $request->bracelet_size;
+
+
+
+        switch($request->award_id) {
+            case 12:
+                $braceletSize->award_option_id = 11;
+                break;
+            case 29:
+                $braceletSize->award_option_id  = 29;
+                break;
+            case 48:
+                $braceletSize->award_option_id = 48;
+                break;
+        }
+
+        $braceletSize->save();
+
+
+
+
+    }
+
 
 
     /**

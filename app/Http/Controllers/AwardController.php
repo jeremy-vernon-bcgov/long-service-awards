@@ -117,9 +117,44 @@ class AwardController extends Controller
 
         $pecsf_award_IDs = [49, 50, 51,52, 53, 54];
 
-
         $data['recipients'] = Recipient::where('award_id', $pecsf_award_IDs)->get();
 
+        //TODO: calculate totals for certificate amounts.
+        //TODO: calculate total donation qty.
+
         return view('admin.awards.pecsf-certs', $data);
+    }
+
+    public function watches()
+    {
+        $data['columns'][] = ['label' => 'First', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Type', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Engraving' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Milestone', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Strap Size' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Ceremony' , 'orderable' => 'true'];
+
+        $watch_award_ids = [9];
+        $data['recipients'] = Recipient::where('award_id', $watch_award_ids)->get();
+
+        //TODO: calculate totals for each type of watch
+        //TODO: calculate totals for each configuration
+
+    }
+
+    public function bracelets()
+    {
+        $data['columns'][] = ['label' => 'First', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Type' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Size' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Milestone', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Org' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Ceremony' , 'orderable' => 'true'];
+
+        $bracelet_award_ids = [];
+        $data['recipients'] = Recipient::where('award_id', $bracelet_award_ids)->get();
+
     }
 }
