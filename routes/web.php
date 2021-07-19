@@ -25,7 +25,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/organization/recipienttotals', [OrganizationController::class, 'recipientTotals']);
     Route::get('/organization/summary', [OrganizationController::class, 'summary']);
     Route::get('/recipient/orgcheck', [RecipientController::class, 'orgCheck']);
-    Route::get('/award/totals', [AwardSelectionController::class, 'index']);
 
 
     Route::get('/ceremonies', [CeremonyController::class, 'index']);
@@ -38,6 +37,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/award/totals', [AwardController::class, 'totals']);
     Route::get('/award/25certs', [AwardController::class, 'twentyFiveCerts']);
     Route::get('/award/pecsf-certs', [AwardController::class, 'pecsfCerts']);
+    Route::get('/award/watches', [AwardController::class, 'watches']);
 
     /**
      * Dashboard

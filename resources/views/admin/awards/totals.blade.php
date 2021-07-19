@@ -4,6 +4,7 @@
     @foreach($awards as $award)
         <tr>
             <td>{{$award->name}}</td>
+            <td>{{$award->short_name}}</td>
             <td>{{$award->recipients_count}}</td>
         </tr>
     @endforeach

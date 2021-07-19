@@ -11,11 +11,11 @@ class AwardOption extends Model
 
     public function award ()
     {
-        return $this->belongsTo(Award::class);
+        return $this->belongsTo(Award::class, 'award_id');
     }
 
     public function selections()
     {
-        return $this->hasMany(AwardOption::class);
+        return $this->hasMany(AwardSelection::class);
     }
 }

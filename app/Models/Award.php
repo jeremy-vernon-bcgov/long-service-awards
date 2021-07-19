@@ -10,9 +10,9 @@ class Award extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
-    public function options()
+    public function awardOptions()
     {
-        return $this->hasMany(AwardOption::class);
+        return $this->hasMany(AwardOption::class, 'award_id', 'id');
     }
 
     public function recipients () {

@@ -53,7 +53,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="watch_strap">Watch Strapr</label>
+                                <label for="watch_strap">Watch Strap</label>
                                 <select class="form-control" id="watch_strap">
                                     <option disabled>Select a Watch Strap</option>
                                     <option @if (!empty($watch_strap) && $watch_strap == 'Plated') selected @endif>Plated</option>
