@@ -42,10 +42,8 @@ Route::middleware(['auth'])->group(function() {
     /**
      * Dashboard
      */
+    Route::redirect('/dashboard', '/admin/recipient');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
 });
 
 

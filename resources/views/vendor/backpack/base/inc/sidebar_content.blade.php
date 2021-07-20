@@ -6,7 +6,6 @@
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="{{backpack_url('recipient')}}">List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/organization/recipienttotals')}}">Totals By Organization</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{backpack_url('recipientceremony')}}">Totals By Ceremony</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/recipient/flaggednames')}}">Flagged Names</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/recipient/orgcheck')}}">Org/Branch Check</a></li>
         </ul>
@@ -15,10 +14,10 @@
     <li class="nav-item">
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="{{backpack_url('ceremony')}}">List</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvps')}}">RSVPs</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodationsummary')}}">Accommodations</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
+            <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
+            <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/accommodationsummary')}}">Accommodations</a></li>
+            <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
         </ul>
     </li>
     <li><i class='nav-icon la la-question'></i><strong>Awards</strong></li>
@@ -33,12 +32,12 @@
     </li>
     <li><i class='nav-icon la la-question'></i><strong>Manage</strong></li>
     <ul class="nav">
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user')}}">Organization Contacts</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('organization') }}'>Organizations</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('dietaryrestriction') }}'> Dietary Restrictions</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('accessibilityoption') }}'>Accessibility Options</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pecsfcharity') }}'>PECSF Charities</a></li>
-        <li class='nav-item'><a class='nav-link' href='{{ backpack_url('pecsfregion') }}'>PECSF Regions</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="{{ backpack_url('user')}}">Organization Contacts</a></li>
+        <li class='nav-item'><a disabled class='nav-link disabled' href='{{ backpack_url('organization') }}'>Organizations</a></li>
+        <li class='nav-item'><a disabled class='nav-link disabled' href='{{ backpack_url('dietaryrestriction') }}'> Dietary Restrictions</a></li>
+        <li class='nav-item'><a disabled class='nav-link disabled' href='{{ backpack_url('accessibilityoption') }}'>Accessibility Options</a></li>
+        <li class='nav-item'><a disabled class='nav-link disabled' href='{{ backpack_url('pecsfcharity') }}'>PECSF Charities</a></li>
+        <li class='nav-item'><a disabled class='nav-link disabled' href='{{ backpack_url('pecsfregion') }}'>PECSF Regions</a></li>
     </ul>
 
     <li class='nav-item'><a class='nav-link' href='{{ backpack_url('user') }}'><i class='nav-icon la la-question'></i> Users</a></li>
@@ -140,4 +139,3 @@
     </li>
 @endif
 
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('recipientceremony') }}'><i class='nav-icon la la-question'></i> RecipientCeremonies</a></li>

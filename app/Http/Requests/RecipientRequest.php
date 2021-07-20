@@ -43,7 +43,7 @@ class RecipientRequest extends FormRequest
 
             //Work Contact Information
             'government_email'          => 'required|email',
-            'government_phone_number'   => 'required|regex:^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$',
+            'government_phone_number'   => 'required',
             'branch_name'               => 'require|min:3|max:255',
             'office_prefix'             => 'max:255',
             'office_suite'              => 'max:255',
@@ -54,7 +54,7 @@ class RecipientRequest extends FormRequest
 
             //Personal Contact Information
             'personal_email'            => 'email',
-            'personal_phone_number'     => 'regex:^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$',
+            //'personal_phone_number'     => 'regex:^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$',
             'personal_prefix'           => 'max:255',
             'personal_suite'            => 'max:255',
             'personal_street_address'   => 'required|min:5|max:255',

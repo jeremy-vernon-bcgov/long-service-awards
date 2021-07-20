@@ -166,7 +166,9 @@ class AwardController extends Controller
         $data['columns'][] = ['label' => 'Engraving' , 'orderable' => 'true'];
 
 
-        $data['recipients'] = Recipient::where('award_id', $this->watch_award_IDs)->get();
+        $data['recipients'] = Recipient::where('award_id', $this->watch_award_IDs)->with('awardSelections')->get();
+
+
 
         return view('admin.awards.watch-order', $data);
 

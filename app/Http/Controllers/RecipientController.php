@@ -115,10 +115,25 @@ class RecipientController extends Controller
             $data['certificate_name'] = AwardSelection::where('recipient_id', $data['recipient']->id)->first()->value;
         }
         if (in_array($data['recipient']->award_id, $this->watch_award_ids)) {
-            $data['watch_size']      = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 1)->first()->value;
-            $data['watch_colour']    = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 2)->first()->value;
-            $data['watch_strap']     = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 3)->first()->value;
-            $data['watch_engraving'] = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 4)->first()->value;
+
+                if ($watchSize = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 1)->first()) :
+                    $data['watch_size']      = $watchSize->value;
+                endif;
+                if ($watchColour = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 2)->first()) :
+                    $data['watch_colour']    = $watchColour->value;
+                endif;
+
+                if ($watchStrap = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 3)->first()) :
+                    $data['watch_strap']     = $watchStrap->value;
+                endif;
+
+                if ($watchEngraving = AwardSelection::where('recipient_id', $data['recipient']->id)->where('award_option_id', 4)->first()) :
+                    $data['watch_engraving'] = $watchEngraving->value;
+                endif;
+
+
+
+
         }
         if (in_array($data['recipient']->award_id, $this->bracelet_award_ids)) {
 

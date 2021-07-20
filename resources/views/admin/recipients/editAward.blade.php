@@ -37,7 +37,7 @@
                     <div class="row">
                             <div class="form-group">
                                 <label for="watch_size">Watch Size</label>
-                                <select class="form-control" id="watch_size">
+                                <select class="form-control" id="watch_size" name="watch_size">
                                     <option disabled>Select a Size</option>
                                     <option @if (!empty($watch_size) && $watch_size == '38mm face with 20mm strap') selected @endif>38mm face with 20mm strap</option>
                                     <option @if (!empty($watch_size) && $watch_size == '29mm face with 14mm strap') selected @endif>29mm face with 14mm strap</option>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="watch_colour">Watch Colour</label>
-                                <select class="form-control" id="watch_colour">
+                                <select class="form-control" id="watch_colour" name="watch_colour">
                                     <option disabled>Select a Colour</option>
                                     <option @if (!empty($watch_colour) && $watch_colour == 'Gold') selected @endif>Gold</option>
                                     <option @if (!empty($watch_colour) && $watch_colour == 'Silver') selected @endif>Silver</option>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="watch_strap">Watch Strap</label>
-                                <select class="form-control" id="watch_strap">
+                                <select class="form-control" id="watch_strap" name="watch_strap">
                                     <option disabled>Select a Watch Strap</option>
                                     <option @if (!empty($watch_strap) && $watch_strap == 'Plated') selected @endif>Plated</option>
                                     <option @if (!empty($watch_strap) && $watch_strap == 'Black Leather') selected @endif>Black Leather</option>
@@ -64,13 +64,8 @@
                             <div class="form-group">
                                 <label for="watch_engraving">Watch Engraving</label>
                                 <input type="text" class="form-control" name="watch_engraving" id="watch_engraving"
-                                       value="
-                                            @if (!empty($watch_engraving))
-                                                {{$watch_engraving}}
-                                            @else
-                                                {{$recipient->first_name}} {{$recipient->last_name}}
-                                            @endif
-                                            ">
+                                       value="@if (!empty($watch_engraving)){{$watch_engraving}}
+                                            @else{{$recipient->first_name}} {{$recipient->last_name}}@endif">
                             </div>
                     </div>
                 </div>
