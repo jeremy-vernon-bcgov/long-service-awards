@@ -14,6 +14,34 @@
             </div>
         </div>
 
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <td>Size</td>
+                    <td>Colour</td>
+                    <td>Strap</td>
+                    <td>Qty</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($watchSizes as $watchSize)
+                    @foreach($watchColours as $watchColour)
+                        @foreach($watchStraps as $watchStrap)
+                            @if (!empty($watches[$watchSize][$watchColour][$watchStrap]) && (count($watches[$watchSize][$watchColour][$watchStrap])) > 0)
+                                <tr>
+                                    <td>{{$watchSize}}</td>
+                                    <td>{{$watchColour}}</td>
+                                    <td>{{$watchStrap ?? 'undefined'}}</td>
+                                    <td>{{count($watches[$watchSize][$watchColour][$watchStrap])}}</td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    @endforeach
+                @endforeach
+            </tbody>
+        </table>
+
+
         <table id="crudTable" class="bg-white table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2" cellspacing="0">
             <thead>
             <tr>

@@ -168,7 +168,35 @@ class AwardController extends Controller
 
         $data['recipients'] = Recipient::where('award_id', $this->watch_award_IDs)->with('awardSelections')->get();
 
+        //TODO: I hate this so much.
+        $watchSizes = ['38mm face with 20mm strap', '29mm face with 14mm strap'];
+        $watchColours = ['Gold', 'Silver', 'Two-Toned (Gold and Silver)'];
+        $watchStraps = ['Plated', 'Black','Brown'];
 
+
+
+        foreach ($watchSizes as $watchSize) {
+            foreach($watchColours as $watchColour) {
+                foreach ($watchStraps as $watchStrap) {
+                    foreach ($data['recipients'] as $recipient) {
+                        if (!empty($recipient->awardSelections()->where('award_option_id', 1)->first()) && $recipient->awardSelections()->where('award_option_id', 1)->first()->value == $watchSize) {
+                            if ($recipient->awardSelections()->where('award_option_id', 2)->first()->value == $watchColour) {
+                                if ($recipient->awardSelections()->where('award_option_id', 3)->first()->value == $watchStrap) {
+                                    $watches[$watchSize][$watchColour][$watchStrap][] = $recipient;
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+            }
+
+        }
+        $data['watchSizes'] = $watchSizes;
+        $data['watchColours'] = $watchColours;
+        $data['watchStraps'] = $watchStraps;
+        $data['watches'] = $watches;
 
         return view('admin.awards.watch-order', $data);
 
