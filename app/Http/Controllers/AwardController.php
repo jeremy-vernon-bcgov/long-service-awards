@@ -171,7 +171,7 @@ class AwardController extends Controller
         //TODO: I hate this so much.
         $watchSizes = ['38mm face with 20mm strap', '29mm face with 14mm strap'];
         $watchColours = ['Gold', 'Silver', 'Two-Toned (Gold and Silver)'];
-        $watchStraps = ['Plated', 'Black','Brown'];
+        $watchStraps = ['Plated', 'Black Leather', 'Brown Leather'];
 
 
 

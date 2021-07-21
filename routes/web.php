@@ -19,7 +19,7 @@ use App\Http\Controllers\AttendeeController;
 |
 */
 /** ADMIN ROUTES */
-Route::middleware(['auth'])->group(function() {
+Route::middleware('auth')->group(function() {
 
     Route::get('/recipient/flaggednames', [RecipientController::class, 'showFlaggedNames']);
     Route::get('/organization/recipienttotals', [OrganizationController::class, 'recipientTotals']);
