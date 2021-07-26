@@ -160,7 +160,7 @@ class RecipientCrudController extends CrudController
 
         CRUD::field('first_name')->type('text')->label('First Name')->tab('Milestone Info');
         CRUD::field('last_name')->type('text')->label('Last Name')->tab('Milestone Info');
-        CRUD::field('milestone')->type('select2_from_array')->options([25,30,35,40,45,50])->tab('Milestone Info');
+        CRUD::field('milestone')->type('select2_from_array')->options(['25' => 25, '30' => 30, '35' => 35, '40' => 40, '45' => 45,'50' => 50])->tab('Milestone Info');
         CRUD::field('award_id')->type('select')->attribute('short_name')->tab('Milestone Info');
         CRUD::field('retiring_this_year')->tab('Milestone Info');
         CRUD::field('retirement_date')->type('date')->tab('Milestone Info');

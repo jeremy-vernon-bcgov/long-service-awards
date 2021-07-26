@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Recipient;
+use App\Models\Ceremony;
+use App\Models\Attendee;
 
 class CeremonyController extends Controller
 {
@@ -83,6 +85,41 @@ class CeremonyController extends Controller
     {
         //
     }
+
+
+
+    public function assign()
+    {
+        $data['columns'][] = ['label' => 'First', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Org', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Milestone', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Ceremony', 'orderable' => 'true'];
+
+
+        $data['recipients'] = Recipient::all();
+        $data['ceremonies'] = Ceremony::all();
+
+        return view('admin.ceremonies.assignRecipients', $data);
+    }
+
+    public function assignUpdate(Request $request, $rid)
+    {
+        $recipient = Recipient::find($rid);
+        $recipient->ceremony_id = $request->ceremony_id;
+
+        $attendee = new Attendee;
+        $attendee->recipient_id = $rid;
+        $attendee->ceremony_id = $request->ceremony_id;
+        $attendee->type = 'recipient';
+        $attendee->status = 'assigned';
+
+        $recipient->save();
+        $attendee->save();
+
+        return redirect()->action([CeremonyController::class, 'assign']);
+    }
+
 
     public function allocationTable()
     {

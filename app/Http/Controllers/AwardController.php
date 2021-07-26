@@ -207,6 +207,25 @@ class AwardController extends Controller
 
     public function bracelets()
     {
+
+        $sizes['small'] = ['text' => 'Fits 6 ½″ - 7 ½″ circumference wrists', 'count' => 0];
+        $sizes['large'] = ['text' => 'Fits 7 ½″ - 8 ½″ circumference wrists', 'count' => 0];
+
+        $data['recipients'] = Recipient::where('award_id', $this->bracelet_award_IDs)->get();
+
+        foreach ($data['recipients'] as $recipient) {
+            foreach ($sizes as $sizeName => $size) {
+                if (!empty($recipient->awardSelections->first()->value)) {
+                    if ($recipient->awardSelections->first()->value == $size['text']) {
+                        $sizes[$sizeName]['count'] += 1;
+                    }
+                }
+            }
+        }
+
+        $data['sizes'] = $sizes;
+
+
         $data['columns'][] = ['label' => 'First', 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Type' , 'orderable' => 'true'];
@@ -216,7 +235,7 @@ class AwardController extends Controller
         $data['columns'][] = ['label' => 'Ceremony' , 'orderable' => 'true'];
 
 
-        $data['recipients'] = Recipient::where('award_id', $this->bracelet_award_ids)->get();
+        return view('admin.awards.bracelets', $data);
 
     }
 

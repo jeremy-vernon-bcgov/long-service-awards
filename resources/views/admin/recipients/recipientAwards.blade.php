@@ -10,5 +10,4 @@
             <td><a href="{{url("recipient/{$recipient->id}/award")}}">Edit Award Info</a></td>
         </tr>
     @endforeach
-
 @endsection

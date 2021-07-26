@@ -35,18 +35,18 @@ class RecipientCeremonyCrudController extends CrudController
         CRUD::setEntityNameStrings('recipientceremony', 'recipient_ceremonies');
         // Join in Ceremonies info, make sure to specifically selelct recipients.id or it will get overwritten.
         $this->crud->addClause('join','ceremonies', 'ceremonies.id', '=' , 'recipients.ceremony_id');
-        $this->crud->addClause('join', 'attendees', 'recipients.id', '=', 'attendees.recipient_id' );
-        $this->crud->addClause('select', 'recipients.id', 'recipients.ceremony_id', 'recipients.organization_id','recipients.first_name', 'recipients.last_name', 'recipients.government_email', 'ceremonies.scheduled_datetime', 'ceremonies.night_number', 'attendees.status');
+       // $this->crud->addClause('join', 'attendees', 'recipients.id', '=', 'attendees.recipient_id' );
+        $this->crud->addClause('select', 'recipients.id', 'recipients.ceremony_id', 'recipients.organization_id','recipients.first_name', 'recipients.last_name', 'recipients.government_email', 'ceremonies.scheduled_datetime');
         $this->crud->allowAccess('ceremonyInvite');
         $this->crud->allowAccess(['list', 'update']);
 
-        CRUD::column('night_number');
+
         CRUD::column('ceremony_id');
         CRUD::column('first_name');
         CRUD::column('last_name');
         CRUD::column('government_email');
         CRUD::column('organization_id');
-        CRUD::column('status');
+        //CRUD::column('status');
     }
 
     /**
@@ -159,7 +159,7 @@ class RecipientCeremonyCrudController extends CrudController
         $ceremonies = Ceremony::all();
         // Could use the toArray method above, but throws out a format we want.
         foreach($ceremonies as $ceremony){
-            $ceremony_array[$ceremony->id] = "night " . $ceremony->night_number . ": " . $ceremony->scheduled_datetime;
+            $ceremony_array[$ceremony->id] = $ceremony->scheduled_datetime;
         }
         return $ceremony_array;
     }

@@ -38,6 +38,14 @@ Route::middleware('auth')->group(function() {
     Route::get('/award/25certs', [AwardController::class, 'twentyFiveCerts']);
     Route::get('/award/pecsf-certs', [AwardController::class, 'pecsfCerts']);
     Route::get('/award/watches', [AwardController::class, 'watches']);
+    Route::get('/award/bracelets', [AwardController::class, 'bracelets']);
+
+
+    /**
+     * Ceremony Routing
+     */
+    Route::get('/ceremony/assign', [CeremonyController::class, 'assign']);
+    Route::post('/ceremony/assign/{rid}', [CeremonyController::class, 'assignUpdate']);
 
     /**
      * Dashboard
