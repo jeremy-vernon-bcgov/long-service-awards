@@ -23,9 +23,9 @@
             {{-- Customized opening --}}
             <div id="rsvp-custom">
                 <p> The Province of British Columbia is pleased to invite</p>
-                <p>{{$data->first_name . ' ' . $data->last_name }} </p>
+                <p>{{$recipient->first_name . ' ' . $recipient->last_name }} </p>
                 <p>to the Long Service Awards Ceremony on </p>
-                <p>{{ date_format($data->scheduled_datetime, 'l, F j') }} at {{ date_format($data->scheduled_datetime, 'g:i a') }} </p>
+                <p>{{ date_format($scheduled_datetime, 'l, F j') }} at {{ date_format($scheduled_datetime, 'g:i a') }} </p>
                 <p>at Government House</p>
                 <p>1401 Rockland Ave,</p>
                 <p>Victoria, British Columbia</p>
@@ -33,13 +33,13 @@
             <div id="rsvp-column">
                 <p>This invitation is for the intended recipient and one guest.</p>
                 <p>Doors open at 5:45pm.</p>
-                <p>Dress: Business casual</p>
+                <p>Dress: Business attire</p>
             </div>
         </div>
         {{-----------------------
           Form start - RSVP component
          ----------------------}}
-        <rsvp :userData='@json($data)'></rsvp>
+        <rsvp :userData='@json($jsonBundle)'></rsvp>
     </div>
 </div>
 @endsection

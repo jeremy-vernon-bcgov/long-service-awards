@@ -1,6 +1,6 @@
 <template>
         <!-- Main form -->
-    <form @submit.prevent="submit">
+    <form method="post" action="/rsvp">
         <!-- Initial section - only the following two will be available.
              RSVP - radio
              Guest - radio
@@ -32,8 +32,7 @@
         <div  v-show="fields.rsvp === 'true'">
             <h3>Inclusivity</h3>
             <p>The Long Service Awards ceremonies are welcoming and accessible events.</p>
-            <p>Government House has gender-neutral washroom facilities. </p>
-            <p>Check the <a href="https://longserviceawards.gww.gov.bc.ca/ceremony/%5d" target="_blank">Ceremony page</a> for specific locations or contact <a href="mailto:LongServiceAwards@gov.bc.ca">LongServiceAwards@gov.bc.ca</a> with questions.</p>
+            <p>Contact <a href="mailto:LongServiceAwards@gov.bc.ca" target="_blank">LongServiceAwards@gov.bc.ca</a> with questions.</p>
         </div>
         <!--
             Recipient Accessibility section.
@@ -107,8 +106,7 @@
             Dietary section
             ------------------------------------------>
         <div v-show="fields.rsvp === true">
-            <h3>Dietary Requirements</h3>
-            <p>To ensure we have menu options that will accommodate your dietary restrictions and allergies, please indicate your requirements.</p>
+
         </div>
         <div class="form-group">
             <!--
@@ -218,28 +216,28 @@
                     <div>
                         <!-- optional -->
                         <label class="block font-medium text-sm text-gray-700" for="gift_location_floor"> Floor/room/care of: </label>
-                        <input type="text" name="gift_location_floor" id="gift_location_floor" v-model="fields.gift_location_floor" />
+                        <input type="text" name="office_address_prefix" id="gift_location_floor" v-model="fields.gift_location_floor" />
                     </div>
                     <div>
                         <label class="block font-medium text-sm text-gray-700" for="gift_location_suit"> suite  </label>
-                        <input type="text" name="gift_location_suit" id="gift_location_suit" v-model="fields.gift_location_suit" />
+                        <input type="text" name="office_address_suite" id="gift_location_suit" v-model="fields.gift_location_suit" />
                         <div v-if="errors && errors.gift_location_suit" class="text-danger"> {{ errors.gift_location_suit[0] }} </div>
                     </div>
                     <div>
                         <label class="block font-medium text-sm text-gray-700" for="gift_location_addr"> address: </label>
-                        <input type="text" name="gift_location_addr" id="gift_location_addr" v-model="fields.gift_location_addr" />
+                        <input type="text" name="office_address_street_address" id="gift_location_addr" v-model="fields.gift_location_addr" />
                         <div v-if="errors && errors.gift_location_addr" class="text-danger"> {{ errors.gift_location_addr[0] }} </div>
 
                     </div>
                     <div>
                         <label class="block font-medium text-sm text-grey-700" for="community" > office community </label>
-                        <select name="gift_location_community" id="community" v-model="fields.gift_location_community" >
+                        <select name="office_address_community_id" id="community" v-model="fields.gift_location_community" >
                             <option v-for="communities in $attrs.userdata.communities" :value="communities.id">{{ communities.name }}</option>
                         </select>
                     </div>
                     <div>
                         <label class="block font-medium text-sm text-gray-700" for="gift_location_postal"> postal code: </label>
-                        <input type="text" name="gift_location_postal" id="gift_location_postal" v-model="fields.gift_location_postal" />
+                        <input type="text" name="office_address_postal_code" id="gift_location_postal" v-model="fields.gift_location_postal" />
                         <div v-if="errors && errors.gift_location_postal" class="text-danger"> {{ errors.gift_location_postal[0] }} </div>
                     </div>
                 </div>
@@ -305,6 +303,7 @@
             Submit button.
             ------------------------->
         <div class="form-group">
+            <input type="hidden" name="_token" id="_token" :value="$attrs.userdata.csrftoken">
             <button type="submit" class="btn btn-primary" >
                 Submit
             </button>
@@ -324,6 +323,7 @@
                     recip_diet_checkbox: [],
                     guest_diet_checkbox: [],
                     prefer_contact: 'office',
+
                 },
                 errors: {},
             }
@@ -347,13 +347,18 @@
             },
             submit: function () {
                 this.errors = {};
+
+                this.
+
+                /*
                 axios.post('/rsvp', this.fields).then(response => {
-                    alert('Message sent!');
+                    console.log('Data Submitted');
                 }).catch(error => {
                     if (error.response.status === 422) {
                         this.errors = error.response.data.errors || {};
                     }
                 });
+                 */
             },
         },
     }

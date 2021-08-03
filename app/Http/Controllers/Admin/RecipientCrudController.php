@@ -166,8 +166,8 @@ class RecipientCrudController extends CrudController
         CRUD::field('retirement_date')->type('date')->tab('Milestone Info');
         CRUD::field('registered_in_2019')->tab('Milestone Info');
         CRUD::field('award_received')->tab('Milestone Info');
-        CRUD::field('milestone_20_certificate_name')->tab('Milestone Info');
-        CRUD::field('milestone_20_certificate_ordered')->tab('Milestone Info');
+        CRUD::field('certificate_name')->label('Certificate Name')->tab('Milestone Info');
+        CRUD::field('milestone_certificate_ordered')->tab('Milestone Info');
         CRUD::field('is_retroactive')->tab('Milestone Info');
         CRUD::field('survey_participation')->tab('Milestone Info');
 
@@ -246,8 +246,8 @@ class RecipientCrudController extends CrudController
         CRUD::field('retirement_date')->type('date')->tab('Milestone Info');
         CRUD::field('registered_in_2019')->tab('Milestone Info');
         CRUD::field('award_received')->tab('Milestone Info');
-        CRUD::field('milestone_20_certificate_name')->tab('Milestone Info');
-        CRUD::field('milestone_20_certificate_ordered')->tab('Milestone Info');
+        CRUD::field('certificate_name')->tab('Milestone Info');
+        CRUD::field('milestone_certificate_ordered')->tab('Milestone Info');
         CRUD::field('is_retroactive')->tab('Milestone Info');
         CRUD::field('survey_participation')->tab('Milestone Info');
 

@@ -66,8 +66,9 @@ Route::get('/', function () {
 
 
 //RSVP form routing.
-Route::get('/rsvp/{rid}', [AttendeeController::class, 'rsvpBuild'])->where('id', '[0-9]+');
 Route::post('/rsvp', [AttendeeController::class, 'collectRsvp']);
+Route::get('/rsvp/{rid}', [AttendeeController::class, 'rsvpBuild'])->where('id', '[0-9]+');
+
 Route::get('rsvp/confirmation/{rid}', [AttendeeController::class, 'confirmationRsvp'])->where('rid', '[0-9]+');
 
 //PDF routing

@@ -52,6 +52,9 @@ class Recipient extends Model
     public function supervisorCommunity() {
         return $this->belongsTo(Community::class, 'supervisor_address_community_id');
     }
+    public function attendee() {
+        return $this->hasOne(Attendee::class);
+    }
 
     public function accessibilityOptions ()
     {

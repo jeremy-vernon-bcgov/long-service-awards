@@ -164,6 +164,7 @@ class AwardController extends Controller
         $data['columns'][] = ['label' => 'Colour', 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Strap' , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Engraving' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Edit' , 'orderable' => 'false'];
 
 
         $data['recipients'] = Recipient::where('award_id', $this->watch_award_IDs)->with('awardSelections')->get();
@@ -196,7 +197,9 @@ class AwardController extends Controller
         $data['watchSizes'] = $watchSizes;
         $data['watchColours'] = $watchColours;
         $data['watchStraps'] = $watchStraps;
-        $data['watches'] = $watches;
+        if (!empty($watches)) {
+            $data['watches'] = $watches;
+        }
 
         return view('admin.awards.watch-order', $data);
 

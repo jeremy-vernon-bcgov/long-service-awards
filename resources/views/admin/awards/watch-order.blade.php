@@ -70,7 +70,8 @@
                             <td></td>
                             <td></td>
                         @endif
-                        <td></td>
+                        <td><a href="{{url("recipient/{$recipient->id}/award")}}">Edit Award</a></td>
+
                     </tr>
 
                 @endforeach

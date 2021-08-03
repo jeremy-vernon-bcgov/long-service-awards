@@ -16,7 +16,7 @@ class CreateCeremoniesTable extends Migration
         Schema::create('ceremonies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('night_number');
+
             $table->dateTime('scheduled_datetime');
         });
     }

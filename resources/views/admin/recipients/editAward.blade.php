@@ -38,7 +38,7 @@
                             <div class="form-group">
                                 <label for="watch_size">Watch Size</label>
                                 <select class="form-control" id="watch_size" name="watch_size">
-                                    <option disabled>Select a Size</option>
+                                    <option disabled selected>Select a Size</option>
                                     <option @if (!empty($watch_size) && $watch_size == '38mm face with 20mm strap') selected @endif>38mm face with 20mm strap</option>
                                     <option @if (!empty($watch_size) && $watch_size == '29mm face with 14mm strap') selected @endif>29mm face with 14mm strap</option>
                                 </select>
@@ -46,7 +46,7 @@
                             <div class="form-group">
                                 <label for="watch_colour">Watch Colour</label>
                                 <select class="form-control" id="watch_colour" name="watch_colour">
-                                    <option disabled>Select a Colour</option>
+                                    <option disabled selected>Select a Colour</option>
                                     <option @if (!empty($watch_colour) && $watch_colour == 'Gold') selected @endif>Gold</option>
                                     <option @if (!empty($watch_colour) && $watch_colour == 'Silver') selected @endif>Silver</option>
                                     <option @if (!empty($watch_colour) && $watch_colour == 'Two-Toned (Gold and Silver)') selected @endif>Two-Toned (Gold and Silver)</option>
@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label for="watch_strap">Watch Strap</label>
                                 <select class="form-control" id="watch_strap" name="watch_strap">
-                                    <option disabled>Select a Watch Strap</option>
+                                    <option disabled selected>Select a Watch Strap</option>
                                     <option @if (!empty($watch_strap) && $watch_strap == 'Plated') selected @endif>Plated</option>
                                     <option @if (!empty($watch_strap) && $watch_strap == 'Black Leather') selected @endif>Black Leather</option>
                                     <option @if (!empty($watch_strap) && $watch_strap == 'Brown Leader') selected @endif>Brown Leather</option>
@@ -75,7 +75,7 @@
                             <div class="form-group">
                                 <label for="bracelet_size">Bracelet Size</label>
                                 <select class="form-control" name="bracelet_size" id="bracelet_size">
-                                    <option disabled>Select a Bracelet Size</option>
+                                    <option disabled selected>Select a Bracelet Size</option>
                                     <option @if (!empty($bracelet_size) && $bracelet_size == 'Fits 6 ½″ - 7 ½″ circumference wrists') selected @endif >Fits 6 ½″ - 7 ½″ circumference wrists</option>
                                     <option @if (!empty($bracelet_size) && $bracelet_size == 'Fits 7 ½″ - 8 ½″ circumference wrists') selected @endif >Fits 7 ½″ - 8 ½″ circumference wrists</option>
                                 </select>

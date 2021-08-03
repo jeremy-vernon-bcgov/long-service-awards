@@ -69,7 +69,7 @@ class AwardSeeder extends Seeder
                                                 'sort_order' => 5,
                                                 'quantity' => -1]);
         DB::table('awards')->insert(['id'=> 12,'name' => 'Sterling silver bracelet',
-                                                'short_name' => '35-bacelet' ,
+                                                'short_name' => '35-bracelet' ,
                                                 'image_path' => '35/35-bracelet.png',
                                                 'sort_order' => 5,
                                                 'quantity' => -1]);

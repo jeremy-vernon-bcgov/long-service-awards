@@ -10,9 +10,7 @@ class Attendee extends Model
 {
     use HasFactory;
 
-    public function type () {
 
-    }
     public function recipient() {
         return $this->belongsTo(Recipient::class);
     }
@@ -22,14 +20,14 @@ class Attendee extends Model
     public function guest() {
         return $this->belongsTo(Guest::class, );
     }
-    public function ceremonies() {
+    public function ceremony() {
         return $this->belongsTo(Ceremony::class);
     }
     public function dietaryRestrictions() {
-        return $this->hasMany(DietaryRestriction::class);
+        return $this->belongsToMany(DietaryRestriction::class);
     }
     public function accessibilityOptions() {
-        return $this->hasMany(AccessibilityOption::class);
+        return $this->belongsToMany(AccessibilityOption::class);
     }
 
 

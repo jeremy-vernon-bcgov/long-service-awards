@@ -136,9 +136,10 @@ class RecipientController extends Controller
 
         }
         if (in_array($data['recipient']->award_id, $this->bracelet_award_ids)) {
-
-            $data['bracelet_size'] = AwardSelection::where('recipient_id', $id)->get()->first()->value;
-
+            if (!empty(AwardSelection::where('recipient_id', $id)->get()->first()->value))
+            {
+                $data['bracelet_size'] = AwardSelection::where('recipient_id', $id)->get()->first()->value;
+            }
         }
 
         return view('admin.recipients.editAward', $data);

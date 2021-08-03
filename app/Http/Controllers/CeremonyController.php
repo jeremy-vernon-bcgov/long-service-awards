@@ -97,7 +97,8 @@ class CeremonyController extends Controller
         $data['columns'][] = ['label' => 'Ceremony', 'orderable' => 'true'];
 
 
-        $data['recipients'] = Recipient::all();
+        $data['assigned_recipients'] = Recipient::has('ceremony')->orderBy('updated_at')->get();
+        $data['unassigned_recipients'] = Recipient::doesntHave('ceremony')->orderBy('updated_at')->get();
         $data['ceremonies'] = Ceremony::all();
 
         return view('admin.ceremonies.assignRecipients', $data);
@@ -105,10 +106,18 @@ class CeremonyController extends Controller
 
     public function assignUpdate(Request $request, $rid)
     {
+
+
         $recipient = Recipient::find($rid);
         $recipient->ceremony_id = $request->ceremony_id;
 
-        $attendee = new Attendee;
+        //We only want one attendee record per recipient.
+        if (!empty($recipient->attendee)) {
+            $attendee = $recipient->attendee;
+        } else {
+            $attendee = new Attendee;
+        }
+
         $attendee->recipient_id = $rid;
         $attendee->ceremony_id = $request->ceremony_id;
         $attendee->type = 'recipient';

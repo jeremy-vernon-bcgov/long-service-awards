@@ -13,7 +13,7 @@ class CreateAccessibilityOptionAttendeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('accessibility_option_attendees', function (Blueprint $table) {
+        Schema::create('accessibility_option_attendee', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('accessibility_option_id');

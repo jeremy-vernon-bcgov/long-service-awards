@@ -14,6 +14,7 @@
     <li class="nav-item">
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="{{backpack_url('ceremony')}}">List</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/accommodationsummary')}}">Accommodations</a></li>
@@ -62,6 +63,7 @@
 <li class="nav-item">
     <ul class="nav">
         <li class="nav-item"><a class="nav-link" href="{{backpack_url('ceremony')}}">List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
         <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvps')}}">RSVPs</a></li>
         <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
         <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodationsummary')}}">Accommodations</a></li>
@@ -107,6 +109,7 @@
     <li class="nav-item">
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="{{backpack_url('ceremony')}}">List</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/accommodationsummary')}}">Accommodations</a></li>

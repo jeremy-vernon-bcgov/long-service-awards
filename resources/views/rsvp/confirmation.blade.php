@@ -1,32 +1,29 @@
-{{--
-    Data: Array of values we need for the confirmation page.
-        - office_prefix (if available)
-        - office_suite (if available)
-        - office_address
-        - office_postal_code
-        - office_community
---}}
-@extends('layouts.admin')
-
-@section('content')
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Long Service Awards - RSVP</title>
+</head>
+<body>
 
 <div class="confirmation-bundle">
     {{-- User declined. --}}
-    @if($data['status'] === 'declined')
+    @if($recipient->attendee->status === 'declined')
         <div class="confirmation-message">
             <p>Following the ceremonies in October, your award will be mailed to: </p>
         </div>
         <div class="confirmation-address">
             <p>
-                @if($data['office_prefix'])
-                    {{ $data['office_prefix'] }},
-                @endif
-                @if($data['office_suite'])
-                    {{ $data['office_suite'] }},
-                @endif
-                    {{ $data['office_address'] }},
-                    {{ $data['office_postal_code'] }},
-                    {{ $data['office_community'] }},
+                {{$recipient->office_prefix ?? ''}}
+                {{$recipient->office_suite ?? ''}}
+                {{$recipient->office_address ?? ''}}
+                {{$recipient->office_posta_code ?? ''}}
+                {{$recipient->officeCommunity->name ?? ''}}
             </p>
             <div class="confirmation-message">
                 <p>Your Long Service Awards contact will arrange for it to be presented to you.</p>
@@ -61,4 +58,10 @@
     {{-- User accepted. --}}
 
 </div>
-@endsection
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

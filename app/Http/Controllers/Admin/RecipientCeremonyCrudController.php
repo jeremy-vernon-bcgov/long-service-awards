@@ -65,8 +65,9 @@ class RecipientCeremonyCrudController extends CrudController
 
         // Don't want to create records here.
         $this->crud->removeButton('create');
+
         // Don't need these buttons.
-        $this->crud->removeButtons(['delete', 'show']);
+        $this->crud->removeButtons(['delete', 'show', 'update']);
         // Allow export.
         $this->crud->enableExportButtons();
 

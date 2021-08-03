@@ -12,7 +12,7 @@ class DietaryRestriction extends Model
 
     public function attendees()
     {
-        return $this->hasMany(Attendee::class);
+        return $this->belongsToMany(Attendee::class);
     }
 
 

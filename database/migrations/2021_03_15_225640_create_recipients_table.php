@@ -76,8 +76,8 @@ class CreateRecipientsTable extends Migration
             //All should have defeaults or permit null values.
             $table->boolean('registered_in_2019')->default(false);
             $table->boolean('award_received')->default(false);
-            $table->string('milestone_20_certificate_name')->nullable();
-            $table->boolean('milestone_20_certificate_ordered')->nullable();
+            $table->string('certificate_name')->nullable();
+            $table->boolean('milestone_certificate_ordered')->nullable();
             $table->boolean('is_retroactive')->default(false);
 
             $table->foreignId('ceremony_id')->nullable()->references('id')->on('ceremonies');
