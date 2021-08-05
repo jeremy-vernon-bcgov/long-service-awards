@@ -36,6 +36,6 @@ class RsvpInvitation extends Mailable
     {
 
         return $this->subject($this->rsvp_recipient['subject'])
-                    ->view('emails.rsvp-invitation',["data"=>$this->rsvp_recipient]);
+                    ->view('emails.rsvp-invitation-outlook',["data"=>$this->rsvp_recipient]);
     }
 }

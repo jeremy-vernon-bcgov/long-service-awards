@@ -75,7 +75,7 @@ class AttendeeController extends Controller
                     $this->updateAccessibilityRecords('guest_', $guest_attendee, $request->guest_access_checkbox);
                 }
             endif;
-
+            $recipient->attendee->status = 'attending';
         else: //RECIPIENT DECLINED
             $recipient->attendee->status = 'declined';
 
@@ -94,11 +94,14 @@ class AttendeeController extends Controller
             foreach ($updateParams as $param) :
                 $this->checkAndUpdate($param, $request, $recipient);
             endforeach;
+                $data['updated_contact'] = true;
+            else:
+                $data['updated_contact'] = false;
         endif; //end contact update
 
 
+        $recipient->attendee->save();
         $recipient->save();
-
         $data['recipient'] = $recipient;
         return view('rsvp.confirmation', $data);
     }
