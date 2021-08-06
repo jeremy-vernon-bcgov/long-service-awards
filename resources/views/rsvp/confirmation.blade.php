@@ -91,7 +91,7 @@
                         </ul>
                     @endif
 
-                    @if(!empty($recipient->guest) && $recipient->guest->attendee->accessibilityOptions->count() > 0)
+                    @if(!empty($recipient->guest->attendee) && $recipient->guest->attendee->accessibilityOptions->count() > 0)
                         <p>You indicated your guests accessibility requirements are:</p>
                         <ul>
                             @foreach($recipient->guest->attendee->accessibilityOptions as $accessibilityOption)
@@ -109,7 +109,7 @@
                         </ul>
                     @endif
 
-                    @if(!empty($recipient->guest) && $recipient->guest->attendee->dietaryRestrictions->count() > 0)
+                    @if(!empty($recipient->guest->attendee) && $recipient->guest->attendee->dietaryRestrictions->count() > 0)
                         <p>You indicated your guest's  dietary requirements are:</p>
                         <ul>
                             @foreach($recipient->guest->attendee->dietaryRestrictions as $dietaryRestriction)

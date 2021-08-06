@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function() {
      */
     Route::get('/ceremony/assign', [CeremonyController::class, 'assign']);
     Route::post('/ceremony/assign/{rid}', [CeremonyController::class, 'assignUpdate']);
+    Route::get('/ceremony/accommodations' , [CeremonyController::class, 'accommodations']);
 
     /**
      * Dashboard

@@ -131,9 +131,6 @@ class RecipientController extends Controller
                     $data['watch_engraving'] = $watchEngraving->value;
                 endif;
 
-
-
-
         }
         if (in_array($data['recipient']->award_id, $this->bracelet_award_ids)) {
             if (!empty(AwardSelection::where('recipient_id', $id)->get()->first()->value))
@@ -267,8 +264,6 @@ class RecipientController extends Controller
         }
 
         $braceletSize->save();
-
-
 
 
     }

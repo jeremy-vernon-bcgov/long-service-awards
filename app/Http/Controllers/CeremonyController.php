@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccessibilityOption;
+use App\Models\DietaryRestriction;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Recipient;
@@ -87,6 +89,58 @@ class CeremonyController extends Controller
     }
 
 
+    public function accommodations()
+    {
+        $ceremonies = [];
+        foreach (Ceremony::all() as $ceremonyRecord) {
+            $ceremony['ceremony_of'] = $ceremonyRecord->scheduled_datetime; //TODO: pretty print format date;
+            $ceremony['id'] = $ceremonyRecord->id;
+            $ceremony['attendees'] = $ceremonyRecord->attendees;
+            $ceremony['accessCounts'] = $this->getAccessCounts($ceremonyRecord);
+            $ceremony['dietCounts'] = $this->getDietCounts($ceremonyRecord);
+
+            $ceremonies[] = $ceremony;
+        }
+
+        $data['ceremonies'] = $ceremonies;
+
+        return view('admin.ceremonies.accommodations', $data);
+
+    }
+
+
+
+    private function getAccessCounts($ceremony) {
+        $accessibilityOptions = AccessibilityOption::all();
+        $accessOptions = [];
+        foreach ($accessibilityOptions as $option) {
+            $accessOption['short_name'] = $option->short_name;
+            $attendees = $ceremony->attendees->has('accessibilityOptions', function (Builder $query) {
+                $query->where('id', $option->id);
+            });
+
+            $attendees ?  dd($attendees) : $accessOption['quantity'] =  0;
+
+            $accessOptions[] = $accessOption;
+        }
+        return $accessOptions;
+    }
+    private function getDietCounts($ceremony) {
+        $dietaryRestrictions = DietaryRestriction::all();
+        $dietOptions = [];
+        foreach ($dietaryRestrictions as $option) {
+            $dietOption['short_name'] = $option->short_name;
+            $attendees = $ceremony->attendees->has('dietaryRestrictions', function (Builder $query) {
+                $query->where('id', $option->id);
+            });
+
+            $attendees ?  dd($attendees) : $dietOption['quantity'] =  0;
+
+            $dietOptions[] = $dietOption;
+        }
+        return $dietOptions;
+    }
+
 
     public function assign()
     {
@@ -123,10 +177,16 @@ class CeremonyController extends Controller
         $attendee->type = 'recipient';
         $attendee->status = 'assigned';
 
-        $recipient->save();
-        $attendee->save();
 
-        return redirect()->action([CeremonyController::class, 'assign']);
+
+        $recipient->save();
+        if ($attendee->save()) {
+            return redirect()->action([CeremonyController::class, 'assign']);
+        } else {
+            dd($attendee);
+        }
+
+
     }
 
 

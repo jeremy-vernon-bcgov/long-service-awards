@@ -10,6 +10,14 @@ class Attendee extends Model
 {
     use HasFactory;
 
+    protected $fillable = [ 'ceremony_id',
+                            'type',
+                            'status',
+                            'guest_id',
+                            'recipient_id',
+                            'vip_id'
+                          ];
+
 
     public function recipient() {
         return $this->belongsTo(Recipient::class);

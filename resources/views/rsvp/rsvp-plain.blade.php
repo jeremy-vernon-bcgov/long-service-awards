@@ -81,13 +81,13 @@
 
         </div>
 
-    @if(!empty($errors) && count($errors) > 0)
+    @if($errors->any())
         <div class="row">
             <div class="col-1">&nbsp;</div>
             <div class="col-10">
 
-                    @foreach($errors as $error)
-                        <div class="error"><p>{{$error}}</p></div>
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger"><p>{{$error}}</p></div>
                     @endforeach
 
             </div>
@@ -230,7 +230,7 @@
             </div>
 
 
-            <div class="hasGuest guestAccess collapse">
+            <div class="guestAccess collapse">
                 <div class="row">
                     <div class="col-1">&nbsp;</div>
                     <div class="col-10 grey-bg">
@@ -239,7 +239,7 @@
                         @foreach($access as $option)
                             <div class="form-check">
                                 <input type="checkbox" id="guest_{{$option->short_name}}"
-                                       name="recip_{{$option->short_name}}" value="true">
+                                       name="guest_{{$option->short_name}}" value="true">
                                 <label class="block" for="{{$option->short_name}}">{{$option->description}}</label>
                             </div>
                         @endforeach
@@ -283,9 +283,9 @@
                         <p>My dietary requirements are:</p>
                         @foreach($diet as $option)
                             <div class="form-check">
-                                <input type="checkbox" name="guest_{{$option->short_name}}" value="true"
-                                       id="guest_{{$option->short_name}}">
-                                <label for="guest_{{$option->short_name}}">{{$option->short_name}}</label>
+                                <input type="checkbox" name="recip_{{$option->short_name}}" value="true"
+                                       id="recip_{{$option->short_name}}">
+                                <label for="recip_{{$option->short_name}}">{{$option->short_name}}</label>
                             </div>
                         @endforeach
                         <p>If you have additional requirements or considerations please contact <a href="mailto:LongServiceAwards@gov.bc.ca">LongServiceAwards@gov.bc.ca</a>.</p>

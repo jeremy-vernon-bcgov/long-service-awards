@@ -50,7 +50,7 @@ class AttendeeController extends Controller
      * @param AttendeeRequest $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function collectRsvp(Request $request) {
+    public function collectRsvp(AttendeeRequest $request) {
 
 
         //Get Recipient from Session
@@ -58,23 +58,26 @@ class AttendeeController extends Controller
 
         //Are they coming?
         if ($request->rsvp === 'true') :
-            $this->updateDietaryRecords('recip_', $recipient->attendee, $request);
-            $this->updateAccessibilityRecords('recip_', $recipient->attendee, $request);
 
             //Are they bringing a guest?
             if ($request->guest === 'true') :
                 //Create a guest record associated with recipient, and an attendee record for guest.
                 $guest = $recipient->guest()->create();
-                $guest_attendee = $guest->attendee()->create([
-                    ['ceremony_id'] => $recipient->ceremony->id,
-                ]);
-                if (!empty($request->guest_diet_checkbox)) {
-                    $this->updateDietaryRecords('guest_', $guest_attendee, $request->guest_diet_checkbox);
-                }
-                if (!empty($request->guest_access_checkbox)) {
-                    $this->updateAccessibilityRecords('guest_', $guest_attendee, $request->guest_access_checkbox);
-                }
+                $guest->attendee()->create(['ceremony_id' => $recipient->attendee->ceremony->id, 'type' => 'guest', 'guest_id' => $guest->id, 'status' => 'attending']);
+                $guest->attendee->save();
+                $guest->save();
+                $recipient->save();
             endif;
+
+            //Accommodations
+            $this->updateDietaryRecords('recip_', $recipient->attendee, $request);
+            $this->updateAccessibilityRecords('recip_', $recipient->attendee, $request);
+            if ($request->guest === 'true')
+            {
+                $this->updateAccessibilityRecords('guest_', $recipient->guest->attendee, $request);
+                $this->updateDietaryRecords('guest_', $recipient->guest->attendee, $request);
+            }
+
             $recipient->attendee->status = 'attending';
         else: //RECIPIENT DECLINED
             $recipient->attendee->status = 'declined';
@@ -116,42 +119,42 @@ class AttendeeController extends Controller
      * @param Attendee $attendee
      * @param $choices
      */
-    private function updateDietaryRecords(String $prefix ,Attendee $attendee,  $choices)
+    private function updateDietaryRecords(String $prefix, Attendee $attendee,  $request)
     {
-
-        //Reset dietary restrictions on attendee
-
-
         $dietaryRestrictions = [];
-
         foreach(DietaryRestriction::all() as $restrictionOption)
         {
+            //Formfield string is needed to distinguish between recipients and guests using the same options
             $formfield = $prefix . $restrictionOption->short_name;
-            if (!empty($request->$formfield) && $request->$formfield === 'true') {
+            if (!empty($request->$formfield) && $request->$formfield === 'true')
+            {
                 $dietaryRestrictions[] = $restrictionOption->id;
             }
         }
+
         $attendee->dietaryRestrictions()->sync($dietaryRestrictions);
+        $attendee->save();
+
     }
 
     /**
      * @param Attendee $attendee
      * @param $choices
      */
-    private function updateAccessibilityRecords(String $prefix, Attendee $attendee,  $choices)
+    private function updateAccessibilityRecords(String $prefix, Attendee $attendee,  $request)
     {
-        //Reset accessibility restrictions on attendee
-
         $accessibilityOptions = [];
-
         foreach(AccessibilityOption::all() as $accessibilityOption)
         {
+            //Formfield string is needed to distinguish between recipients and guests using the same options
             $formfield = $prefix . $accessibilityOption->short_name;
-            if (!empty($request->$formfield) && $request->$formfield === 'true') {
+            if (!empty($request->$formfield) && $request->$formfield === 'true')
+            {
                 $accessibilityOptions[] = $accessibilityOption->id;
             }
         }
-        $attendee->dietaryRestrictions()->sync($accessibilityOptions);
+        $attendee->accessibilityOptions()->sync($accessibilityOptions);
+        $attendee->save();
     }
 
 }

@@ -11,7 +11,7 @@ class Guest extends Model
 
     public function recipient ()
     {
-        return $this->hasOne(Recipient::class);
+        return $this->belongsTo(Recipient::class);
     }
     public function attendee()
     {

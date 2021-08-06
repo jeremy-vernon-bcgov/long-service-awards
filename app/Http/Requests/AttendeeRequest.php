@@ -32,12 +32,12 @@ class AttendeeRequest extends FormRequest
             'guest' => 'required_if:rsvp,true',
 
             // If they are attending, we need to know if they have disability or accessibility needs.
-            'access_group_recip' => 'required_if:rsvp,true',
-            'recipient_diet' => 'required_if:rsvp,true',
+           // 'access_group_recip' => 'required_if:rsvp,true',
+           // 'recipient_diet' => 'required_if:rsvp,true',
 
             // If they have a guest, we need to know if their guest has disability or accessibility needs.
-            'guest_access' => 'required_if:guest,true',
-            'guest_diet' => 'required_if:guest,true',
+          //  'guest_access' => 'required_if:guest,true',
+          //  'guest_diet' => 'required_if:guest,true',
 
             // If they note "other" they must give specifics.
             /* Disabled until "other" functionality is implemented.
@@ -51,7 +51,7 @@ class AttendeeRequest extends FormRequest
             'office_address_community_id'   => 'required_if:rsvp,false',
             'office_address_postal_code'    => 'required_if:rsvp,false',
             // Retirement
-            'retirement_status'             => 'required',
+           // 'retirement_status'             => 'required',
             'retirement_date'               => 'required_if:retirement_status,true',
             // Preferred contact
             // Multiple ways to require this - but also check validity of format.
