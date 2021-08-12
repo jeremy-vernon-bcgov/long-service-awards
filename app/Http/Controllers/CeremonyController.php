@@ -9,6 +9,7 @@ use App\Models\Organization;
 use App\Models\Recipient;
 use App\Models\Ceremony;
 use App\Models\Attendee;
+use DateTime;
 
 class CeremonyController extends Controller
 {
@@ -91,11 +92,14 @@ class CeremonyController extends Controller
 
     public function accommodations()
     {
+
+
+
         $ceremonies = [];
         foreach (Ceremony::all() as $ceremonyRecord) {
-            $ceremony['ceremony_of'] = $ceremonyRecord->scheduled_datetime; //TODO: pretty print format date;
+            $ceremony['ceremony_of'] = new DateTime($ceremonyRecord->scheduled_datetime); //TODO: pretty print format date;
             $ceremony['id'] = $ceremonyRecord->id;
-            $ceremony['attendees'] = $ceremonyRecord->attendees;
+            $ceremony['attendees'] = $ceremonyRecord->attendees->where('status', 'attending');
             $ceremony['accessCounts'] = $this->getAccessCounts($ceremonyRecord);
             $ceremony['dietCounts'] = $this->getDietCounts($ceremonyRecord);
 
@@ -108,36 +112,57 @@ class CeremonyController extends Controller
 
     }
 
+    //TODO: getAccessCounts and getDietCounts are practically identical in implementation - perhaps can be consolidated?
 
 
     private function getAccessCounts($ceremony) {
+
+        //TODO: Brute-force and ignorance method used. This 3 nested iterators - can likely be optimized.
+
         $accessibilityOptions = AccessibilityOption::all();
         $accessOptions = [];
-        foreach ($accessibilityOptions as $option) {
-            $accessOption['short_name'] = $option->short_name;
-            $attendees = $ceremony->attendees->has('accessibilityOptions', function (Builder $query) {
-                $query->where('id', $option->id);
-            });
 
-            $attendees ?  dd($attendees) : $accessOption['quantity'] =  0;
+        foreach ($accessibilityOptions as $accessibilityOption) :
+            $count = 0;
+            foreach ($ceremony->attendees as $attendee) :
 
-            $accessOptions[] = $accessOption;
-        }
-        return $accessOptions;
+                if ($attendee->accessibilityOptions->count() > 0) {
+                    foreach ($attendee->accessibilityOptions as $attendeeOption) :
+                        if ($attendeeOption->short_name == $accessibilityOption->short_name) {
+                            $count++;
+                        }
+                    endforeach; //attendee selections
+                }
+            endforeach; //attendees
+            $optionCount['short_name'] = $accessibilityOption->short_name;
+            $optionCount['quantity']   = $count;
+            $accessOptions[] = $optionCount;
+        endforeach; //accessiblityOptions
+    return $accessOptions;
+
     }
     private function getDietCounts($ceremony) {
+
+        //TODO: Brute-force and ignorance method used. This 3 nested iterators - can likely be optimized.
+
         $dietaryRestrictions = DietaryRestriction::all();
         $dietOptions = [];
-        foreach ($dietaryRestrictions as $option) {
-            $dietOption['short_name'] = $option->short_name;
-            $attendees = $ceremony->attendees->has('dietaryRestrictions', function (Builder $query) {
-                $query->where('id', $option->id);
-            });
 
-            $attendees ?  dd($attendees) : $dietOption['quantity'] =  0;
-
-            $dietOptions[] = $dietOption;
-        }
+        foreach ($dietaryRestrictions as $option) :
+            $count = 0;
+            foreach ($ceremony->attendees as $attendee) :
+              if ($attendee->dietaryRestrictions->count() > 0) {
+                  foreach ($attendee->dietaryRestrictions as $attendeeDiet) :
+                      if ($attendeeDiet->short_name == $option->short_name) {
+                          $count++;
+                      }
+                  endforeach; //attendee selections
+              }
+              endforeach; //attendees
+                $optionCount['short_name'] = $option->short_name;
+                $optionCount['quantity'] = $count;
+                $dietOptions[] = $optionCount;
+        endforeach; //dietaryRestrictions
         return $dietOptions;
     }
 

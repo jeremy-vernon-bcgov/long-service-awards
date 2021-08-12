@@ -1,18 +1,11 @@
-@extends('blank')
+@extends('admin.list')
+
+@section('header')
+    <h2>Customizable Watch Report</h2>
+@endsection
 
 @section('content')
 
-    <div class="row">
-        <div class="row mb-0">
-            <div class="col-sm-6">
-                <div class="d-print-none">
-                    <!-- WHERE BUTTONS GO -->
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div id="datatable_search_stack" class="mt-sm-0 mt-2 d-print-none"></div>
-            </div>
-        </div>
 
         <table class="table table-striped table-hover">
             <thead>
@@ -42,7 +35,7 @@
         </table>
 
 
-        <table id="crudTable" class="bg-white table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2" cellspacing="0">
+        <table class="reportTable table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2" cellspacing="0">
             <thead>
             <tr>
                 @foreach ($columns as $column)
@@ -87,4 +80,19 @@
         </table>
     </div>
 
+
+@endsection
+@section('jsTableConfig')
+    <script>
+        var reportTableConfig = {
+            dom: 'liftBp',
+            fixedHeader: true,
+            autoWidth: false,
+            buttons: ['excel'],
+            pageLength: 50,
+            lengthMenu: [[25,50,75,100,-1],[25,50,75,100,'All ']],
+            aaSorting: [],
+        }
+        let tableConfigs = [reportTableConfig];
+    </script>
 @endsection

@@ -7,12 +7,14 @@
        <table class="reportTable bg-white table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2" cellspacing="0">
             <thead>
                 <tr>
-                    @foreach ($columns as $column)
-                        <th data-orderable="{{$column['orderable'], true}}"
-                        data-priority="">
-                        {!!$column['label']!!}
-                        </th>
-                    @endforeach
+                    @if (isset($columns))
+                        @foreach ($columns as $column)
+                            <th data-orderable="{{$column['orderable'], true}}"
+                            data-priority="">
+                            {!!$column['label']!!}
+                            </th>
+                        @endforeach
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -21,9 +23,11 @@
             </tbody>
             <tfoot>
                 <tr>
-                    @foreach($columns as $column)
-                        <th>{!! $column['label'] !!}</th>
-                    @endforeach
+                    @if (isset($columns))
+                        @foreach($columns as $column)
+                            <th>{!! $column['label'] !!}</th>
+                        @endforeach
+                    @endif
                 </tr>
             </tfoot>
         </table>
@@ -56,6 +60,7 @@
             } else {
                 let defaultTableConfig = {
                     dom: 'liftBp',
+                    buttons: [],
                     fixedHeader: true,
                     autoWidth: false,
                     pageLength: 50,

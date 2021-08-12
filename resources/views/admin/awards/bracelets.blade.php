@@ -32,7 +32,7 @@
 
 
 
-        <table id="crudTable" class="bg-white table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2" cellspacing="0">
+        <table class="reportTable bg-white table table-striped table-hover nowrap rounded shadow-xs border-xs mt-2" cellspacing="0">
             <thead>
             <tr>
                 <td>First</td>
@@ -63,7 +63,18 @@
 
 
             </tbody>
-
+            <script>
+                var reportTableConfig = {
+                    dom: 'liftBp',
+                    fixedHeader: true,
+                    autoWidth: false,
+                    buttons: ['excel'],
+                    pageLength: 50,
+                    lengthMenu: [[25,50,75,100,-1],[25,50,75,100,'All ']],
+                    aaSorting: [],
+                }
+                let tableConfigs = [reportTableConfig];
+            </script>
 
 @endsection
 

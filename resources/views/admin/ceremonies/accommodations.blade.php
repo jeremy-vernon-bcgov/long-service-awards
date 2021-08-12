@@ -1,13 +1,20 @@
-@extends('blank');
+@extends('admin.list')
 
 
 @section('content')
 
 @foreach($ceremonies as $ceremony)
 
-    <h2>Ceremony Of {{$ceremony['ceremony_of']}}</h2>
+<div class="row">
+    <div class="col-12">
+    <h2>{{$ceremony['ceremony_of']->format('l jS \of F Y')}}</h2>
 
-    <table class="table table-striped">
+
+
+    <div class="row">
+        <div class="col-5">
+            <h3>Summary</h3>
+    <table class="reportTable table table-striped">
         <thead>
             <tr>
                 <th>Accommodation</th>
@@ -16,28 +23,31 @@
         </thead>
         <tbody>
 
+
                     @foreach($ceremony['accessCounts'] as $accessCount)
-                        @if ($accessCount['quantity'] > 0)
+                        @if($accessCount['quantity'] > 0)
                         <tr>
                             <td>{{$accessCount['short_name']}}</td>
                             <td>{{$accessCount['quantity']}}</td>
                         </tr>
                         @endif
                     @endforeach
+
                     @foreach($ceremony['dietCounts'] as $dietCount)
-                        @if ($accessCount['quantity'] > 0)
+                        @if($dietCount['quantity'])
                             <tr>
-                                <td>{{$accessCount['short_name']}}</td>
-                                <td>{{$accessCount['quantity']}}</td>
+                                <td>{{$dietCount['short_name']}}</td>
+                                <td>{{$dietCount['quantity']}}</td>
                             </tr>
                         @endif
                     @endforeach
 
         </tbody>
     </table>
-
-
-    <table class="table table-striped">
+        </div>
+        <div class="col-7">
+    <h3>list</h3>
+    <table class="reportTable table table-striped">
         <thead>
             <tr>
                 <th>Type</th>
@@ -52,6 +62,8 @@
         </thead>
         <tbody>
             @foreach($ceremony['attendees'] as $attendee)
+                @if ($attendee->accessibilityOptions->count() > 0 || $attendee->dietaryRestrictions->count() > 0)
+
                 <tr>
                         @if($attendee->type == 'recipient')
                             <td>Recipient</td>
@@ -94,10 +106,30 @@
                         </td>
                         <td></td>
                 </tr>
+                @endif
             @endforeach
         </tbody>
     </table>
-
-
+        </div>
+    </div>
+    </div>
+</div>
 @endforeach
+@endsection
+@section('table-content')
+
+@endsection
+@section('jsTableConfig')
+    <script>
+        var reportTableConfig = {
+            dom: 'liftBp',
+            fixedHeader: true,
+            autoWidth: false,
+            buttons: ['excel'],
+            pageLength: 50,
+            lengthMenu: [[25,50,75,100,-1],[25,50,75,100,'All ']],
+            aaSorting: [],
+        }
+        let tableConfigs = [reportTableConfig];
+    </script>
 @endsection
