@@ -39,6 +39,7 @@ class Attendee extends Model
     }
 
 
+
      /**** RSVP form functions *****/
 
     /**

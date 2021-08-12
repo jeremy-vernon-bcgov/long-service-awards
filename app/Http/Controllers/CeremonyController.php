@@ -174,6 +174,7 @@ class CeremonyController extends Controller
 
         $attendee->recipient_id = $rid;
         $attendee->ceremony_id = $request->ceremony_id;
+        $attendee->identifier = $this->generateAttendeeIdentifier(24);
         $attendee->type = 'recipient';
         $attendee->status = 'assigned';
 
@@ -187,6 +188,16 @@ class CeremonyController extends Controller
         }
 
 
+    }
+
+    private function generateAttendeeIdentifier($length = 24) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 
 

@@ -22,6 +22,8 @@ class CreateAttendeesTable extends Migration
             $table->foreignId('guest_id')->nullable();
             $table->foreignId('ceremony_id')->nullable();
             $table->enum('status',['','assigned','invited','attending','declined','waitlisted']);
+            $table->string('identifier')->nullable();
+
 
             $table->foreign('vip_id')->references('id')->on('vips');
             $table->foreign('recipient_id')->references('id')->on('recipients');

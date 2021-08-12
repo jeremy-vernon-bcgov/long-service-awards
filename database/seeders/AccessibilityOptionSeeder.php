@@ -17,7 +17,7 @@ class AccessibilityOptionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('accessibility_options')->insert(['id' => '1','description' => 'Consideration for my mobility (e.g. cane, walker, or wheelchair)' , 'short_name' => 'Mobility', 'sort_order' => 6]);
+        DB::table('accessibility_options')->insert(['id' => '1','description' => 'Consideration for a mobility aid (e.g. cane,walker or wheelchair)' , 'short_name' => 'Mobility', 'sort_order' => 6]);
         DB::table('accessibility_options')->insert(['id' => '2','description' => 'Accessible Parking' , 'short_name' => 'Parking', 'sort_order' => 2]);
         DB::table('accessibility_options')->insert(['id' => '3','description' => 'Reserved Seating' , 'short_name' => 'Seating', 'sort_order' => 1]);
         DB::table('accessibility_options')->insert(['id' => '4','description' => 'Assistance at the Buffet' , 'short_name' => 'Buffet', 'sort_order' => 5]);

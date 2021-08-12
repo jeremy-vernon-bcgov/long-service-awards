@@ -15,20 +15,21 @@
         <img src="{{url('img/email-badge.png')}}">
         <h1 class="header">The Province of British Columbia</h1>
         <h1 class="sub-head">is pleased to invite</h1>
-        <h1 class="name">{{$name}}</h1>
+        <h1 class="name">{{$data['name']}}</h1>
         <h2 class="info">to the Long Service Awards Ceremony</h2>
         <br>
-        <p>on {{$ceremony}}</p>
+        <p>on {{$data['ceremony']->format('l jS \of F Y')}}</p>
         <p>at Government House</p>
         <p>1401 Rockland Avenue</p>
         <p>Victoria, British Columbia</p>
         <br>
         <p>This invitation is for the intended recipient and one guest.</p>
+        <p>Please respond before September 30, 2021</p>
         <p>Dress: Business attire</p>
         <br>
-        <h1><a href="{{$rsvp_url}}">RSVP HERE</a></h1>
+        <h1><a href="{{$data['rsvp_url']}}">RSVP HERE</a></h1>
             <br>
-            <h2><a href="{{$invite_pdf_url}}">Printable Keepsake Invitation</a></h2>
+            <h2><a href="{{$data['invite_pdf_url']}}">Printable Keepsake Invitation</a></h2>
     </div>
 
 </body>

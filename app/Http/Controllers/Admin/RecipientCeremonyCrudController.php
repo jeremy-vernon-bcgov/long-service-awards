@@ -35,7 +35,7 @@ class RecipientCeremonyCrudController extends CrudController
         CRUD::setEntityNameStrings('recipientceremony', 'recipient_ceremonies');
         // Join in Ceremonies info, make sure to specifically selelct recipients.id or it will get overwritten.
         $this->crud->addClause('join','ceremonies', 'ceremonies.id', '=' , 'recipients.ceremony_id');
-       // $this->crud->addClause('join', 'attendees', 'recipients.id', '=', 'attendees.recipient_id' );
+        $this->crud->addClause('join', 'attendees', 'recipients.id', '=', 'attendees.recipient_id' );
         $this->crud->addClause('select', 'recipients.id', 'recipients.ceremony_id', 'recipients.organization_id','recipients.first_name', 'recipients.last_name', 'recipients.government_email', 'ceremonies.scheduled_datetime');
         $this->crud->allowAccess('ceremonyInvite');
         $this->crud->allowAccess(['list', 'update']);
@@ -108,8 +108,8 @@ class RecipientCeremonyCrudController extends CrudController
             'label'=> 'Attendee status',
         ],
         [
-            'assigned' => 'Not yet invited',
-            'invited' => 'Has been invited, no reponse',
+            'assigned' => 'Assigned',
+            'invited' => 'Invited',
         ], function($value) {
             $this->crud->addClause(
                 'where', 'status', $value

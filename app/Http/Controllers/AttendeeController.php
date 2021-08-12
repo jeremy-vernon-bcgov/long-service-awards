@@ -20,19 +20,40 @@ use Illuminate\Support\Facades\Validator;
 class AttendeeController extends Controller
 {
 
-    public function rsvpBuild(int $rid)
+    public function rsvpStatus() {
+        $data['attendees'] = Attendee::where('type', 'recipient')->where('status', 'attending')->orWhere('status', 'declined')->get();
+
+        $data['columns'][] = ['label' => 'First',       'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Last',        'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Ceremony',    'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Org.',        'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Milestone',   'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Status',      'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Has Guest?',  'orderable' => 'true'];
+
+
+
+
+        return view('admin.attendees.rsvp-status', $data);
+
+    }
+
+    public function rsvpBuild(string $identifier)
     {
+        //IS THIS A VALID RSVP?
+        $data['attendee'] = Attendee::where('identifier', $identifier)->first();
+
+        if (!isset($data['attendee']->status) || $data['attendee']->status != 'invited') {
+            return view('rsvp.friendly-fail', $data);
+        }
 
 
-        $data['recipient'] = Recipient::find($rid);
-        //Removed requirement for 'invited' status for testing purposes!! PUT BACK IN PRODUCTION
 
-        if (!empty($data['recipient']->attendee)):
-       // if (!empty($data['recipient']->attendee->status) && $data['recipient']->attendee->status === 'invited') :
             $data['diet']           = DietaryRestriction::all('short_name');
             $data['access']         = AccessibilityOption::all('short_name', 'description');
             $data['communities']    = Community::all('id','name');
-            $data['rid']            = $rid;
+            $data['rid']            = $data['attendee']->recipient->id;
+            $data['recipient']      = $data['attendee']->recipient;
             $data['jsonBundle']['diet'] = $data['diet'];
             $data['jsonBundle']['access'] = $data['access'];
             $data['jsonBundle']['communities'] = $data['communities'];
@@ -41,9 +62,9 @@ class AttendeeController extends Controller
             //RSVP form requires a specific datetime format.
 
 
-            $data['scheduled_datetime'] = new DateTime($data['recipient']->attendee->ceremony->scheduled_datetime);
+            $data['scheduled_datetime'] = new DateTime($data['attendee']->ceremony->scheduled_datetime);
             return view('rsvp.rsvp-plain', $data);
-        endif;
+
     }
 
     /**
@@ -52,13 +73,11 @@ class AttendeeController extends Controller
      */
     public function collectRsvp(AttendeeRequest $request) {
 
-
         //Get Recipient from Session
         $recipient = Recipient::find($request->recipid);
 
         //Are they coming?
         if ($request->rsvp === 'true') :
-
             //Are they bringing a guest?
             if ($request->guest === 'true') :
                 //Create a guest record associated with recipient, and an attendee record for guest.
@@ -82,20 +101,27 @@ class AttendeeController extends Controller
         else: //RECIPIENT DECLINED
             $recipient->attendee->status = 'declined';
 
-            //TODO HANDLE OFFICE ADDRESS UPDATES
+            $recipient->office_address_prefix           = $request->office_address_prefix;
+            $recipient->office_address_suite            = $request->office_address_suite;
+            $recipient->office_address_street_address   = $request->office_address_street_address;
+            $recipient->office_address_postal_code      = $request->office_address_postal_code;
+            $recipient->office_address_community_id     = $request->office_address_community_id;
+
 
         endif;
 
-        if (!empty($request->contact_update) && $request->contact_update === 'true') :
+        if ($request->contact_update === 'true') :
             $updateParams = [
                 'office_phone',
-                'home_phone',
+                'personal_phone',
                 'office_email',
-                'home_email',
+                'personal_email',
                 'preferred_contact',
             ];
             foreach ($updateParams as $param) :
-                $this->checkAndUpdate($param, $request, $recipient);
+                if (!empty($request->$param)) {
+                    $recipient->$param = $request->$param;
+                }
             endforeach;
                 $data['updated_contact'] = true;
             else:
@@ -103,17 +129,20 @@ class AttendeeController extends Controller
         endif; //end contact update
 
 
+        if ($request->retiring === 'true'):
+            $recipient->retiring_this_year  = true;
+            $recipient->retirement_date     = $request->retirement_date;
+            $recipient->personal_phone      = $request->personal_phone;
+            $recipient->personal_email      = $request->personal_email;
+            $recipient->preferred_contact   = 'personal';
+        endif;
+
         $recipient->attendee->save();
         $recipient->save();
         $data['recipient'] = $recipient;
         return view('rsvp.confirmation', $data);
     }
 
-    private function checkAndUpdate($param, $request, $recipient) {
-        if (!empty($request->$param)) {
-            $recipient->$param = $request->$param;
-        }
-    }
 
     /**
      * @param Attendee $attendee

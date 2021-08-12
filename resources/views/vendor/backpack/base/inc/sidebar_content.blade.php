@@ -16,6 +16,7 @@
             <li class="nav-item"><a class="nav-link" href="{{backpack_url('ceremony')}}">List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvpstatus')}}">RSVPs</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodations')}}">Accommodations</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
@@ -45,7 +46,7 @@
     <li class='nav-item'><a class='nav-link' href='{{ backpack_url('user') }}'><i class='nav-icon la la-question'></i> Users</a></li>
 
 
-@endif;
+@endif
 
 
 @if(backpack_user()->hasRole('Administration'))
@@ -64,10 +65,11 @@
     <ul class="nav">
         <li class="nav-item"><a class="nav-link" href="{{backpack_url('ceremony')}}">List</a></li>
         <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvps')}}">RSVPs</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvpstatus')}}">RSVPs</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
         <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodations')}}">Accommodations</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
     </ul>
 </li>
 <li><i class='nav-icon la la-question'></i><strong>Awards</strong></li>
@@ -111,6 +113,7 @@
             <li class="nav-item"><a class="nav-link" href="{{backpack_url('ceremony')}}">List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvpstatus')}}">RSVPs</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodations')}}">Accommodations</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>

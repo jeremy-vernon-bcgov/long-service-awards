@@ -120,11 +120,11 @@
                     <div class="isAttending collapse">
                         <p>Will you bring a guest?</p>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guest" value="true" required>
+                            <input class="form-check-input" type="radio" name="guest" value="true">
                             <label class="form-check-label" for="guest-true">Yes</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="guest" value="false" id="guest-false" required>
+                            <input class="form-check-input" type="radio" name="guest" value="false" id="guest-false">
                             <label class="form-check-label" for="guest-false">No</label>
                         </div>
 
@@ -441,6 +441,9 @@
                 <div class="row">
                     <div class="col-1">&nbsp;</div>
                     <div class="col-10">
+                        <h3>Contact</h3>
+
+                        <p>To ensure you receive all communications about the Long Service Awards, please answer a few questions about how best to reach you.</p>
                         <p>Has your contact information changed since you registered?</p>
 
 

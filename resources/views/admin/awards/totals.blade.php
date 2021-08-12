@@ -1,5 +1,9 @@
 @extends('admin.list')
 
+@section('header')
+    <h2>Awards Selection Totals</h2>
+@endsection
+
 @section('table-content')
     @foreach($awards as $award)
         <tr>
@@ -10,3 +14,20 @@
     @endforeach
 
 @endsection
+
+@section('jsTableConfig')
+    <script>
+        var reportTableConfig = {
+            dom: 'liftBp',
+            fixedHeader: true,
+            autoWidth: false,
+            buttons: ['excel'],
+            pageLength: 50,
+            lengthMenu: [[25,50,75,100,-1],[25,50,75,100,'All ']],
+            aaSorting: [],
+        }
+        let tableConfigs = [reportTableConfig];
+    </script>
+@endsection
+
+

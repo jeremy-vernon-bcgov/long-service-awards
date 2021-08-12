@@ -41,12 +41,15 @@ Route::middleware('auth')->group(function() {
     Route::get('/award/bracelets', [AwardController::class, 'bracelets']);
 
 
+
+
     /**
      * Ceremony Routing
      */
     Route::get('/ceremony/assign', [CeremonyController::class, 'assign']);
     Route::post('/ceremony/assign/{rid}', [CeremonyController::class, 'assignUpdate']);
     Route::get('/ceremony/accommodations' , [CeremonyController::class, 'accommodations']);
+    Route::get('/ceremony/rsvpstatus', [AttendeeController::class, 'rsvpStatus']);
 
     /**
      * Dashboard
@@ -68,9 +71,9 @@ Route::get('/', function () {
 
 //RSVP form routing.
 Route::post('/rsvp', [AttendeeController::class, 'collectRsvp']);
-Route::get('/rsvp/{rid}', [AttendeeController::class, 'rsvpBuild'])->where('id', '[0-9]+');
+Route::get('/rsvp/{identifier}', [AttendeeController::class, 'rsvpBuild']);
 
-Route::get('rsvp/confirmation/{rid}', [AttendeeController::class, 'confirmationRsvp'])->where('rid', '[0-9]+');
+Route::get('rsvp/confirmation/{rid}', [AttendeeController::class, 'confirmationRsvp']);
 
 //PDF routing
 Route::get('/generate-pdf/{rid}', [PDFController::class, 'generatePDF'])->name('generate-pdf');

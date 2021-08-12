@@ -92,7 +92,7 @@
                     @endif
 
                     @if(!empty($recipient->guest->attendee) && $recipient->guest->attendee->accessibilityOptions->count() > 0)
-                        <p>You indicated your guests accessibility requirements are:</p>
+                        <p>You indicated your guest's accessibility requirements are:</p>
                         <ul>
                             @foreach($recipient->guest->attendee->accessibilityOptions as $accessibilityOption)
                                 <li>{{$accessibilityOption->description}}</li>
