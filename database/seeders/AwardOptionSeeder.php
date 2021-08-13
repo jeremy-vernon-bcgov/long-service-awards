@@ -24,19 +24,50 @@ class AwardOptionSeeder extends Seeder
         DB::table('award_options')->insert(['id' => 4, 'award_id'=> 9, 'name' => 'Engraving on Reverse', 'short_name' => 'Engraving', 'type' => 'text']);
 
 
-
-        //PECSF Certificates
-        DB::table('award_options')->insert(['id' => 5, 'award_id'=> 49, 'name' => 'Name on Certificate', 'short_name' => 'Cert Name' , 'type' => 'text']);
-        DB::table('award_options')->insert(['id' => 6, 'award_id'=> 50, 'name' => 'Name on Certificate', 'short_name' => 'Cert Name' , 'type' => 'text']);
-        DB::table('award_options')->insert(['id' => 7, 'award_id'=> 51, 'name' => 'Name on Certificate', 'short_name' => 'Cert Name' , 'type' => 'text']);
-        DB::table('award_options')->insert(['id' => 8, 'award_id'=> 52, 'name' => 'Name on Certificate', 'short_name' => 'Cert Name' , 'type' => 'text']);
-        DB::table('award_options')->insert(['id' => 9, 'award_id'=> 53, 'name' => 'Name on Certificate', 'short_name' => 'Cert Name' , 'type' => 'text']);
-        DB::table('award_options')->insert(['id' => 10, 'award_id'=> 54, 'name' => 'Name on Certificate', 'short_name' => 'Cert Name' , 'type' => 'text']);
-
         //Bracelets
         DB::table('award_options')->insert(['id' => 11, 'award_id'=> 12, 'name' => 'Bracelet Size', 'short_name' => 'Size', 'type' => 'select', 'select_options' => '"Fits 6 ½″ - 7 ½″ circumference wrists", "Fits 7 ½″ - 8 ½″ circumference wrists"']);
         DB::table('award_options')->insert(['id' => 12, 'award_id'=> 29, 'name' => 'Bracelet Size', 'short_name' => 'Size', 'type' => 'select', 'select_options' => '"Fits 6 ½″ - 7 ½″ circumference wrists", "Fits 7 ½″ - 8 ½″ circumference wrists"']);
         DB::table('award_options')->insert(['id' => 13, 'award_id'=> 48, 'name' => 'Bracelet Size', 'short_name' => 'Size', 'type' => 'select', 'select_options' => '"Fits 6 ½″ - 7 ½″ circumference wrists", "Fits 7 ½″ - 8 ½″ circumference wrists"']);
+
+
+        //PECSF Certificates
+        DB::table('award_options')->insert(['id' => 5, 'award_id'=> 49, 'name' => 'Name on Certificate', 'short_name' => 'Cert-Name' , 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 49, 'name' => 'Donation Type', 'short_name' => 'Type', 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 49, 'name' => 'Donation Region', 'short_name' => 'Region', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 49, 'name' => 'Charity 1 ID', 'short_name' => 'Charity-1', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 49, 'name' => 'Charity 2 ID', 'short_name' => 'Charity-2', 'type' => 'integer']);
+
+        DB::table('award_options')->insert(['id' => 6, 'award_id'=> 50, 'name' => 'Name on Certificate', 'short_name' => 'Cert-Name' , 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 50, 'name' => 'Donation Type', 'short_name' => 'Type', 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 50, 'name' => 'Donation Region', 'short_name' => 'Region', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 50, 'name' => 'Charity 1 ID', 'short_name' => 'Charity-1', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 50, 'name' => 'Charity 2 ID', 'short_name' => 'Charity-2', 'type' => 'integer']);
+
+        DB::table('award_options')->insert(['id' => 7, 'award_id'=> 51, 'name' => 'Name on Certificate', 'short_name' => 'Cert-Name' , 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 51, 'name' => 'Donation Type', 'short_name' => 'Type', 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 51, 'name' => 'Donation Region', 'short_name' => 'Region', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 51, 'name' => 'Charity 1 ID', 'short_name' => 'Charity-1', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 51, 'name' => 'Charity 2 ID', 'short_name' => 'Charity-2', 'type' => 'integer']);
+
+        DB::table('award_options')->insert(['id' => 8, 'award_id'=> 52, 'name' => 'Name on Certificate', 'short_name' => 'Cert-Name' , 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 52, 'name' => 'Donation Type', 'short_name' => 'Type', 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 52, 'name' => 'Donation Region', 'short_name' => 'Region', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 52, 'name' => 'Charity 1 ID', 'short_name' => 'Charity-1', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 52, 'name' => 'Charity 2 ID', 'short_name' => 'Charity-2', 'type' => 'integer']);
+
+        DB::table('award_options')->insert(['id' => 9, 'award_id'=> 53, 'name' => 'Name on Certificate', 'short_name' => 'Cert-Name' , 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 53, 'name' => 'Donation Type', 'short_name' => 'Type', 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 53, 'name' => 'Donation Region', 'short_name' => 'Region', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 53, 'name' => 'Charity 1 ID', 'short_name' => 'Charity-1', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 53, 'name' => 'Charity 2 ID', 'short_name' => 'Charity-2', 'type' => 'integer']);
+
+        DB::table('award_options')->insert(['id' => 10, 'award_id'=> 54, 'name' => 'Name on Certificate', 'short_name' => 'Cert-Name' , 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 54, 'name' => 'Donation Type', 'short_name' => 'Type', 'type' => 'text']);
+        DB::table('award_options')->insert(['award_id' => 54, 'name' => 'Donation Region', 'short_name' => 'Region', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 54, 'name' => 'Charity 1 ID', 'short_name' => 'Charity-1', 'type' => 'integer']);
+        DB::table('award_options')->insert(['award_id' => 54, 'name' => 'Charity 2 ID', 'short_name' => 'Charity-2', 'type' => 'integer']);
+
+
 
 
 

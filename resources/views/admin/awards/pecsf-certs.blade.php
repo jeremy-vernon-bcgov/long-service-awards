@@ -5,9 +5,10 @@
         <tr>
             <td>{{$recipient->first_name}}</td>
             <td>{{$recipient->last_name}}</td>
-            <td></td>
+            <td>{{$recipient->certificate_name}}</td>
             <td>{{$recipient->milestone}}</td>
             <td>{{$recipient->organization->short_name}}</td>
+            <td><a href="{{url('award/updatepecsf')}}/{{$recipient->id}}">Edit</a></td>
             <td>{{$recipient->ceremony->id ?? 'Unassigned'}}</td>
         </tr>
     @endforeach

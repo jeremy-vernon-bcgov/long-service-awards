@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Award;
 use Illuminate\Support\Facades\DB;
 use App\Models\Recipient;
+use App\Models\PecsfRegion;
+use App\Models\PecsfCharity;
+use App\Models\AwardOption;
+use App\Models\AwardSelection;
 
 class AwardController extends Controller
 {
@@ -118,8 +122,7 @@ class AwardController extends Controller
 
 
 
-
-    private  $pecsf_award_IDs = [49, 50, 51,52, 53, 54];
+   private  $pecsf_award_IDs = [49, 50, 51,52, 53, 54];
     private  $bracelet_award_IDs = [12, 29, 48];
     private  $watch_award_IDs = [9];
 
@@ -147,13 +150,88 @@ class AwardController extends Controller
 
 
 
-        $data['recipients'] = Recipient::where('award_id', $this->pecsf_award_IDs)->get();
+        $data['recipients'] = Recipient::where('award_id', 49)
+                                        ->orWhere('award_id', 50)
+                                        ->orWhere('award_id', 51)
+                                        ->orWhere('award_id', 52)
+                                        ->orWhere('award_id', 53)
+                                        ->orWhere('award_id', 54)
+                                        ->get();
 
         //TODO: calculate totals for certificate amounts.
         //TODO: calculate total donation qty.
 
         return view('admin.awards.pecsf-certs', $data);
     }
+
+    public function editPECSFCert($rid) {
+        $data['recipient'] = Recipient::find($rid);
+
+        $data['pecsfRegions'] = PecsfRegion::all();
+        $data['pecsfCharities'] = PecsfCharity::all();
+
+        return view('admin.awards.pecsf-cert-form', $data);
+
+
+    }
+    public function updatePECSFCert($rid) {
+        $recipient = Recipient::find($rid);
+
+        $donationType = new AwardSelection(['award_option_id'   => $this->getAwardOptionforAwardID($recipient->award_id, 'Type')->id,
+            'award_id'          => $recipient->award_id,
+            'recipient_id'      => $recipient->id]);
+
+        //If charity 2 isn't set - it's a either a 1 charity donation or a regional
+        if (!isset($request->charity_2) || !is_numeric($request->charity_2)) :
+            //If charity 1 isn't set - it's either invalid or a regional
+            if (!isset($request->charity_1) || !is_numeric($request->charity_1)) :
+                //If no region is set, it's invalid.
+                if (!isset($request->region) || !is_numeric($request->region)) :
+                    dd('error');
+                else:
+                    $donationType->type = 'regional';
+                    $donationType->save();
+                endif;
+            else:
+                $donationType->type = 'one-charity';
+                $charity1 = new AwardSelection(['award_option_id' => $this->getAwardOptionforAwardID($recipient->award_id, 'Charity-1')->id,
+                    'award_id'        => $recipient->award_id,
+                    'recipient_id'    => $recipient->id,
+                    'value'           => $request->charity_1]);
+                $donationType->save();
+                $charity1->save();
+            endif;
+        else:
+            $donationType->type = 'two-charity';
+            $charity1 = new AwardSelection(['award_option_id' => $this->getAwardOptionforAwardID($recipient->award_id, 'Charity-1')->id,
+                                            'award_id'        => $recipient->award_id,
+                                            'recipient_id'    => $recipient->id,
+                                            'value'           => $request->charity_1]);
+            $charity2 = new AwardSelection(['award_option_id' => $this->getAwardOptionforAwardID($recipient->award_id, 'Charity-2')->id,
+                'award_id'        => $recipient->award_id,
+                'recipient_id'    => $recipient->id,
+                'value'           => $request->charity_2]);
+            $donationType->save();
+            $charity1->save();
+            $charity2->save();
+        endif;
+
+
+        if (isset($request->certificate_name)) :
+            $certificateName = new AwardSelection(['award_option_id' => $this->getAwardOptionforAwardID($recipient->award_id, 'Cert-Name')->id,
+                'award_id'        => $recipient->award_id,
+                'recipient_id'    => $recipient->id,
+                'value'           => $request->certificate_name]);
+            $certificateName->save();
+        endif;
+
+        return redirect('/award/pecsf-certs');
+
+    }
+    private function getAwardOptionforAwardID($awardID, $optionName) {
+        return AwardOption::where('award_id', $awardID)->where('short_name', $optionName);
+    }
+
 
     public function watches()
     {

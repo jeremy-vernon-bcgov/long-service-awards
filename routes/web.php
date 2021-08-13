@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/award/pecsf-certs', [AwardController::class, 'pecsfCerts']);
     Route::get('/award/watches', [AwardController::class, 'watches']);
     Route::get('/award/bracelets', [AwardController::class, 'bracelets']);
+    Route::get('/award/updatepecsf/{rid}', [AwardController::class, 'editPECSFCert'])->where('rid', '[0-9]+');
+    Route::post('/award/updatepecsf/{rid}', [AwardController::class, 'editPECSFCert'])->where('rid', '[0-9]+');
+
 
 
 
