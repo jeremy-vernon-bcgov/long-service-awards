@@ -1,24 +1,15 @@
-@extends('blank')
+@extends('admin.list')
 
 @section('content')
 
 
 
     <div class="row">
-        <div class="row mb-0">
-            <div class="col-sm-6">
-                <div class="d-print-none">
-                    <!-- WHERE BUTTONS GO -->
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div id="datatable_search_stack" class="mt-sm-0 mt-2 d-print-none"></div>
-            </div>
-        </div>
+
 
         <h2>Unassigned Recipients</h2>
 
-        <table class="table table-striped table-hover">
+        <table class="reportTable table table-striped table-hover">
             <thead>
             <tr>
                 <td>First</td>
@@ -58,20 +49,11 @@
     </div>
 
         <div class="row">
-            <div class="row mb-0">
-                <div class="col-sm-6">
-                    <div class="d-print-none">
-                        <!-- WHERE BUTTONS GO -->
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div id="datatable_search_stack" class="mt-sm-0 mt-2 d-print-none"></div>
-                </div>
-            </div>
+
 
             <h2>Assigned Recipients</h2>
 
-            <table class="table table-striped table-hover">
+            <table class="reportTable table table-striped table-hover">
                 <thead>
                 <tr>
                     <td>First</td>
