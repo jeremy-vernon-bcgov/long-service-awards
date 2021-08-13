@@ -38,7 +38,7 @@ class AttendeeController extends Controller
 
     }
 
-    public function updateRSVPStatus($rid) {
+    public function updateRSVPStatus($rid, Request $request) {
 
         $recipient = Recipient::find($rid);
         $recipient->attendee->status = $request->status;
