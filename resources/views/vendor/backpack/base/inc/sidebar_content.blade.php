@@ -17,6 +17,12 @@
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvpstatus')}}">RSVPs</a></li>
+            <li class="nav-item">
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link" href="{{url('ceremony/response-by-ceremony')}}"> - by Ceremony</a></li>
+                    <li class="navi-tem"><a class="nav-link" href="{{url('ceremony/response-by-organization')}}"> - by Organization</a></li>
+                </ul>
+            </li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodations')}}">Accommodations</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
@@ -67,6 +73,12 @@
         <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
         <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvpstatus')}}">RSVPs</a></li>
+        <li class="nav-item">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link" href="{{url('ceremony/response-by-ceremony')}}"> - by Ceremony</a></li>
+                <li class="navi-tem"><a class="nav-link" href="{{url('ceremony/response-by-organization')}}"> - by Organization</a></li>
+            </ul>
+        </li>
         <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
         <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodations')}}">Accommodations</a></li>
         <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
@@ -114,6 +126,12 @@
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/assign')}}">Assign</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ backpack_url('recipientceremony') }}">Invitations</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/rsvpstatus')}}">RSVPs</a></li>
+            <li class="nav-item">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link" href="{{url('ceremony/response-by-ceremony')}}"> - by Ceremony</a></li>
+                <li class="navi-tem"><a class="nav-link" href="{{url('ceremony/response-by-organization')}}"> - by Organization</a></li>
+            </ul>
+            </li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodations')}}">Accommodations</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/vipsummary')}}">Executives</a></li>
