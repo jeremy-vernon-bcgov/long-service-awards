@@ -79,43 +79,43 @@
                 <div class="col-10 center grey-bg">
                     <img src="{{url('/img/banner-w-coat.svg')}}" style="margin-top: 10pt">
                     <p class="xxl">Thank you {{$recipient->first_name}}, and congratulations!</p>
-                    <p class="lorge">The ceremony will take place at Government House, business attire is recommended. Doors open at 5:45 p.m. Your invitation is not required for entry.</p>
+                    <p class="lorge">The ceremony will take place at Government House, the dress code is business attire. Doors open at 5:45 p.m. Your invitation is not required for entry.</p>
                     <p>Visit the <a href="https://longserviceawards.gww.gov.bc.ca/ceremony/" target="_blank">Long Service Awards website</a> for the most current ceremony information.</p>
 
                     @if($recipient->attendee->accessibilityOptions->count() > 0)
                         <p>You indicated your accessibility requirements are:</p>
-                        <ul>
+                        <br>
                             @foreach($recipient->attendee->accessibilityOptions as $accessibilityOption)
-                                <li>{{$accessibilityOption->description}}</li>
+                                <p>{{$accessibilityOption->description}}</p>
                             @endforeach
-                        </ul>
+                        <br>
                     @endif
 
                     @if(!empty($recipient->guest->attendee) && $recipient->guest->attendee->accessibilityOptions->count() > 0)
                         <p>You indicated your guest's accessibility requirements are:</p>
-                        <ul>
+                        <br>
                             @foreach($recipient->guest->attendee->accessibilityOptions as $accessibilityOption)
-                                <li>{{$accessibilityOption->description}}</li>
+                                <p>{{$accessibilityOption->description}}</p>
                             @endforeach
-                        </ul>
+                        <br>
                     @endif
 
                     @if($recipient->attendee->dietaryRestrictions->count() > 0)
                         <p>You indicated your dietary requirements are:</p>
-                        <ul>
+                        <br>
                             @foreach($recipient->attendee->dietaryRestrictions as $dietaryRestriction)
-                                <li>{{$dietaryRestriction->short_name}}</li>
+                                <p>{{$dietaryRestriction->short_name}}</p>
                             @endforeach
-                        </ul>
+                        <br>
                     @endif
 
                     @if(!empty($recipient->guest->attendee) && $recipient->guest->attendee->dietaryRestrictions->count() > 0)
                         <p>You indicated your guest's  dietary requirements are:</p>
-                        <ul>
+                        <br>
                             @foreach($recipient->guest->attendee->dietaryRestrictions as $dietaryRestriction)
-                                <li>{{$dietaryRestriction->short_name}}</li>
+                                <p>{{$dietaryRestriction->short_name}}</p>
                             @endforeach
-                        </ul>
+                        <br>
                     @endif
 
                     @if($updated_contact)
