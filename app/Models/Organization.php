@@ -14,6 +14,11 @@ class Organization extends Model
 
     protected $guarded = ['id'];
 
+    public function attendees() {
+        return $this->hasManyThrough();
+    }
+
+
     public function vips () {
         return $this->hasMany(Vip::class);
     }

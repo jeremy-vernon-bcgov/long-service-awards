@@ -122,9 +122,9 @@ class AttendeeController extends Controller
 
         if ($request->contact_update === 'true') :
             $updateParams = [
-                'office_phone',
+                'government_phone',
                 'personal_phone',
-                'office_email',
+                'government_email',
                 'personal_email',
                 'preferred_contact',
             ];

@@ -166,6 +166,37 @@ class CeremonyController extends Controller
         return $dietOptions;
     }
 
+    public function responseRatesByCeremony() {
+        $data['columns'][] = ['label' => 'ceremony'         , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'assigned'         , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'invited'          , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'attending'        , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'guests'           , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'attendees'        , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'declined'         , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'RSVPed'           , 'orderable' => 'true'];
+
+        $data['ceremonies'] = Ceremony::all();
+
+
+        return view('admin.ceremonies.responseByCeremony', $data);
+    }
+
+    public function responseRatesByOrganization() {
+
+        $data['columns'][] = ['label' => 'organization'  , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'recipients'    , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'assigned'      , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'attending'     , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'attendees'     , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'declined'      , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'RSVPed'       , 'orderable' => 'true'];
+
+        $data['organizations'] = Organization::with('recipients')->all();
+
+        return view('admin.ceremonies.responseByOrganization', $data);
+    }
+
 
     public function assign()
     {

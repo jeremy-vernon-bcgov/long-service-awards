@@ -481,13 +481,13 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="office_email"> Office email: </label>
-                                    <input type="text" class="form-control" name="office_email" id="office_email"/>
+                                    <label for="government_email"> Office email: </label>
+                                    <input type="text" class="form-control" name="government_email" id="government_email"/>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="preferred_phone"> Office Phone: </label>
-                                    <input type="text" class="form-control" name="office_phone" id="office_phone" />
+                                    <label for="government_phone"> Office Phone: </label>
+                                    <input type="text" class="form-control" name="government_phone" id="government_phone" />
                                 </div>
                             </div>
                         </div>

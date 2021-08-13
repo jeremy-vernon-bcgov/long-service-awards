@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/ceremony/rsvpstatus', [AttendeeController::class, 'rsvpStatus']);
     Route::post('/attendee/updatersvp/{rid}', [AttendeeController::class, 'updateRSVPStatus'])->where('rid', '[0-9]+');
 
+    Route::get('/ceremony/response-by-ceremony', [CeremonyController::class, 'responseRatesByCeremony']);
+
+
     /**
      * Dashboard
      */
