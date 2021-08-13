@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/ceremony/assign/{rid}', [CeremonyController::class, 'assignUpdate']);
     Route::get('/ceremony/accommodations' , [CeremonyController::class, 'accommodations']);
     Route::get('/ceremony/rsvpstatus', [AttendeeController::class, 'rsvpStatus']);
+    Route::post('/attendee/updatersvp/{rid}', [AttendeeController::class, 'updateRSVPStatus'])->where('rid', '[0-9]+');
 
     /**
      * Dashboard

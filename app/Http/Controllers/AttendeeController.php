@@ -38,6 +38,16 @@ class AttendeeController extends Controller
 
     }
 
+    public function updateRSVPStatus($rid) {
+
+        $recipient = Recipient::find($rid);
+        $recipient->attendee->status = $request->status;
+        $recipient->attendee->save();
+
+        return redirect('ceremony/rsvpstatus');
+
+    }
+
     public function rsvpBuild(string $identifier)
     {
         //IS THIS A VALID RSVP?
