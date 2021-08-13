@@ -144,6 +144,84 @@ class RecipientCrudController extends CrudController
          */
     }
 
+    protected function setupShowOperation()
+    {
+        //CRUD::column('id');
+        //CRUD::column('created_at');
+        //CRUD::column('updated_at');
+        CRUD::column('idir');
+        CRUD::column('guid');
+        CRUD::column('employee_number');
+        CRUD::column('first_name');
+        CRUD::column('last_name');
+        CRUD::column('is_bcgeu_member');
+        CRUD::column('award_id');
+        CRUD::column('milestone');
+ //       CRUD::column('milestone_year');
+ //       CRUD::column('retiring_this_year');
+        CRUD::column('retirement_date');
+        CRUD::column('survey_participation');
+        CRUD::column('government_email');
+        CRUD::column('government_phone_number');
+        CRUD::column('office_address_prefix');
+        CRUD::column('office_address_suite');
+        CRUD::column('office_address_postal_code');
+
+        $this->crud->addColumn([
+            'name' => 'officeCommunity',
+            'type' => 'relationship',
+            'entity' => 'officeCommunity',
+            'attribute' => 'name',
+            'label' => 'Office community'
+        ]);
+
+
+//        CRUD::column('office_address_community_id')->name('office_address_community_id')->entity('officeCommunity')->model('App\Models\Community')->attribute('name');
+        CRUD::column('organization_id');
+        CRUD::column('branch_name');
+        CRUD::column('personal_email');
+        CRUD::column('personal_phone_number');
+        CRUD::column('personal_address_prefix');
+        CRUD::column('personal_address_suite');
+        CRUD::column('personal_address_street_address');
+        CRUD::column('personal_address_postal_code');
+
+        $this->crud->addColumn([
+            'name' => 'personalCommunity',
+            'type' => 'relationship',
+            'entity' => 'personalCommunity',
+            'attribute' => 'name',
+            'label' => 'Personal community'
+        ]);
+
+        CRUD::column('supervisor_first_name');
+        CRUD::column('supervisor_last_name');
+        CRUD::column('supervisor_email');
+        CRUD::column('supervisor_address_prefix');
+        CRUD::column('supervisor_address_suite');
+        CRUD::column('supervisor_postal_code');
+        CRUD::column('supervisor_community_id');
+        CRUD::column('registered_in_2019');
+        CRUD::column('award_received');
+        CRUD::column('certificate_name');
+        CRUD::column('milestone_certificate_ordered');
+        CRUD::column('is_retroactive');
+        CRUD::column('noshow_at_ceremony');
+        CRUD::column('presentation_number');
+        CRUD::column('executive_recipient');
+        CRUD::column('recipient_speaker');
+        CRUD::column('admin_notes');
+        CRUD::column('photo_frame_range');
+        CRUD::column('photo_order');
+        CRUD::column('photo_sent');
+        //CRUD::column('deleted_at');
+
+
+
+
+    }
+
+
     /**
      * Define what happens when the Create operation is loaded.
      *
