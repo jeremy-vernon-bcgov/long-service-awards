@@ -53,8 +53,7 @@
                 <p class="very-lorge" id="introduction">The Province of British Columbia is pleased to invite</p>
                 <p class="xxl" id="recipient-name">{{$recipient->first_name . ' ' . $recipient->last_name}}</p>
                 <p class="lorge" id="introduction-ceremony">to the Long Service Awards Ceremony on </p>
-                <p class="very-lorge">{{ date_format($scheduled_datetime, 'l, F j') }}
-                    at {{ date_format($scheduled_datetime, 'g:i a') }} </p>
+                <p class="very-lorge">{{ date_format($scheduled_datetime, 'l, F j') }} 2021</p>
 
                 <div class="row left">
                     <div class="col-1">&nbsp;</div>
@@ -64,7 +63,7 @@
                     </div>
                     <div class="col-5">
                         <p class="medium">This invitation is for the intended recipient and one guest.</p>
-                        <p class="medium">Doors open at 5:45pm. and dress is business attire.</p>
+                        <p class="medium">Doors open at 5:45pm. Dress: business attire.</p>
 
                     </div>
                     <div class="col-1">&nbsp;</div>
@@ -143,7 +142,7 @@
                         <div class="col-9">
                             <h3 style="margin-top: 10pt">Inclusivity</h3>
                             <p>The Long Service Awards ceremonies are welcoming and accessible events.</p>
-                            <p>Contact <a href="mailto:LongServiceAwards@gov.bc.ca" target="_blank">LongServiceAwards@gov.bc.ca</a> with questions.</p>
+                            <p>Please contact <a href="mailto:LongServiceAwards@gov.bc.ca" target="_blank">LongServiceAwards@gov.bc.ca</a> with any questions.</p>
 
                             <h3>Accessibility Requirements</h3>
                             <p>To ensure you and your guest can enjoy the festivities, please share your accessibility requirements
@@ -243,7 +242,7 @@
                                 <label class="block" for="{{$option->short_name}}">{{$option->description}}</label>
                             </div>
                         @endforeach
-                        <p>If your guest has additional requirements or considerations please contact <a href="mailto:LongServiceAwards@gov.bc.ca">LongServiceAwards@gov.bc.ca</a>.</p>
+                        <p>If your guest has additional requirements please contact <a href="mailto:LongServiceAwards@gov.bc.ca">LongServiceAwards@gov.bc.ca</a>.</p>
 
                     </div>
                     <div class="col-1">&nbsp;</div>

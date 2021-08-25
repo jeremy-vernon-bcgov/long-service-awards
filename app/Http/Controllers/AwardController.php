@@ -147,7 +147,7 @@ class AwardController extends Controller
         $data['columns'][] = ['label' => 'Milestone', 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Org' , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Ceremony' , 'orderable' => 'true'];
-
+        $data['columns'][] = ['label' => 'Edit', 'orderable' => 'false'];
 
 
         $data['recipients'] = Recipient::where('award_id', 49)
@@ -157,6 +157,22 @@ class AwardController extends Controller
                                         ->orWhere('award_id', 53)
                                         ->orWhere('award_id', 54)
                                         ->get();
+
+        $certificateNames = [];
+
+        foreach ($data['recipients'] as $recipient) {
+            $awardSelections = $recipient->awardSelections;
+            foreach ($awardSelections as $selection) {
+                if ($selection->award_option_id == 6 || $selection->award_option_id == 7 || $selection->award_option_id == 8 || $selection->award_option_id == 9 || $selection->award_option_id == 10) {
+                    if (strlen($selection->value) != 0) :
+                    $certificateNames[$recipient->id] = $selection->value;
+                    else:
+                    $certificateNames[$recipient->id] = 'None Provided';
+                    endif;
+                }
+            }
+        }
+        $data['certificateNames'] = $certificateNames;
 
         //TODO: calculate totals for certificate amounts.
         //TODO: calculate total donation qty.

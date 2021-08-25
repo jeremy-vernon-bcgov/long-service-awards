@@ -23,6 +23,8 @@ class DietaryRestrictionSeeder extends Seeder
         DB::table('dietary_restrictions')->insert(['id' => '4','short_name' => 'Shellfish-free']);
         DB::table('dietary_restrictions')->insert(['id' => '5','short_name' => 'Vegetarian']);
         DB::table('dietary_restrictions')->insert(['id' => '6','short_name' => 'Vegan']);
-        DB::table('dietary_restrictions')->insert(['id' => '7','short_name' => 'Other, please specify']);
+        DB::table('dietary_restrictions')->insert(['id' => '8','short_name' => 'Peanut-free']);
+        DB::table('dietary_restrictions')->insert(['id' => '9','short_name' => 'Nut-free']);
+        DB::table('dietary_restrictions')->insert(['id' => '7','short_name' => 'Other, he LSA team will contact you for further details']);
     }
 }
