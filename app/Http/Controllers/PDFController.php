@@ -27,13 +27,18 @@ class PDFController extends Controller
         $name = $recipient->first_name . ' ' . $recipient->last_name;
         $ceremony = Ceremony::find($recipient->ceremony_id);
 
+
+
         $data = [
             'name' => $name,
             'date' => new DateTime($ceremony->scheduled_datetime),
         ];
 
-        $pdf = PDF::loadView('pdf/lsaPDF', $data);
+        return view('rsvp.keepsake-invite', $data);
 
-        return $pdf->download('lsa.pdf');
+
+       //$pdf = PDF::loadView('rsvp.keepsake-invite', $data);
+
+       //return $pdf->download('lsa.pdf');
     }
 }

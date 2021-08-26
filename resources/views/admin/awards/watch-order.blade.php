@@ -53,10 +53,10 @@
                         <td>{{$recipient->last_name}}</td>
                         <td>{{$recipient->ceremony->id ?? 'unassigned'}}</td>
                         @if ($recipient->awardSelections)
-                            <td>{{$recipient->awardSelections->where('award_option_id', '=', 1)->first()->value ?? 'none selected'}}</td>
-                            <td>{{$recipient->awardSelections->where('award_option_id', '=', 2)->first()->value ?? 'none selected'}}</td>
-                            <td>{{$recipient->awardSelections->where('award_option_id', '=', 3)->first()->value ?? 'none selected'}}</td>
-                            <td>{{$recipient->awardSelections->where('award_option_id', '=', 4)->first()->value ?? 'none selected'}}</td>
+                            <td>{{$recipient->awardSelections->where('award_option_id', 1)->first()->value ?? 'none selected'}}</td>
+                            <td>{{$recipient->awardSelections->where('award_option_id', 2)->first()->value ?? 'none selected'}}</td>
+                            <td>{{$recipient->awardSelections->where('award_option_id', 3)->first()->value ?? 'none selected'}}</td>
+                            <td>{{$recipient->awardSelections->where('award_option_id', 4)->first()->value ?? 'none selected'}}</td>
                         @else
                             <td></td>
                             <td></td>

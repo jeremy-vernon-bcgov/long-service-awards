@@ -196,4 +196,6 @@ class AttendeeController extends Controller
         $attendee->save();
     }
 
+
+
 }
