@@ -22,7 +22,7 @@ class PDFController extends Controller
     public function generatePDF(int $id)
     {
         // Grab attendee - then we can get recipient.
-        $attendee = Attendee::find($id);
+        $attendee = Attendee::where('identifier', $id)->first();
         $recipient = Recipient::find($attendee->recipient_id);
         $name = $recipient->first_name . ' ' . $recipient->last_name;
         $ceremony = Ceremony::find($recipient->ceremony_id);

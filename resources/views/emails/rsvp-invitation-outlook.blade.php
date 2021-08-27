@@ -13,7 +13,7 @@
 
     <div style="text-align: center">
         <img src="{{url('img/email-badge.png')}}">
-        <h1 class="header">The Province of British Columbia</h1>
+        <h1 class="header">The Government of British Columbia</h1>
         <h1 class="sub-head">is pleased to invite</h1>
         <h1 class="name">{{$data['name']}}</h1>
         <h2 class="info">to the Long Service Awards Ceremony</h2>

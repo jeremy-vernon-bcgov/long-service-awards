@@ -29,6 +29,7 @@ class CreateAttendeesTable extends Migration
             $table->foreign('recipient_id')->references('id')->on('recipients');
             $table->foreign('guest_id')->references('id')->on('guests');
             $table->foreign('ceremony_id')->references('id')->on('ceremonies');
+            $table->text('annotations')->nullable();
         });
     }
 

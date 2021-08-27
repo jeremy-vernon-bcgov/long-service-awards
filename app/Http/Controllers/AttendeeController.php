@@ -122,8 +122,8 @@ class AttendeeController extends Controller
 
         if ($request->contact_update === 'true') :
             $updateParams = [
-                'government_phone',
-                'personal_phone',
+                'government_phone_number',
+                'personal_phone_number',
                 'government_email',
                 'personal_email',
                 'preferred_contact',
@@ -142,7 +142,7 @@ class AttendeeController extends Controller
         if ($request->retiring === 'true'):
             $recipient->retiring_this_year  = true;
             $recipient->retirement_date     = $request->retirement_date;
-            $recipient->personal_phone      = $request->personal_phone;
+            $recipient->personal_phone_number      = $request->personal_phone;
             $recipient->personal_email      = $request->personal_email;
             $recipient->preferred_contact   = 'personal';
         endif;

@@ -7,7 +7,7 @@
 @section('content')
 
 
-        <table class="table table-striped table-hover">
+        <table class="reportTable table table-striped table-hover">
             <thead>
                 <tr>
                     <td>Size</td>
@@ -84,6 +84,7 @@
 @endsection
 @section('jsTableConfig')
     <script>
+
         var reportTableConfig = {
             dom: 'liftBp',
             fixedHeader: true,
@@ -94,5 +95,6 @@
             aaSorting: [],
         }
         let tableConfigs = [reportTableConfig];
+
     </script>
 @endsection

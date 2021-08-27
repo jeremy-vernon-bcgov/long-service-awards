@@ -79,7 +79,7 @@ trait CeremonyInviteOperation
                 "ceremony" => new DateTime($ceremony->scheduled_datetime),
                 "subject" => $custom_subject,
                 "rsvp_url" => URL::to('/') . "/rsvp/" . $attendee->identifier,
-                "invite_pdf_url" => URL::to('/') . "/invitation/" . $value
+                "invite_pdf_url" => URL::to('/generate-pdf') . "/" . $attendee->identifier
             ];
 
             $attendee->status = 'invited';

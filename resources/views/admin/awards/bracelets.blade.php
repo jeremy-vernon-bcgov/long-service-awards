@@ -10,10 +10,10 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div id="datatable_search_stack" class="mt-sm-0 mt-2 d-print-none"></div>
+                <div id=" datatable_search_stack" class="mt-sm-0 mt-2 d-print-none"></div>
             </div>
         </div>
-        <table class="table">
+        <table class="table reportTable">
             <thead>
                 <tr>
                     <td>Size</td>
@@ -63,22 +63,20 @@
 
 
             </tbody>
-            <script>
-                var reportTableConfig = {
-                    dom: 'liftBp',
-                    fixedHeader: true,
-                    autoWidth: false,
-                    buttons: ['excel'],
-                    pageLength: 50,
-                    lengthMenu: [[25,50,75,100,-1],[25,50,75,100,'All ']],
-                    aaSorting: [],
-                }
-                let tableConfigs = [reportTableConfig];
-            </script>
 
 @endsection
 
-
-@section('table-content')
-
+            @section('jsTableConfig')
+                <script>
+                    var reportTableConfig = {
+                        dom: 'liftBp',
+                        fixedHeader: true,
+                        autoWidth: false,
+                        buttons: ['excel'],
+                        pageLength: 50,
+                        lengthMenu: [[25,50,75,100,-1],[25,50,75,100,'All ']],
+                        aaSorting: [],
+                    }
+                    let tableConfigs = [reportTableConfig];
+                </script>
 @endsection

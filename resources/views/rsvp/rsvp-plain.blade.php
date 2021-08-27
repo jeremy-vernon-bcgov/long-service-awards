@@ -50,7 +50,7 @@
             </div>
             <div class="col-10 center grey-bg">
                 <img src="{{url('/img/banner-w-coat.svg')}}" style="margin-top: 10pt">
-                <p class="very-lorge" id="introduction">The Province of British Columbia is pleased to invite</p>
+                <p class="very-lorge" id="introduction">The Government of British Columbia is pleased to invite</p>
                 <p class="xxl" id="recipient-name">{{$recipient->first_name . ' ' . $recipient->last_name}}</p>
                 <p class="lorge" id="introduction-ceremony">to the Long Service Awards Ceremony on </p>
                 <p class="very-lorge">{{ date_format($scheduled_datetime, 'l, F j') }} 2021</p>
@@ -393,28 +393,28 @@
 
 
                         <div class="form-group">
-                            <label class="block font-medium text-sm text-gray-700" for="gift_location_floor">
+                            <label class="block font-medium text-sm text-gray-700" for="office_address_prefix">
                                 Floor/room/care of </label>
-                            <input type="text" class="form-control" name="office_address_prefix" id="gift_location_floor">
+                            <input type="text" class="form-control" name="office_address_prefix" id="office_address_prefix">
                         </div>
 
                         <div class="form-group">
-                            <label class="block font-medium text-sm text-gray-700" for="gift_location_suit">
+                            <label class="block font-medium text-sm text-gray-700" for="office_address_suite">
                                 Suite </label>
-                            <input type="text" class="form-control" name="office_address_suite" id="gift_location_suit">
+                            <input type="text" class="form-control" name="office_address_suite" id="office_address_suite">
                         </div>
 
                         <div class="form-group">
-                            <label class="block font-medium text-sm text-gray-700" for="gift_location_addr">
+                            <label class="block font-medium text-sm text-gray-700" for="office_address_street_address">
                                 Street Address </label>
-                            <input type="text" class="form-control" name="office_address_street_address" id="gift_location_addr">
+                            <input type="text" class="form-control" name="office_address_street_address" id="office_address_street_address">
 
                         </div>
 
                         <div class="form-group">
-                            <label class="block font-medium text-sm text-grey-700" for="community">
+                            <label class="block font-medium text-sm text-grey-700" for="office_address_community_id" >
                                 Community </label>
-                            <select class="form-control" name="office_address_community_id" id="community">
+                            <select class="form-control" name="office_address_community_id" id="office_address_community_id">
                                 @foreach($communities as $community)
                                     <option value="{{$community->id}}">{{$community->name}}</option>
                                 @endforeach
@@ -423,8 +423,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="block font-medium text-sm text-gray-700" for="gift_location_postal"> Postal Code </label>
-                            <input type="text"  class="form-control" name="office_address_postal_code" id="gift_location_postal">
+                            <label class="block font-medium text-sm text-gray-700" id="office_address_postal_code"> Postal Code </label>
+                            <input type="text"  class="form-control" name="office_address_postal_code" id="office_address_postal_code">
                         </div>
                     </div>
                     <div class="col-1">&nbsp;</div>

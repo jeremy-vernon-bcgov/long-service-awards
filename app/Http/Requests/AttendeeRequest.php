@@ -53,9 +53,9 @@ class AttendeeRequest extends FormRequest
             // Multiple ways to require this - but also check validity of format.
             'personal_email'                    => 'required_if:retirement_status,true|required_if:contact_update,true',
             'personal_phone'                    => 'required_if:retirement_status,true|required_if:contact_update,true',
-            'office_email'                  => 'required_if:contact_update,true',
+            'government_email'                  => 'required_if:contact_update,true',
 
-            'office_phone'                  => 'required_if:contact_update,true',
+            'government_phone'                  => 'required_if:contact_update,true',
             'preferred_contact'             => 'required_if:contact_update,true',
 
         ];
