@@ -77,6 +77,13 @@ class AttendeeController extends Controller
 
     }
 
+    public function viewRSVPCodes() {
+        $data['attendees'] = Attendee::all();
+
+        return view('admin.attendees.attendeeList', $data);
+
+    }
+
     /**
      * @param AttendeeRequest $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
