@@ -19,7 +19,7 @@ class PDFController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function generatePDF(int $id)
+    public function generatePDF($id)
     {
         // Grab attendee - then we can get recipient.
         $attendee = Attendee::where('identifier', $id)->first();
