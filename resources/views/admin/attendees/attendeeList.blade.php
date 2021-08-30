@@ -11,7 +11,7 @@
                 <td>{{$attendee->recipient->organization->short_name}}</td>
                 <td>@if (!empty($attendee->identifier))
                     {{$attendee->identifier}}
-                    @endif;
+                    @endif
                 </td>
                 <td>{{$attendee->status}}</td>
             </tr>
