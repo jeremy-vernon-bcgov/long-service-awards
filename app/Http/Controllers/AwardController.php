@@ -308,7 +308,9 @@ class AwardController extends Controller
         $sizes['small'] = ['text' => 'Fits 6 ½″ - 7 ½″ circumference wrists', 'count' => 0];
         $sizes['large'] = ['text' => 'Fits 7 ½″ - 8 ½″ circumference wrists', 'count' => 0];
 
-        $data['recipients'] = Recipient::where('award_id', $this->bracelet_award_IDs)->get();
+        $data['recipients'] = Recipient::where('award_id', $this->bracelet_award_IDs[0])
+                                                ->orWhere('award_id', $this->bracelet_award_IDs[1])
+                                                ->orWhere('award_id', $this->bracelet_award_IDs[2])git ->get();
 
         foreach ($data['recipients'] as $recipient) {
             foreach ($sizes as $sizeName => $size) {
