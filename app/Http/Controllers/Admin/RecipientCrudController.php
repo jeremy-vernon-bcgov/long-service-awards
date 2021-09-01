@@ -210,7 +210,7 @@ class RecipientCrudController extends CrudController
         CRUD::column('presentation_number');
         CRUD::column('executive_recipient');
         CRUD::column('recipient_speaker');
-        CRUD::column('admin_notes');
+        CRUD::column('admin_notes')->label('Changelog');
         CRUD::column('photo_frame_range');
         CRUD::column('photo_order');
         CRUD::column('photo_sent');
