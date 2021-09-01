@@ -11,6 +11,7 @@ use App\Models\DietaryRestrictionAttendee;
 use App\Models\Guest;
 use App\Models\Organization;
 use App\Models\Recipient;
+use Backpack\CRUD\app\Library\CrudPanel\Traits\Access;
 use DateTime;
 use Illuminate\Http\Request;
 use App\Models\Attendee;
@@ -180,6 +181,78 @@ class AttendeeController extends Controller
 
         $attendee->dietaryRestrictions()->sync($dietaryRestrictions);
         $attendee->save();
+
+    }
+    public function editAccommodations($rid)
+    {
+        $data['recipient'] = Recipient::find($rid);
+        $data['accessibilityOptions'] = AccessibilityOption::all();
+        $data['dietaryOptions'] = DietaryRestriction::all();
+
+        return view('admin.attendees.accommodation', $data);
+
+    }
+
+    public function updateAccommodations($rid, Request $request)
+    {
+        $recipient = Recipient::find($rid);
+
+        $accessibilityOptions = AccessibilityOption::all();
+        $dietaryRestrictions = DietaryRestriction::all();
+
+        foreach ($accessibilityOptions as $option) {
+            $recipString = "recipient_access_" . $option->id;
+            if ($request->$recipString == 1)
+            {
+                $recipient->attendee->accessibilityOptions()->attach($option->id);
+
+            } else
+            {
+                $recipient->attendee->accessibilityOptions()->detach($option->id);
+            }
+
+          if (!empty($recipient->guest)):
+            $guestString = 'guest_access_' . $option->id;
+            if ($request->$guestString == 1)
+            {
+                $recipient->guest->attendee->accessibilityOptions()->attach($option->id);
+            } else
+            {
+                $recipient->guest->attendee->accessibilityOptions()->detach($option->id);
+            }
+          endif; //guest processing
+        }
+        foreach ($dietaryRestrictions as $option) {
+            $recipString = "recipient_dietary_" . $option->id;
+            if ($request->$recipString == 1)
+            {
+                $recipient->attendee->dietaryRestrictions()->attach($option->id);
+            } else {
+                $recipient->attendee->dietaryRestrictions()->detach($option->id);
+            }
+          if (!empty($recipient->guest)):
+            $guestString = 'guest_dietary_' . $option->id;
+            if ($request->$guestString == 1)
+            {
+                $recipient->guest->attendee->dietaryRestrictions()->attach($option->id);
+            } else {
+                $recipient->guest->attendee->dietaryRestrictions()->detach($option->id);
+            }
+          endif; // guest processing
+        }
+
+        if (!empty($request->recipient_accommodation_notes))
+        {
+            $recipient->attendee->annotations = $request->recipient_accommodation_notes;
+            $recipient->attendee->save();
+        }
+        if (!empty($request->guest_accommodation_notes))
+        {
+            $recipient->guest->attendee->annotations = $request->guest_accommodation_notes;
+            $recipient->guest->attendee->save();
+        }
+
+        return redirect('ceremony/accommodations');
 
     }
 

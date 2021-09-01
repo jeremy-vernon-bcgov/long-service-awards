@@ -67,15 +67,15 @@
                 <tr>
                         @if($attendee->type == 'recipient')
                             <td>Recipient</td>
-                            <td>{{$attendee->recipient->first_name}}</td>
-                            <td>{{$attendee->recipient->last_name}}</td>
+                        <td><a href="{{url('attendees/accommodation')}}/{{$attendee->recipient->id}}">{{$attendee->recipient->first_name}}</a></td>
+                        <td><a href="{{url('attendees/accommodation')}}/{{$attendee->recipient->id}}">{{$attendee->recipient->last_name}}</a></td>
                             <td>{{$attendee->recipient->organization->short_name}}</td>
                             <td>{{$attendee->recipient->milestone}}</td>
                         @endif
                         @if ($attendee->type == 'guest')
                             <td>Guest</td>
                             <td>Guest Of</td>
-                            <td>{{$attendee->guest->recipient->first_name}} {{$attendee->guest->recipient->last_name}}</td>
+                                <td><a href="{{url('attendees/accommodation')}}/{{$attendee->recipient->id}}">{{$attendee->guest->recipient->first_name}} {{$attendee->guest->recipient->last_name}}</a></td>
                             <td>{{$attendee->guest->recipient->organization->short_name}}</td>
                             <td></td>
                         @endif

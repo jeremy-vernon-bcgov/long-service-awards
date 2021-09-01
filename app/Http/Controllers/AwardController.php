@@ -310,7 +310,7 @@ class AwardController extends Controller
 
         $data['recipients'] = Recipient::where('award_id', $this->bracelet_award_IDs[0])
                                                 ->orWhere('award_id', $this->bracelet_award_IDs[1])
-                                                ->orWhere('award_id', $this->bracelet_award_IDs[2])git ->get();
+                                                ->orWhere('award_id', $this->bracelet_award_IDs[2])->get();
 
         foreach ($data['recipients'] as $recipient) {
             foreach ($sizes as $sizeName => $size) {

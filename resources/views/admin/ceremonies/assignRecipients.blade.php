@@ -16,6 +16,7 @@
                 <td>Last</td>
                 <td>Org</td>
                 <td>Milestone</td>
+                <td>Accommo.</td>
                 <td>Ceremony</td>
             </tr>
             </thead>
@@ -26,6 +27,7 @@
             <td>{{$recipient->last_name}}</td>
             <td>{{$recipient->organization->short_name}}</td>
             <td>{{$recipient->milestone}}</td>
+            <td><a href="{{url('attendees/accommodation')}}/{{$recipient->id}}">Accommo.</a></td>
             <td>
                 <form method="post" action="{{url('ceremony/assign')}}/{{$recipient->id}}">
                     @csrf
@@ -60,6 +62,7 @@
                     <td>Last</td>
                     <td>Org</td>
                     <td>Milestone</td>
+                    <td>Accommo.</td>
                     <td>Ceremony</td>
                 </tr>
                 </thead>
@@ -70,6 +73,7 @@
                         <td>{{$recipient->last_name}}</td>
                         <td>{{$recipient->organization->short_name}}</td>
                         <td>{{$recipient->milestone}}</td>
+                        <td><a href="{{url('attendees/accommodation')}}/{{$recipient->id}}">Accommo.</a></td>
                         <td>
                             <form method="post" action="{{url('ceremony/assign')}}/{{$recipient->id}}">
                                 @csrf

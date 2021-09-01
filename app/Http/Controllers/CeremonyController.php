@@ -204,6 +204,7 @@ class CeremonyController extends Controller
         $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Org', 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Milestone', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Accomm', 'orderable' => 'false'];
         $data['columns'][] = ['label' => 'Ceremony', 'orderable' => 'true'];
 
 
