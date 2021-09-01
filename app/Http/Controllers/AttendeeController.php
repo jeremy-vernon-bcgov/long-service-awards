@@ -200,11 +200,17 @@ class AttendeeController extends Controller
         $accessibilityOptions = AccessibilityOption::all();
         $dietaryRestrictions = DietaryRestriction::all();
 
+
+
+
         foreach ($accessibilityOptions as $option) {
             $recipString = "recipient_access_" . $option->id;
             if ($request->$recipString == 1)
             {
-                $recipient->attendee->accessibilityOptions()->attach($option->id);
+                if (empty($recipient->attendee->accessibilityOptions->find($option->id)))
+                {
+                    $recipient->attendee->accessibilityOptions()->attach($option->id);
+                }
 
             } else
             {
@@ -215,7 +221,11 @@ class AttendeeController extends Controller
             $guestString = 'guest_access_' . $option->id;
             if ($request->$guestString == 1)
             {
-                $recipient->guest->attendee->accessibilityOptions()->attach($option->id);
+                if (empty($recipient->guest->attendee->accessibilityOptions->find($option->id)))
+                {
+                    $recipient->guest->attendee->accessibilityOptions()->attach($option->id);
+                }
+
             } else
             {
                 $recipient->guest->attendee->accessibilityOptions()->detach($option->id);
@@ -226,7 +236,11 @@ class AttendeeController extends Controller
             $recipString = "recipient_dietary_" . $option->id;
             if ($request->$recipString == 1)
             {
-                $recipient->attendee->dietaryRestrictions()->attach($option->id);
+                if (empty($recipient->attendee->dietaryRestrictions->find($option->id)))
+                {
+                    $recipient->attendee->dietaryRestrictions()->attach($option->id);
+                }
+
             } else {
                 $recipient->attendee->dietaryRestrictions()->detach($option->id);
             }
@@ -234,7 +248,11 @@ class AttendeeController extends Controller
             $guestString = 'guest_dietary_' . $option->id;
             if ($request->$guestString == 1)
             {
-                $recipient->guest->attendee->dietaryRestrictions()->attach($option->id);
+                if (empty($recipient->guest->attendee->dietaryRestrictions->find($option->id)))
+                {
+                    $recipient->guest->attendee->dietaryRestrictions()->attach($option->id);
+                }
+
             } else {
                 $recipient->guest->attendee->dietaryRestrictions()->detach($option->id);
             }
