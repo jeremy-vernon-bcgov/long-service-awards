@@ -51,7 +51,7 @@
                 &nbsp;
             </div>
             <div class="col-10 center grey-bg">
-                <img src="{{url('/img/banner-w-coat.svg')}}" style="margin-top: 10pt">
+                <img src="{{url('/img/banner-w-coat.png')}}" style="margin-top: 10pt">
                     <p class="xxl">Thank you {{$recipient->first_name}}, and congratulations!</p>
                     <p class="lorge">Following the ceremonies in October, your award will be mailed to: </p>
 

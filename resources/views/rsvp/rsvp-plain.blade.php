@@ -49,7 +49,7 @@
             &nbsp;
             </div>
             <div class="col-10 center grey-bg">
-                <img src="{{url('/img/banner-w-coat.svg')}}" style="margin-top: 10pt">
+                <img src="{{url('/img/banner-w-coat.png')}}" style="margin-top: 10pt">
                 <p class="very-lorge" id="introduction">The Government of British Columbia is pleased to invite</p>
                 <p class="xxl" id="recipient-name">{{$recipient->first_name . ' ' . $recipient->last_name}}</p>
                 <p class="lorge" id="introduction-ceremony">to the Long Service Awards Ceremony on </p>
