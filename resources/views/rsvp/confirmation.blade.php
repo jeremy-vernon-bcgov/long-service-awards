@@ -53,13 +53,13 @@
             <div class="col-10 center grey-bg">
                 <img src="{{url('/img/banner-w-coat.png')}}" style="margin-top: 10pt">
                     <p class="xxl">Thank you {{$recipient->first_name}}, and congratulations!</p>
-                    <p class="lorge">Following the ceremonies in October, your award will be mailed to: </p>
+                    <p class="lorge">Following the ceremonies, your award will be mailed to: </p>
 
                     <p>
-                        {{$recipient->office_prefix ?? ''}} <br>
-                        {{$recipient->office_suite ?? ''}} <br>
-                        {{$recipient->office_address ?? ''}} <br>
-                        {{$recipient->office_posta_code ?? ''}} <br>
+                        {{$recipient->office_address_prefix ?? ''}} <br>
+                        {{$recipient->office_address_suite ?? ''}} <br>
+                        {{$recipient->office_address_address ?? ''}} <br>
+                        {{$recipient->office_address_postal_code ?? ''}} <br>
                         {{$recipient->officeCommunity->name ?? ''}}
                     </p>
             </div>
