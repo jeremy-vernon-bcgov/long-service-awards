@@ -25,7 +25,7 @@
         <br>
         <p>This invitation is for the intended recipient and one guest.</p>
         <p>Please respond before September 30, 2021</p>
-        <p>Dress: Business attire</p>
+        <p>Dress: Business Attire</p>
         <br>
         <h1><a href="{{$data['rsvp_url']}}">RSVP HERE</a></h1>
             <br>

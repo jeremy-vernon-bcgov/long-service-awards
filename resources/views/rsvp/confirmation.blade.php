@@ -79,7 +79,10 @@
                 <div class="col-10 center grey-bg">
                     <img src="{{url('/img/banner-w-coat.png')}}" class="img-fluid" style="margin-top: 10pt">
                     <p class="xxl">Thank you {{$recipient->first_name}}, and congratulations!</p>
-                    <p class="lorge">The ceremony will take place at Government House, the dress code is business attire. Doors open at 5:45 p.m. Your invitation is not required for entry.</p>
+                    <p class="lorge">The ceremony will take place at Government House</p>
+                    <p class="lorge">Dress code: Business Attire.</p>
+                    <p class="lorge">Doors open at 5:45 PM.</p>
+                    <p class="lorge">Your invitation is not required for entry.</p>
                     <p>Visit the <a href="https://longserviceawards.gww.gov.bc.ca/ceremony/" target="_blank">Long Service Awards website</a> for the most current ceremony information.</p>
 
                     @if($recipient->attendee->accessibilityOptions->count() > 0)
@@ -125,7 +128,8 @@
 
                     <p class="medium">If you need to make changes to your RSVP information or cancel your attendance, please <a href="mailto:LongServiceAwards@gov.bc.ca">email the Long Service Awards</a> team as soon as possible.</p>
                     <p class="medium">For information about travel reimbursement and taking time off, visit the <a href="https://longserviceawards.gww.gov.bc.ca/" target="_blank">Long Service Awards website</a> or email your <a href="https://longserviceawards.gww.gov.bc.ca/contacts/" target="_blank">workplace contact</a>. If you have questions about the ceremony, <a href="mailto:LongServiceAwards@gov.bc.ca">email the Long Service Awards team</a>.</p>
-                    <p class="medium"><strong>COVID-19 Pandemic</strong> The Long Service Awards program is closely following the Provincial Health Officer’s directives regarding events and travel. Due to the evolving nature of the COVID-19 pandemic, the upcoming award ceremonies are still to be confirmed. The program area will provide updates over the coming months. Thank you for your patience during this unprecedented time.</p>
+                    <p class="medium"><strong>COVID-19 Pandemic</strong></p>
+                    <p class="medium">The Long Service Awards program is closely following the Provincial Health Officer’s directives regarding events and travel. Due to the evolving nature of the COVID-19 pandemic, the upcoming award ceremonies are still to be confirmed. The program area will provide updates over the coming months. Thank you for your patience during this unprecedented time.</p>
                 </div>
                 <div class="col-1">
                     &nbsp;
