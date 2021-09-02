@@ -77,7 +77,7 @@
                     &nbsp;
                 </div>
                 <div class="col-10 center grey-bg">
-                    <img src="{{url('/img/banner-w-coat.svg')}}" style="margin-top: 10pt">
+                    <img src="{{url('/img/banner-w-coat.png')}}" class="img-fluid" style="margin-top: 10pt">
                     <p class="xxl">Thank you {{$recipient->first_name}}, and congratulations!</p>
                     <p class="lorge">The ceremony will take place at Government House, the dress code is business attire. Doors open at 5:45 p.m. Your invitation is not required for entry.</p>
                     <p>Visit the <a href="https://longserviceawards.gww.gov.bc.ca/ceremony/" target="_blank">Long Service Awards website</a> for the most current ceremony information.</p>

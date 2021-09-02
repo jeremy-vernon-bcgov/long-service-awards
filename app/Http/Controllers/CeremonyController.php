@@ -124,7 +124,9 @@ class CeremonyController extends Controller
 
         foreach ($accessibilityOptions as $accessibilityOption) :
             $count = 0;
-            foreach ($ceremony->attendees->where('status', 'attending')->get() as $attendee) :
+            $attendees = $ceremony->attendees->where('status', 'attending');
+
+            foreach ($attendees as $attendee) :
 
                 if ($attendee->accessibilityOptions->count() > 0) {
                     foreach ($attendee->accessibilityOptions as $attendeeOption) :
@@ -150,7 +152,8 @@ class CeremonyController extends Controller
 
         foreach ($dietaryRestrictions as $option) :
             $count = 0;
-            foreach ($ceremony->attendees->where('status', 'attending')->get() as $attendee) :
+            $attendees = $ceremony->attendees->where('status','attending');
+            foreach ($attendees as $attendee) :
               if ($attendee->dietaryRestrictions->count() > 0) {
                   foreach ($attendee->dietaryRestrictions as $attendeeDiet) :
                       if ($attendeeDiet->short_name == $option->short_name) {
