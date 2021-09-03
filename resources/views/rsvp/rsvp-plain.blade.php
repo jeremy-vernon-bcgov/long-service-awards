@@ -370,7 +370,7 @@
                         </div>
                         <div class="form-group">
                             <label for="personal_phone-retiree">Personal Phone Number</label>
-                            <input type="text" id="personal_phone-retiree" name="personal_phone" class="form-control">
+                            <input type="text" id="personal_phone-retiree" name="personal_phone_number" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="personal_email-retiree">Personal Email</label>
@@ -475,7 +475,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="home_phone"> Personal phone: </label>
-                                    <input type="text" class="form-control" name="personal_phone" id="home_phone">
+                                    <input type="text" class="form-control" name="personal_phone_number" id="home_phone">
                                 </div>
                             </div>
                             <div class="col-6">
@@ -486,7 +486,7 @@
 
                                 <div class="form-group">
                                     <label for="government_phone"> Office Phone: </label>
-                                    <input type="text" class="form-control" name="government_phone" id="government_phone" />
+                                    <input type="text" class="form-control" name="government_phone_number" id="government_phone" />
                                 </div>
                             </div>
                         </div>
