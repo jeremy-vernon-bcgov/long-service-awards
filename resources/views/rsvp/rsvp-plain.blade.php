@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-5">
                         <p class="medium">This invitation is for the intended recipient and one guest.</p>
-                        <p class="medium">Doors open at 5:45pm. Dress: Business Attire.</p>
+                        <p class="medium">Doors open at 5:45 PM. Dress: Business Attire.</p>
 
                     </div>
                     <div class="col-1">&nbsp;</div>

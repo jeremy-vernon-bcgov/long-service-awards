@@ -12,7 +12,11 @@
             <td>{{$award->recipients_count}}</td>
         </tr>
     @endforeach
-
+        <tr>
+            <td>Already Received</td>
+            <td>No-Award</td>
+            <td>{{$awardReceived}}</td>
+        </tr>
 @endsection
 
 @section('jsTableConfig')

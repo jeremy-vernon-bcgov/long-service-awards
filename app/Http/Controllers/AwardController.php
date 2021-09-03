@@ -107,15 +107,15 @@ class AwardController extends Controller
         return view('admin.awardsSelection.awardsSelection')->with('awards', $data['awards_count']);
            */
 
-
-
         $data['columns'][] = ['label' => 'Award Name', 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Short name', 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Total Recipients', 'orderable' => 'true'];
 
         $special_case_ids = array_merge($this->pecsf_award_IDs, $this->bracelet_award_IDs, $this->watch_award_IDs);
 
-        $data['awards'] = Award::whereNotIn('id', $special_case_ids)->withCount('recipients')->get();
+        $data['awards'] = Award::withCount('recipients')->get();
+        $data['awardReceived'] = Recipient::where('award_received', 1)->get()->count();
+
         return view('admin.awards.totals', $data);
 
     }
