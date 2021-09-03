@@ -51,14 +51,14 @@
                 &nbsp;
             </div>
             <div class="col-10 center grey-bg">
-                <img src="{{url('/img/banner-w-coat.png')}}" style="margin-top: 10pt">
+                <img src="{{url('/img/banner-w-coat.png')}}" class="img-fluid" style="margin-top: 10pt">
                     <p class="xxl">Thank you {{$recipient->first_name}}, and congratulations!</p>
                     <p class="lorge">Following the Long Service Awards ceremonies, your award will be mailed to the office address you provided:</p>
 
                     <p>
                         {{$recipient->office_address_prefix ?? ''}} <br>
                         {{$recipient->office_address_suite ?? ''}} <br>
-                        {{$recipient->office_address_address ?? ''}} <br>
+                        {{$recipient->office_address_street_address ?? ''}} <br>
                         {{$recipient->office_address_postal_code ?? ''}} <br>
                         {{$recipient->officeCommunity->name ?? ''}}
                     </p>
