@@ -173,9 +173,9 @@ class CeremonyController extends Controller
         $data['columns'][] = ['label' => 'ceremony'         , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'assigned'         , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'invited'          , 'orderable' => 'true'];
-        $data['columns'][] = ['label' => 'attending'        , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'recipients'        , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'guests'           , 'orderable' => 'true'];
-        $data['columns'][] = ['label' => 'attendees'        , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'total attending' , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'declined'         , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'RSVPed'           , 'orderable' => 'true'];
 

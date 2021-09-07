@@ -107,12 +107,12 @@ class AttendeeController extends Controller
             endif;
 
             //Accommodations
-            $this->updateDietaryRecords('recip_', $recipient->attendee, $request);
+            $this->updateDietaryRecords('recip_diet_', $recipient->attendee, $request);
             $this->updateAccessibilityRecords('recip_', $recipient->attendee, $request);
             if ($request->guest === 'true')
             {
                 $this->updateAccessibilityRecords('guest_', $recipient->guest->attendee, $request);
-                $this->updateDietaryRecords('guest_', $recipient->guest->attendee, $request);
+                $this->updateDietaryRecords('guest_diet_', $recipient->guest->attendee, $request);
             }
 
             $recipient->attendee->status = 'attending';
@@ -147,12 +147,12 @@ class AttendeeController extends Controller
         endif; //end contact update
 
 
-        if ($request->retiring === 'true'):
-            $recipient->retiring_this_year  = true;
-            $recipient->retirement_date     = $request->retirement_date;
-            $recipient->personal_phone_number      = $request->personal_phone;
-            $recipient->personal_email      = $request->personal_email;
-            $recipient->preferred_contact   = 'personal';
+        if ($request->retiring == 'true'):
+            $recipient->retiring_this_year      = true;
+            $recipient->retirement_date         = $request->retirement_date;
+            $recipient->personal_phone_number   = $request->personal_phone_number_retiree;
+            $recipient->personal_email          = $request->personal_email_retiree;
+            $recipient->preferred_contact       = 'personal';
         endif;
 
         $recipient->attendee->save();
@@ -172,17 +172,36 @@ class AttendeeController extends Controller
         foreach(DietaryRestriction::all() as $restrictionOption)
         {
             //Formfield string is needed to distinguish between recipients and guests using the same options
-            $formfield = $prefix . $restrictionOption->short_name;
+            $formfield = $prefix . $restrictionOption->id;
             if (!empty($request->$formfield) && $request->$formfield === 'true')
             {
                 $dietaryRestrictions[] = $restrictionOption->id;
             }
         }
-
         $attendee->dietaryRestrictions()->sync($dietaryRestrictions);
         $attendee->save();
-
     }
+
+    /**
+     * @param Attendee $attendee
+     * @param $choices
+     */
+    private function updateAccessibilityRecords(String $prefix, Attendee $attendee,  $request)
+    {
+        $accessibilityOptions = [];
+        foreach(AccessibilityOption::all() as $accessibilityOption)
+        {
+            //Formfield string is needed to distinguish between recipients and guests using the same options
+            $formfield = $prefix . $accessibilityOption->short_name;
+            if (!empty($request->$formfield) && $request->$formfield === 'true')
+            {
+                $accessibilityOptions[] = $accessibilityOption->id;
+            }
+        }
+        $attendee->accessibilityOptions()->sync($accessibilityOptions);
+        $attendee->save();
+    }
+
     public function editAccommodations($rid)
     {
         $data['recipient'] = Recipient::find($rid);
@@ -199,9 +218,6 @@ class AttendeeController extends Controller
 
         $accessibilityOptions = AccessibilityOption::all();
         $dietaryRestrictions = DietaryRestriction::all();
-
-
-
 
         foreach ($accessibilityOptions as $option) {
             $recipString = "recipient_access_" . $option->id;
@@ -274,25 +290,7 @@ class AttendeeController extends Controller
 
     }
 
-    /**
-     * @param Attendee $attendee
-     * @param $choices
-     */
-    private function updateAccessibilityRecords(String $prefix, Attendee $attendee,  $request)
-    {
-        $accessibilityOptions = [];
-        foreach(AccessibilityOption::all() as $accessibilityOption)
-        {
-            //Formfield string is needed to distinguish between recipients and guests using the same options
-            $formfield = $prefix . $accessibilityOption->short_name;
-            if (!empty($request->$formfield) && $request->$formfield === 'true')
-            {
-                $accessibilityOptions[] = $accessibilityOption->id;
-            }
-        }
-        $attendee->accessibilityOptions()->sync($accessibilityOptions);
-        $attendee->save();
-    }
+
 
 
 

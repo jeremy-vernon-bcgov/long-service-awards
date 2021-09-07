@@ -122,8 +122,10 @@
                     @endif
 
                     @if($updated_contact)
-                        <p>You updated your current contact information</p>
+                        <p>You updated your current contact information.</p>
                     @endif
+
+
 
 
                     <p class="medium">If you need to make changes to your RSVP information or cancel your attendance, please <a href="mailto:LongServiceAwards@gov.bc.ca">email the Long Service Awards</a> team as soon as possible.</p>

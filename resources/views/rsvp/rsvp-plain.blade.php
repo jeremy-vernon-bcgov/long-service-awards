@@ -53,7 +53,7 @@
                 <p class="very-lorge" id="introduction">The Government of British Columbia is pleased to invite</p>
                 <p class="xxl" id="recipient-name">{{$recipient->first_name . ' ' . $recipient->last_name}}</p>
                 <p class="lorge" id="introduction-ceremony">to the Long Service Awards Ceremony on </p>
-                <p class="very-lorge">{{ date_format($scheduled_datetime, 'l, F j') }} 2021</p>
+                <p class="very-lorge">{{ date_format($scheduled_datetime, 'l jS \of F Y') }}</p>
 
                 <div class="row left">
                     <div class="col-1">&nbsp;</div>
@@ -282,7 +282,7 @@
                         <p>My dietary requirements are:</p>
                         @foreach($diet as $option)
                             <div class="form-check">
-                                <input type="checkbox" name="recip_{{$option->short_name}}" value="true"
+                                <input type="checkbox" name="recip_diet_{{$option->id}}" value="true"
                                        id="recip_{{$option->short_name}}">
                                 <label for="recip_{{$option->short_name}}">{{$option->short_name}}</label>
                             </div>
@@ -325,7 +325,7 @@
 
                         @foreach($diet as $option)
                             <div class="form-check">
-                                <input type="checkbox" name="guest_{{$option->short_name}}" value="true">
+                                <input type="checkbox" name="guest_diet_{{$option->id}}" value="true">
                                 <label class="block" for="guest_{{$option->short_name}}">{{$option->short_name}}</label>
                             </div>
                         @endforeach
@@ -369,12 +369,12 @@
                             <input type="date" id="retirement_date" name="retirement_date" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="personal_phone-retiree">Personal Phone Number</label>
-                            <input type="text" id="personal_phone-retiree" name="personal_phone_number" class="form-control">
+                            <label for="personal_phone_number">Personal Phone Number</label>
+                            <input type="text" id="personal_phone_number" name="personal_phone_number_retiree" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="personal_email-retiree">Personal Email</label>
-                            <input type="text" id="personal_email" name="personal_email" class="form-control">
+                            <input type="text" id="personal_email" name="personal_email_retiree" class="form-control">
                         </div>
                     </div>
                     <div class="col-1">&nbsp;</div>

@@ -51,11 +51,13 @@ class AttendeeRequest extends FormRequest
             'retirement_date'               => 'required_if:retirement_status,true',
             // Preferred contact
             // Multiple ways to require this - but also check validity of format.
-            'personal_email'                    => 'required_if:retirement_status,true|required_if:contact_update,true',
-            'personal_phone'                    => 'required_if:retirement_status,true|required_if:contact_update,true',
+            'personal_email'                    => 'required_if:contact_update,true',
+            'personal_email_retiree'            => 'required_if:retirement_status,true',
+            'personal_phone_number_retiree'     => 'required_if:retirement_status,true',
+            'personal_phone_number'             => 'required_if:contact_update,true',
             'government_email'                  => 'required_if:contact_update,true',
 
-            'government_phone'                  => 'required_if:contact_update,true',
+            'government_phone_number'                  => 'required_if:contact_update,true',
             'preferred_contact'             => 'required_if:contact_update,true',
 
         ];
