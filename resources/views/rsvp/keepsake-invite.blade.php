@@ -90,7 +90,7 @@
     </div>
 
     <div class="ceremony-date">
-        {{$date->format('l jS \of F Y')}}
+        {{$date->format('l\, F j\, Y')}}
     </div>
 
 </div>

@@ -53,7 +53,7 @@
                 <p class="very-lorge" id="introduction">The Government of British Columbia is pleased to invite</p>
                 <p class="xxl" id="recipient-name">{{$recipient->first_name . ' ' . $recipient->last_name}}</p>
                 <p class="lorge" id="introduction-ceremony">to the Long Service Awards Ceremony on </p>
-                <p class="very-lorge">{{ date_format($scheduled_datetime, 'l jS \of F Y') }}</p>
+                <p class="very-lorge">{{ date_format($scheduled_datetime, 'l\, F j\, Y') }}</p>
 
                 <div class="row left">
                     <div class="col-1">&nbsp;</div>
@@ -147,8 +147,7 @@
                             <h3>Accessibility Requirements</h3>
                             <p>To ensure you and your guest can enjoy the festivities, please share your accessibility requirements
                                 with us.</p>
-                            <p>If you'd like a preview of accessible facilities at Government House including ramps, elevators and
-                                washroom facilities, visit the <a href="https://longserviceawards.gww.gov.bc.ca/ceremony/%5d" target="_blank">Ceremony page</a>.</p>
+                            <p>If you would like more details about accessibility at Government House please see <a href="https://longserviceawards.gww.gov.bc.ca/ceremony/">ceremony page.</a></p>
                             <p>If you have questions or wish to connect with a member of the Long Service Awards team directly,
                                 contact <a href="mailto:LongServiceAwards@gov.bc.ca">LongServiceAwards@gov.bc.ca</a></p>
                         </div>
@@ -390,6 +389,7 @@
                     <div class="col-10">
                         <p>Please confirm your office address so we can ensure you receive your Long Service Award.</p>
                         <p>Employees in Victoria should provide their office's physical address.</p>
+                        <p>If you have retired, please input your previous office address.</p>
 
 
                         <div class="form-group">

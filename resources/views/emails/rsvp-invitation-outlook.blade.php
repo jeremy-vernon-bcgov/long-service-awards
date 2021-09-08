@@ -18,13 +18,13 @@
         <h1 class="name">{{$data['name']}}</h1>
         <h2 class="info">to the Long Service Awards Ceremony</h2>
         <br>
-        <p>on {{$data['ceremony']->format('l jS \of F Y')}}</p>
+        <p>on {{$data['ceremony']->format('l\, F j\, Y')}}</p>
         <p>at Government House</p>
         <p>1401 Rockland Avenue</p>
         <p>Victoria, British Columbia</p>
         <br>
         <p>This invitation is for the intended recipient and one guest.</p>
-        <p>Please respond before September 30, 2021</p>
+        <p><strong>Please respond before October 8, 2021</strong></p>
         <p>Dress: Business Attire</p>
         <br>
         <h1><a href="{{$data['rsvp_url']}}">RSVP HERE</a></h1>
