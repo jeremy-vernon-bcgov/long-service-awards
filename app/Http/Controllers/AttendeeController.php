@@ -45,6 +45,12 @@ class AttendeeController extends Controller
         $recipient->attendee->status = $request->status;
         $recipient->attendee->save();
 
+        if (!empty($recipient->guest->attendee)) {
+            $recipient->guest->attendee->status = $request->status;
+            $recipient->guest->attendee->save();
+        }
+
+
         return redirect('ceremony/rsvpstatus');
 
     }
@@ -60,18 +66,11 @@ class AttendeeController extends Controller
 
 
 
-            $data['diet']           = DietaryRestriction::all('short_name');
-            $data['access']         = AccessibilityOption::all('short_name', 'description');
+            $data['diet']           = DietaryRestriction::all();
+            $data['access']         = AccessibilityOption::all();
             $data['communities']    = Community::all('id','name');
             $data['rid']            = $data['attendee']->recipient->id;
             $data['recipient']      = $data['attendee']->recipient;
-            $data['jsonBundle']['diet'] = $data['diet'];
-            $data['jsonBundle']['access'] = $data['access'];
-            $data['jsonBundle']['communities'] = $data['communities'];
-            $data['jsonBundle']['csrftoken'] = csrf_token();
-
-            //RSVP form requires a specific datetime format.
-
 
             $data['scheduled_datetime'] = new DateTime($data['attendee']->ceremony->scheduled_datetime);
             return view('rsvp.rsvp-plain', $data);

@@ -283,8 +283,8 @@
                         @foreach($diet as $option)
                             <div class="form-check">
                                 <input type="checkbox" name="recip_diet_{{$option->id}}" value="true"
-                                       id="recip_{{$option->short_name}}">
-                                <label for="recip_{{$option->short_name}}">{{$option->short_name}}</label>
+                                       id="recip_diet_{{$option->id}}">
+                                <label for="recip_diet_{{$option->id}}">{{$option->short_name}}</label>
                             </div>
                         @endforeach
                         <p>If you have additional requirements or considerations please contact <a href="mailto:LongServiceAwards@gov.bc.ca">LongServiceAwards@gov.bc.ca</a>.</p>
@@ -326,7 +326,7 @@
                         @foreach($diet as $option)
                             <div class="form-check">
                                 <input type="checkbox" name="guest_diet_{{$option->id}}" value="true">
-                                <label class="block" for="guest_{{$option->short_name}}">{{$option->short_name}}</label>
+                                <label class="block" for="guest_diet_{{$option->id}}">{{$option->short_name}}</label>
                             </div>
                         @endforeach
                         <p>If your guest has additional requirements or considerations please contact <a href="mailto:LongServiceAwards@gov.bc.ca">LongServiceAwards@gov.bc.ca</a>.</p>
