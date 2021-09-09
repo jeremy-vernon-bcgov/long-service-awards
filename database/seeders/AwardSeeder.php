@@ -138,7 +138,7 @@ class AwardSeeder extends Seeder
                                                 'sort_order' => 5,
                                                 'quantity' => -1]);
         DB::table('awards')->insert(['id'=> 27,'name' => '“Mirror Lake” art print',
-                                                'short_name' => '30git -mirror-lake' ,
+                                                'short_name' => '30-mirror-lake' ,
                                                 'image_path' => '50/50-mirror-lake.png',
                                                 'sort_order' => 5,
                                                 'quantity' => -1]);
