@@ -21,7 +21,9 @@
                 <ul class="nav">
                     <li class="nav-item"><a class="nav-link" href="{{url('ceremony/response-by-ceremony')}}"> - by Ceremony</a></li>
                    <!-- <li class="navi-tem"><a class="nav-link" href="{{url('ceremony/response-by-organization')}}"> - by Organization</a></li> -->
+                    <li class="nav-item"><a class="nav-link" href="{{url('recipient/rsvpstatus')}}"> - Summary</a></li>
                 </ul>
+
             </li>
             <li class="nav-item"><a class="nav-link disabled" href="{{url('/ceremony/waitlist')}}">Wait List</a></li>
             <li class="nav-item"><a class="nav-link" href="{{url('/ceremony/accommodations')}}">Accommodations</a></li>

@@ -270,6 +270,7 @@ class RecipientController extends Controller
 
 
 
+
     /**
      * Display a list of names that do not conform to usual naming standards
      *
@@ -318,6 +319,25 @@ class RecipientController extends Controller
 
     }
 
+    public function rsvpStatus()
+    {
+        $data['recipients'] = Recipient::all();
+        $data['columns'][] = ['label' => 'First', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Last' , 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Org' ,  'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'RSVP', 'orderable' => 'true'];
+        $data['columns'][] = ['label' => 'Guest', 'orderable' => 'false'];
+        $data['columns'][] = ['label' => 'Gov Email', 'orderable' => 'false'];
+        $data['columns'][] = ['label' => 'Personal Email', 'orderable' => 'false'];
+        $data['columns'][] = ['label' => 'Contact Pref.', 'orderable' => 'true'];
+
+        return view('admin.recipients.rsvpStatus', $data);
+
+
+    }
+
+
+
     /**
      * Displays a view of recipients sorted by organization.
      *
@@ -327,6 +347,8 @@ class RecipientController extends Controller
     public function orgCheck()
     {
         $data['recipients'] = Recipient::all();
+
+
 
         return view('admin/recipients/orgCheck', $data);
     }

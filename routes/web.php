@@ -25,9 +25,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/organization/recipienttotals', [OrganizationController::class, 'recipientTotals']);
     Route::get('/organization/summary', [OrganizationController::class, 'summary']);
     Route::get('/recipient/orgcheck', [RecipientController::class, 'orgCheck']);
-
-
     Route::get('/ceremonies', [CeremonyController::class, 'index']);
+    route::get('/recipient/rsvpstatus', [RecipientController::class, 'rsvpStatus']);
     /**
      * Award routing
      */
@@ -59,6 +58,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/attendees/list', [AttendeeController::class, 'viewRSVPCodes']);
     Route::get('/attendees/accommodation/{rid}', [AttendeeController::class, 'editAccommodations'])->where('rid', '[0-9]+');
     Route::post('/attendees/accommodation/{rid}', [AttendeeController::class, 'updateAccommodations'])->where('rid', '[0-9]+');
+
+    Route::get('/ceremony/orphans' , [CeremonyController::class, 'getOrphanGuests']);
 
     /**
      * Dashboard

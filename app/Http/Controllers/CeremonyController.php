@@ -9,6 +9,7 @@ use App\Models\Organization;
 use App\Models\Recipient;
 use App\Models\Ceremony;
 use App\Models\Attendee;
+use App\Models\Guest;
 use DateTime;
 
 class CeremonyController extends Controller
@@ -89,6 +90,18 @@ class CeremonyController extends Controller
         //
     }
 
+
+    public function getOrphanGuests()
+    {
+        $guestAttendees = Attendee::where('type', 'guest')->get();
+
+        foreach ($guestAttendees as $guestAttendee) {
+          if ($guestAttendee->guest->recipient->attendee->status != 'attending') {
+              echo  $guestAttendee->guest->recipient->id . ' ' . $guestAttendee->guest->recipient->first_name . '' . $guestAttendee->guest->recipient->last_name . "\n";
+          }
+        }
+
+    }
 
     public function accommodations()
     {
@@ -181,6 +194,17 @@ class CeremonyController extends Controller
 
         $data['ceremonies'] = Ceremony::all();
 
+        foreach($data['ceremonies'] as $ceremony) {
+            $i = 0;
+            foreach ($ceremony->attendees->where('type', 'recipient')->where('status','attending') as $attendee) {
+                if (!empty($attendee->recipient->guest)) {
+                    $i++;
+                }
+
+            }
+            $data['guestCount'][$ceremony->id] = $i;
+        }
+
 
         return view('admin.ceremonies.responseByCeremony', $data);
     }
@@ -195,7 +219,14 @@ class CeremonyController extends Controller
         $data['columns'][] = ['label' => 'declined'      , 'orderable' => 'true'];
         $data['columns'][] = ['label' => 'RSVPed'       , 'orderable' => 'true'];
 
-        $data['organizations'] = Organization::with('recipients')->all();
+        $data['organizations'] = Organization::all();
+        $data['org_attendance'] = array();
+        foreach ($data['organizations'] as $org) {
+            //How many attending
+            //How many declined
+            //How many not responded
+
+        }
 
         return view('admin.ceremonies.responseByOrganization', $data);
     }

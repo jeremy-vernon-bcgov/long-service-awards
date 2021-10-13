@@ -22,7 +22,11 @@ class AttendeeController extends Controller
 {
 
     public function rsvpStatus() {
-        $data['attendees'] = Attendee::where('type', 'recipient')->where('status', 'attending')->orWhere('status', 'declined')->get();
+        $data['attendees'] = Attendee::where('type', 'recipient')->where(function ($query) {
+            $query->where('status', 'attending')->orWhere('status', 'declined')->orWhere('status', 'waitlisted');
+        })->get();
+
+
 
         $data['columns'][] = ['label' => 'First',       'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Last',        'orderable' => 'true'];
@@ -31,8 +35,6 @@ class AttendeeController extends Controller
         $data['columns'][] = ['label' => 'Milestone',   'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Status',      'orderable' => 'true'];
         $data['columns'][] = ['label' => 'Has Guest?',  'orderable' => 'true'];
-
-
 
 
         return view('admin.attendees.rsvp-status', $data);
